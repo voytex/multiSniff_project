@@ -16,6 +16,20 @@
 
 // === INTERNAL FUNCTIONS =======================================================================================
 
+RF_Op* getRXCmdByProto(RF_Protocol_t proto)
+{
+    if ( proto == BluetoothLowEnergy )
+    {
+        return (RF_Op*)RFCMD_bleGenericRX;
+    }
+
+    if ( proto == IEEE_802_15_4 )
+    {
+        return (RF_Op*)RFCMD_ieeeRX;
+    }
+
+    return;
+}
 // ==============================================================================================================
 
 
@@ -31,7 +45,6 @@
  *      pMode{in]    - pointer to global RF mode (e.g. BLE or IEEE)
  *      pSetup[in]   - pointer to radio setup structure
  *      pHandle[out] - pointer to RF_Handle to control Radio Core
- *
  * Returns:
  *      N/A
  *
@@ -107,6 +120,28 @@ void Radio_initRXCmd(void* pRXCmd, RF_Protocol_t proto)
     return;
 }
 
+
+/*
+ * === Radio_beginRX
+ * Posts (sends and does not wait for execution end) RX command according to
+ * selected protocol.
+ * Main purpose is to shadow TI's API for better readability
+ *
+ * Parameters:
+ *      pHandle[in]             - handle to Radio Core
+ *      proto[in]               - protocol whose RX cmd will be sent
+ *      callbackFunction[in]    - pointer to callback function that gets
+ *                                executed when event set by <events> occurs
+ *      events                  - events on which <callbackFunction> gets called
+ * Returns:
+ *      RF_CmdHandle            - handle to control given command
+ */
+RF_CmdHandle Radio_beginRX(RF_Handle pHandle, RF_Protocol_t proto, void* callbackFunction, RF_EventMask events)
+{
+    RF_Op* pRXCmd = getRXCmdByProto(proto);
+
+    return RF_postCmd(pHandle, pRXCmd, RF_PriorityNormal, callbackFunction, events);
+}
 
 
 
