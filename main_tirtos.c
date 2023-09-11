@@ -36,15 +36,19 @@
  */
 #include <stdint.h>
 
-/* POSIX Header files */
-#include <pthread.h>
+/*
+ * Task.h for Task switching
+ */
+#include <ti/sysbios/knl/Task.h>
 
 /* RTOS header files */
 #include <ti/sysbios/BIOS.h>
 
 #include <ti/drivers/Board.h>
 
-extern void *mainThread(void *arg0);
+
+Task_Params testParams;
+Task_Handle testHandle;
 
 /* Stack size in bytes */
 #define THREADSTACKSIZE 1024
@@ -54,33 +58,9 @@ extern void *mainThread(void *arg0);
  */
 int main(void)
 {
-    pthread_t thread;
-    pthread_attr_t attrs;
-    struct sched_param priParam;
-    int retc;
+    Task_Params_init(&testParams);
+    testParams.priority = 2;
 
-    Board_init();
-
-    /* Initialize the attributes structure with default values */
-    pthread_attr_init(&attrs);
-
-    /* Set priority, detach state, and stack size attributes */
-    priParam.sched_priority = 1;
-    retc                    = pthread_attr_setschedparam(&attrs, &priParam);
-    retc |= pthread_attr_setdetachstate(&attrs, PTHREAD_CREATE_DETACHED);
-    retc |= pthread_attr_setstacksize(&attrs, THREADSTACKSIZE);
-    if (retc != 0)
-    {
-        /* failed to set attributes */
-        while (1) {}
-    }
-
-    retc = pthread_create(&thread, &attrs, mainThread, NULL);
-    if (retc != 0)
-    {
-        /* pthread_create() failed */
-        while (1) {}
-    }
 
     BIOS_start();
 

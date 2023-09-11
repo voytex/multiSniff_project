@@ -2,6 +2,8 @@ digraph Model
 {
     graph[rankdir=LR]
 
+    // mod.$name=/ti/common/multi_stack_validate
+
     // mod.$name=/ti/devices/CCFG
     ti_devices_CCFG -> ti_drivers_Temperature
     ti_devices_CCFG -> ti_devices_CCFG_CCFGCC26XXTemplate0
@@ -9,6 +11,25 @@ digraph Model
     // mod.$name=/ti/devices/CCFG/CCFGCC26XXTemplate
 
     // mod.$name=/ti/devices/DriverLib
+
+    // mod.$name=/ti/devices/radioconfig/code_export_param
+
+    // mod.$name=/ti/devices/radioconfig/custom
+    ti_devices_radioconfig_custom -> ti_common_multi_stack_validate
+    ti_devices_radioconfig_custom -> ti_devices_radioconfig_settings_ble0
+    ti_devices_radioconfig_custom -> ti_devices_radioconfig_settings_ieee_15_40
+
+    // mod.$name=/ti/devices/radioconfig/rfdesign
+
+    // mod.$name=/ti/devices/radioconfig/settings/ble
+    ti_devices_radioconfig_settings_ble0 -> ti_drivers_RF
+    ti_devices_radioconfig_settings_ble0 -> ti_devices_radioconfig_rfdesign
+    ti_devices_radioconfig_settings_ble0 -> ti_devices_radioconfig_code_export_param0
+
+    // mod.$name=/ti/devices/radioconfig/settings/ieee_15_4
+    ti_devices_radioconfig_settings_ieee_15_40 -> ti_drivers_RF
+    ti_devices_radioconfig_settings_ieee_15_40 -> ti_devices_radioconfig_rfdesign
+    ti_devices_radioconfig_settings_ieee_15_40 -> ti_devices_radioconfig_code_export_param1
 
     // mod.$name=/ti/dpl/Settings
 
@@ -22,6 +43,10 @@ digraph Model
     // mod.$name=/ti/drivers/Power
     ti_drivers_Power -> ti_devices_CCFG
     ti_drivers_Power -> ti_drivers_Board
+
+    // mod.$name=/ti/drivers/RF
+    ti_drivers_RF -> ti_drivers_Power
+    ti_drivers_RF -> ti_drivers_Board
 
     // mod.$name=/ti/drivers/Temperature
 

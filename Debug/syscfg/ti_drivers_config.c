@@ -113,6 +113,27 @@ const PowerCC26X2_Config PowerCC26X2_config = {
     .enableTCXOFxn            = NULL
 };
 
+
+/*
+ *  =============================== RF Driver ===============================
+ */
+#include <ti/drivers/GPIO.h>
+#include <ti/devices/DeviceFamily.h>
+#include DeviceFamily_constructPath(driverlib/ioc.h)
+#include <ti/drivers/rf/RF.h>
+
+/*
+ * Platform-specific driver configuration
+ */
+const RFCC26XX_HWAttrsV2 RFCC26XX_hwAttrs = {
+    .hwiPriority        = (~0),
+    .swiPriority        = (uint8_t)0,
+    .xoscHfAlwaysNeeded = true,
+    .globalCallback     = NULL,
+    .globalEventMask    = 0
+};
+
+
 /*
  *  =============================== Temperature ===============================
  */
@@ -251,6 +272,14 @@ void Board_init(void)
     /* ==== /ti/drivers/GPIO initialization ==== */
     /* Setup GPIO module and default-initialise pins */
     GPIO_init();
+
+    /* ==== /ti/drivers/RF initialization ==== */
+    /* Enable compensation of HF clock source for RF due to CCFG setting. */
+    RF_Stat status = RF_enableHPOSCTemperatureCompensation();
+    /* Hang here if RF driver fails to enable compensation */
+    if (status != RF_StatSuccess) {
+        while (1);
+    }
 
     Board_shutDownExtFlash();
 

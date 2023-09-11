@@ -53,6 +53,13 @@ syscfg/ti_drivers_config.o: syscfg/ti_drivers_config.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/inc/hw_adi.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/vims.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/inc/hw_vims.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/rf/RF.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/rf/RFCC26X2.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/dpl/SemaphoreP.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_common_cmd.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_mailbox.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_prop_cmd.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_ble_cmd.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/temperature/TemperatureCC26X2.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/Board.h
 
@@ -159,6 +166,20 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/in
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/vims.h:
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/inc/hw_vims.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/rf/RF.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/rf/RFCC26X2.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/dpl/SemaphoreP.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_common_cmd.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_mailbox.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_prop_cmd.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_ble_cmd.h:
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/temperature/TemperatureCC26X2.h:
 

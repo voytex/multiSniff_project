@@ -1,46 +1,102 @@
-/*
- * Copyright (c) 2018-2021, Texas Instruments Incorporated
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * *  Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * *  Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * *  Neither the name of Texas Instruments Incorporated nor the names of
- *    its contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --board "/ti/boards/LP_CC2652RB" --rtos "tirtos7" --product "simplelink_cc13xx_cc26xx_sdk@6.30.01.03"
+ * @versions {"tool":"1.14.0+2667"}
  */
-// @cliArgs --board /ti/boards/LP_CC2652RB --rtos tirtos7
 
-/*
- *  empty.syscfg
+/**
+ * Import the modules used in this configuration.
  */
-var Power = scripting.addModule("/ti/drivers/Power");
+const custom      = scripting.addModule("/ti/devices/radioconfig/custom");
+const GPIO        = scripting.addModule("/ti/drivers/GPIO");
+const GPIO1       = GPIO.addInstance();
+const Power       = scripting.addModule("/ti/drivers/Power");
+const Settings    = scripting.addModule("/ti/posix/tirtos/Settings");
+const BIOS        = scripting.addModule("/ti/sysbios/BIOS");
+const Event       = scripting.addModule("/ti/sysbios/knl/Event");
+const Idle        = scripting.addModule("/ti/sysbios/knl/Idle", {}, false);
+const Idle2       = Idle.addInstance();
+const Mailbox     = scripting.addModule("/ti/sysbios/knl/Mailbox");
+const Error       = scripting.addModule("/ti/sysbios/runtime/Error");
+const SysCallback = scripting.addModule("/ti/sysbios/runtime/SysCallback");
+const Timestamp   = scripting.addModule("/ti/sysbios/runtime/Timestamp");
 
-/* ======== Kernel Configuration ======== */
-system.getScript("kernel_config_release.syscfg.js");
+/**
+ * Write custom configuration values to the imported modules.
+ */
+custom.ble                                                   = ["bt5le1m"];
+custom.ieee                                                  = ["ieee154"];
+custom.radioConfigbt5le1m.$name                              = "ti_devices_radioconfig_settings_ble0";
+custom.radioConfigbt5le1m.frequency                          = 2402;
+custom.radioConfigbt5le1m.codeExportConfig.$name             = "ti_devices_radioconfig_code_export_param0";
+custom.radioConfigbt5le1m.codeExportConfig.symGenMethod      = "Custom";
+custom.radioConfigbt5le1m.codeExportConfig.cmdBle5RadioSetup = "RFCMD_bleRadioSetup";
+custom.radioConfigbt5le1m.codeExportConfig.cmdList_ble       = ["cmdBle5GenericRx","cmdBle5RadioSetup","cmdFs"];
+custom.radioConfigbt5le1m.codeExportConfig.cmdFs             = "RFCMD_bleFrequencySynthesizer";
+custom.radioConfigbt5le1m.codeExportConfig.cmdBle5GenericRx  = "RFCMD_bleGenericRX";
+custom.radioConfigbt5le1m.codeExportConfig.rfMode            = "RFCMD_bleModeObject";
+custom.radioConfigbt5le1m.codeExportConfig.txPower           = "ble_txPowerTable";
+custom.radioConfigbt5le1m.codeExportConfig.txPowerSize       = "BLE_TX_POWER_TABLE_SIZE";
+custom.radioConfigbt5le1m.codeExportConfig.overrides         = "ble_pOverrides";
+custom.radioConfigieee154.$name                              = "ti_devices_radioconfig_settings_ieee_15_40";
+custom.radioConfigieee154.codeExportConfig.$name             = "ti_devices_radioconfig_code_export_param1";
+custom.radioConfigieee154.codeExportConfig.symGenMethod      = "Custom";
+custom.radioConfigieee154.codeExportConfig.cmdFs             = "RFCMD_ieeeFrequencySynthesizer";
+custom.radioConfigieee154.codeExportConfig.cmdRadioSetup     = "RFCMD_radioSetup";
+custom.radioConfigieee154.codeExportConfig.cmdIeeeTx         = "RFCMD_ieeeTX";
+custom.radioConfigieee154.codeExportConfig.cmdIeeeRx         = "RFCMD_ieeeRX";
+custom.radioConfigieee154.codeExportConfig.rfMode            = "RFCMD_ieeeModeObject";
+custom.radioConfigieee154.codeExportConfig.txPower           = "ieee_txPowerTable";
+custom.radioConfigieee154.codeExportConfig.txPowerSize       = "IEEE_TX_POWER_TABLE_SIZE";
+custom.radioConfigieee154.codeExportConfig.overrides         = "ieee_pOverrides";
 
-/* ======== GPIO ======== */
-var GPIO = scripting.addModule("/ti/drivers/GPIO");
-var gpio = GPIO.addInstance();
-gpio.$hardware = system.deviceData.board.components.LED0;
-gpio.$name = "CONFIG_GPIO_LED_0";
+GPIO1.$hardware = system.deviceData.board.components.LED_RED;
+GPIO1.$name     = "CONFIG_GPIO_LED_0";
+
+const CCFG              = scripting.addModule("/ti/devices/CCFG", {}, false);
+CCFG.ccfgTemplate.$name = "ti_devices_CCFG_CCFGCC26XXTemplate0";
+
+BIOS.assertsEnabled = false;
+BIOS.heapBaseAddr   = "__primary_heap_start__";
+BIOS.heapEndAddr    = "__primary_heap_end__";
+
+const Hwi           = scripting.addModule("/ti/sysbios/family/arm/m3/Hwi", {}, false);
+Hwi.enableException = false;
+
+const Clock      = scripting.addModule("/ti/sysbios/knl/Clock", {}, false);
+Clock.tickPeriod = 10;
+
+const Timer = scripting.addModule("/ti/sysbios/family/arm/cc26xx/Timer", {}, false);
+
+Idle2.$name   = "powerIdle";
+Idle2.idleFxn = "Power_idleFunc";
+
+const Semaphore            = scripting.addModule("/ti/sysbios/knl/Semaphore", {}, false);
+Semaphore.supportsPriority = false;
+
+const Swi         = scripting.addModule("/ti/sysbios/knl/Swi", {}, false);
+Swi.numPriorities = 6;
+
+const Task             = scripting.addModule("/ti/sysbios/knl/Task", {}, false);
+Task.checkStackFlag    = false;
+Task.defaultStackSize  = 512;
+Task.idleTaskStackSize = 512;
+Task.numPriorities     = 6;
+
+Error.policy       = "Error_SPIN";
+Error.printDetails = false;
+
+const System           = scripting.addModule("/ti/sysbios/runtime/System", {}, false);
+System.abortFxn        = "System_abortSpin";
+System.exitFxn         = "System_exitSpin";
+System.extendedFormats = "%f";
+System.supportModule   = "SysCallback";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+GPIO1.gpioPin.$suggestSolution = "boosterpack.39";
+Timer.rtc.$suggestSolution     = "RTC0";

@@ -20,6 +20,8 @@ build-1389074319: ../multiSniff.syscfg
 	@echo ' '
 
 syscfg/ti_devices_config.c: build-1389074319 ../multiSniff.syscfg
+syscfg/ti_radio_config.c: build-1389074319
+syscfg/ti_radio_config.h: build-1389074319
 syscfg/ti_drivers_config.c: build-1389074319
 syscfg/ti_drivers_config.h: build-1389074319
 syscfg/ti_utils_build_linker.cmd.genlibs: build-1389074319

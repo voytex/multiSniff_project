@@ -18,6 +18,9 @@
  *                TICLANG C/C++ toolchain
  */
 
+/* libraries required for /ti/drivers/RF */
+-l"ti/drivers/rf/lib/ticlang/m4f/rf_multiMode_cc26x2.a"
+
 /* libraries required for /ti/drivers */
 -l"ti/drivers/lib/ticlang/m4f/drivers_cc26x2.a"
 -l"ti/grlib/lib/ticlang/m4f/grlib.a"
