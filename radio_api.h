@@ -28,5 +28,6 @@ void         Radio_initRXCmd               (void* pRXCmd, RF_Protocol_t proto);
 RF_CmdHandle Radio_beginRX                 (RF_Handle pHandle, RF_Op* pRXCmd, void* callbackFunction, RF_EventMask event);
 
 void         Radio_stopRX                  (RF_CmdHandle pCmdHandle);
+
 // ==============================================================================================================
 #endif /* RADIO_API_H_ */
