@@ -69,4 +69,11 @@ Main purpose of **Radio API** is to improve readability and code clarity since R
    - **TODO**
 
 1. `Radio_setProtocol`
+
    - **TODO**
+
+1. `Radio_setChannel`
+
+### Dashboard
+
+HTML code of dashboard shall be saved on device memory in special section. A Python script shall be implemented so that every time a build of software is involved, HTML code is converted to binary file and loaded onto the device as well.
