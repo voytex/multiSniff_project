@@ -53,12 +53,20 @@ Main purpose of **Radio API** is to improve readability and code clarity since R
      - `proto[in]` protocol to determine typecasting
 
 1. `Radio_beginRX`
+
    - Posts (sends and does not wait for execution end) RX command according to selected protocol.
    - Main purpose is to shadow TI's API for better readability
    - **Parameters**:
      - `pHandle[in]` handle to Radio Core
      - `proto[in]` protocol whose RX cmd will be sent
      - `callbackFunction[in]` pointer to callback function that executes when one or more of `<events>` occur(s).
-     - `events` events on which `<callbackFunction>` gets called
+     - `events[in]` events on which `<callbackFunction>` gets called
    - **Returns**:
      - `RF_CmdHandle` handle to control given command
+
+1. `Radio_stopRX`
+
+   - **TODO**
+
+1. `Radio_setProtocol`
+   - **TODO**
