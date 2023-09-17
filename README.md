@@ -1,40 +1,23 @@
-## Example Summary
+# multiSniff software design
 
-This example is intended to be a starting point for new development where
-a fuller set of kernel features and debug capabilities are enabled.
+## General
 
-## Peripherals & Pin Assignments
+Device SW shall be built on TI-RTOS using tasking and semaphore functionality. Software shall be dependent upon several libraries and modules, namely:
 
-When this project is built, the SysConfig tool will generate the TI-Driver
-configurations into the __ti_drivers_config.c__ and __ti_drivers_config.h__
-files. Information on pins and resources used is present in both generated
-files. Additionally, the System Configuration file (\*.syscfg) present in the
-project may be opened with SysConfig's graphical user interface to determine
-pins and resources used.
+- _TBD_: TI: Packet queue source code from TI Packet Sniffer 2
+- _TBD_: _author_: Ported W5500 Arduino driver for TI-RTOS
 
-* `CONFIG_GPIO_LED_0`
+## Software design
 
-## BoosterPacks, Board Resources & Jumper Settings
+### Radio API
 
-For board specific jumper settings, resources and BoosterPack modifications,
-refer to the __Board.html__ file.
+Main purpose of **Radio API** is to improve readability and code clarity since RF Core of **CC2652RB** is controlled by providing it with various **commands** (`structs`).
 
-> If you're using an IDE such as Code Composer Studio (CCS) or IAR, please
-refer to Board.html in your project directory for resources used and
-board-specific jumper settings.
-
-The Board.html can also be found in your SDK installation:
-
-        <SDK_INSTALL_DIR>/source/ti/boards/<BOARD>
-
-## Example Usage
-
-* The example lights `CONFIG_GPIO_LED_0` as part of the initialization in the
-`mainThread()`. This thread then toggles the LED at a 1 second rate.
-
-## Application Design Details
-
-FreeRTOS:
-
-* Please view the `FreeRTOSConfig.h` header file for example configuration
-information.
+1. `Radio_openRadioCore`
+   - Initializes Radio Core of MCU according to parameters.
+   - **Parameters**:
+     - `pParams[in]` pointer to parameters structure
+     - `pObj[in]` pointer to object storing internal configuration
+     - `pMode{in]` pointer to global RF mode (e.g. BLE or IEEE)
+     - `pSetup[in]` pointer to radio setup structure
+     - `pHandle[out]` pointer to RF_Handle to control Radio Core
