@@ -46,6 +46,10 @@
 
 #include <ti/drivers/Board.h>
 
+#include "ti_drivers_config.h"
+
+#include "ti_radio_config.h"
+
 #include "radio_api.h"
 
 
@@ -68,7 +72,7 @@ int main(void)
 
     Radio_initRXCmd(BluetoothLowEnergy);
 
-    Radio_setFrequencySynthesizer(BluetoothLowEnergy);
+    Radio_setFrequencySynthesizer(pHandle, BluetoothLowEnergy);
 
     Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 1);
 
