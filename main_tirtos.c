@@ -46,6 +46,8 @@
 
 #include <ti/drivers/Board.h>
 
+#include "radio_api.h"
+
 
 Task_Params testParams;
 Task_Handle testHandle;
@@ -58,6 +60,19 @@ Task_Handle testHandle;
  */
 int main(void)
 {
+    RF_Handle pHandle;
+    RF_Object pObj;
+    RF_Params pParams;
+
+    Radio_openRadioCore(&pParams, &pObj, BluetoothLowEnergy, pHandle);
+
+    Radio_initRXCmd(BluetoothLowEnergy);
+
+    Radio_setFrequencySynthesizer(BluetoothLowEnergy);
+
+    Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 1);
+
+
     Task_Params_init(&testParams);
     testParams.priority = 2;
 

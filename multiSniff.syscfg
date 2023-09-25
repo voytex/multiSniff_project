@@ -43,13 +43,13 @@ custom.radioConfigieee154.$name                              = "ti_devices_radio
 custom.radioConfigieee154.codeExportConfig.$name             = "ti_devices_radioconfig_code_export_param1";
 custom.radioConfigieee154.codeExportConfig.symGenMethod      = "Custom";
 custom.radioConfigieee154.codeExportConfig.cmdFs             = "RFCMD_ieeeFrequencySynthesizer";
-custom.radioConfigieee154.codeExportConfig.cmdRadioSetup     = "RFCMD_radioSetup";
 custom.radioConfigieee154.codeExportConfig.cmdIeeeTx         = "RFCMD_ieeeTX";
 custom.radioConfigieee154.codeExportConfig.cmdIeeeRx         = "RFCMD_ieeeRX";
 custom.radioConfigieee154.codeExportConfig.rfMode            = "RFCMD_ieeeModeObject";
 custom.radioConfigieee154.codeExportConfig.txPower           = "ieee_txPowerTable";
 custom.radioConfigieee154.codeExportConfig.txPowerSize       = "IEEE_TX_POWER_TABLE_SIZE";
 custom.radioConfigieee154.codeExportConfig.overrides         = "ieee_pOverrides";
+custom.radioConfigieee154.codeExportConfig.cmdRadioSetup     = "RFCMD_ieeeRadioSetup";
 
 GPIO1.$hardware = system.deviceData.board.components.LED_RED;
 GPIO1.$name     = "CONFIG_GPIO_LED_0";

@@ -319,7 +319,7 @@ uint32_t ieee_pOverrides[] =
 
 // CMD_RADIO_SETUP
 // Radio Setup Command for Pre-Defined Schemes
-rfc_CMD_RADIO_SETUP_t RFCMD_radioSetup =
+rfc_CMD_RADIO_SETUP_t RFCMD_ieeeRadioSetup =
 {
     .commandNo = 0x0802,
     .status = 0x0000,

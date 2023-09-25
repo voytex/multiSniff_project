@@ -85,7 +85,7 @@ extern uint32_t ble_pOverridesCoded[];
 extern RF_Mode RFCMD_ieeeModeObject;
 
 // RF Core API commands
-extern rfc_CMD_RADIO_SETUP_t RFCMD_radioSetup;
+extern rfc_CMD_RADIO_SETUP_t RFCMD_ieeeRadioSetup;
 extern rfc_CMD_FS_t RFCMD_ieeeFrequencySynthesizer;
 extern rfc_CMD_IEEE_TX_t RFCMD_ieeeTX;
 extern rfc_CMD_IEEE_RX_t RFCMD_ieeeRX;

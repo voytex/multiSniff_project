@@ -20,15 +20,60 @@ RF_Op* getRXCmdByProto(RF_Protocol_t proto)
 {
     if ( proto == BluetoothLowEnergy )
     {
-        return (RF_Op*)RFCMD_bleGenericRX;
+        return (RF_Op*) &RFCMD_bleGenericRX;
     }
 
     if ( proto == IEEE_802_15_4 )
     {
-        return (RF_Op*)RFCMD_ieeeRX;
+        return (RF_Op*) &RFCMD_ieeeRX;
     }
 
-    return;
+    return NULL;
+}
+
+RF_Op* getFSCmdByProto(RF_Protocol_t proto)
+{
+    if ( proto == BluetoothLowEnergy )
+    {
+        return (RF_Op*) &RFCMD_bleFrequencySynthesizer;
+    }
+
+    if ( proto == IEEE_802_15_4 )
+    {
+        return (RF_Op*) &RFCMD_ieeeFrequencySynthesizer;
+    }
+
+    return NULL;
+}
+
+RF_RadioSetup* getRSCmdByProto(RF_Protocol_t proto)
+{
+    if ( proto == BluetoothLowEnergy )
+    {
+        return (RF_RadioSetup*) &RFCMD_bleRadioSetup;
+    }
+
+    if ( proto == IEEE_802_15_4 )
+    {
+        return (RF_RadioSetup*) &RFCMD_ieeeRadioSetup;
+    }
+
+    return NULL;
+}
+
+RF_Mode* getRFModeByProto(RF_Protocol_t proto)
+{
+    if ( proto == BluetoothLowEnergy )
+    {
+        return (RF_Mode*) &RFCMD_bleModeObject;
+    }
+
+    if ( proto == IEEE_802_15_4 )
+    {
+        return (RF_Mode*) &RFCMD_ieeeModeObject;
+    }
+
+    return NULL;
 }
 // ==============================================================================================================
 
@@ -42,16 +87,19 @@ RF_Op* getRXCmdByProto(RF_Protocol_t proto)
  * Parameters:
  *      pParams[in]  - pointer to parameters structure
  *      pObj[in]     - pointer to object storing internal configuration
- *      pMode{in]    - pointer to global RF mode (e.g. BLE or IEEE)
- *      pSetup[in]   - pointer to radio setup structure
+ *      proto[in     - RF protocol to which Radio Core should be opened
  *      pHandle[out] - pointer to RF_Handle to control Radio Core
  * Returns:
  *      N/A
  *
  */
-void Radio_openRadioCore(RF_Params* pParams, RF_Object* pObj, RF_Mode* pMode, RF_RadioSetup* pSetup, RF_Handle pHandle)
+void Radio_openRadioCore(RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle pHandle)
 {
     RF_Params_init(pParams);
+
+    RF_Mode* pMode = getRFModeByProto(proto);
+
+    RF_RadioSetup* pSetup = getRSCmdByProto(proto);
 
     pHandle = RF_open(pObj, pMode, pSetup, pParams);
 
@@ -71,8 +119,10 @@ void Radio_openRadioCore(RF_Params* pParams, RF_Object* pObj, RF_Mode* pMode, RF
  *      RF_EventMask - Event mask signaling status of the command
  *
  */
-RF_EventMask Radio_setFrequencySynthesizer(RF_Handle pHandle,  RF_Op* pFsCmd)
+RF_EventMask Radio_setFrequencySynthesizer(RF_Handle pHandle,  RF_Protocol_t proto)
 {
+    RF_Op* pFsCmd = getFSCmdByProto(proto);
+
     return RF_runCmd(pHandle, pFsCmd, RF_PriorityNormal, NULL, 0);
 }
 
@@ -87,34 +137,35 @@ RF_EventMask Radio_setFrequencySynthesizer(RF_Handle pHandle,  RF_Op* pFsCmd)
  * Returns:
  *      N/A
  */
-void Radio_initRXCmd(void* pRXCmd, RF_Protocol_t proto)
+void Radio_initRXCmd(RF_Protocol_t proto)
 {
     if ( proto == BluetoothLowEnergy )
     {
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->pParams->pRxQ                      = NULL; //todo: rx queue
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->pParams->rxConfig.bAutoFlushCrcErr = 1;
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->pParams->rxConfig.bIncludeLenByte  = 1;
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->pParams->rxConfig.bIncludeCrc      = 1;
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->pParams->rxConfig.bAppendRssi      = 0;
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->pParams->rxConfig.bAppendStatus    = 0;
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->whitening.init                     = 0x65;
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->pOutput                            = NULL; //todo: stats
-        ((rfc_CMD_BLE5_GENERIC_RX_t*)pRXCmd)->channel                            = 0x66; //todo: initial channel?
+
+        RFCMD_bleGenericRX.pParams->pRxQ                      = NULL; //todo: rx queue
+        RFCMD_bleGenericRX.pParams->rxConfig.bAutoFlushCrcErr = 1;
+        RFCMD_bleGenericRX.pParams->rxConfig.bIncludeLenByte  = 1;
+        RFCMD_bleGenericRX.pParams->rxConfig.bIncludeCrc      = 1;
+        RFCMD_bleGenericRX.pParams->rxConfig.bAppendRssi      = 0;
+        RFCMD_bleGenericRX.pParams->rxConfig.bAppendStatus    = 0;
+        RFCMD_bleGenericRX.whitening.init                     = 0x65;
+        RFCMD_bleGenericRX.pOutput                            = NULL; //todo: stats
+        RFCMD_bleGenericRX.channel                            = 0x66; //todo: initial channel?
     }
 
     if ( proto == IEEE_802_15_4 )
     {
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->pRxQ                                       = NULL; //todo rx queue
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bAutoFlushCrc                     = 1;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bAutoFlushIgn                     = 0;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bIncludePhyHdr                    = 0;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bIncludeCrc                       = 1;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bAppendRssi                       = 0;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bAppendCorrCrc                    = 0;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bAppendSrcInd                     = 0;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->rxConfig.bAppendTimestamp                  = 0;
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->pOutput                                    = NULL; //todo: stats¨
-        ((rfc_CMD_IEEE_RX_t*)pRXCmd)->channel                                    = 0;
+        RFCMD_ieeeRX.pRxQ                                       = NULL; //todo rx queue
+        RFCMD_ieeeRX.rxConfig.bAutoFlushCrc                     = 1;
+        RFCMD_ieeeRX.rxConfig.bAutoFlushIgn                     = 0;
+        RFCMD_ieeeRX.rxConfig.bIncludePhyHdr                    = 0;
+        RFCMD_ieeeRX.rxConfig.bIncludeCrc                       = 1;
+        RFCMD_ieeeRX.rxConfig.bAppendRssi                       = 0;
+        RFCMD_ieeeRX.rxConfig.bAppendCorrCrc                    = 0;
+        RFCMD_ieeeRX.rxConfig.bAppendSrcInd                     = 0;
+        RFCMD_ieeeRX.rxConfig.bAppendTimestamp                  = 0;
+        RFCMD_ieeeRX.pOutput                                    = NULL; //todo: stats¨
+        RFCMD_ieeeRX.channel                                    = 0;
     }
 
     return;
@@ -141,6 +192,22 @@ RF_CmdHandle Radio_beginRX(RF_Handle pHandle, RF_Protocol_t proto, void* callbac
     RF_Op* pRXCmd = getRXCmdByProto(proto);
 
     return RF_postCmd(pHandle, pRXCmd, RF_PriorityNormal, callbackFunction, events);
+}
+
+
+/*
+ * === Radio_stopRX
+ * Stops listening to RF frames.
+ * Main purpose is to shadow TI's API for better readability
+ *
+ * Parameters:
+ *      pHandle[in]             - handle to Radio Core
+ * Returns:
+ *      RF_Stat                 - Enum signaling successful completition
+ */
+RF_Stat Radio_stopRX(RF_Handle pHandle)
+{
+    return RF_flushCmd(pHandle, RF_CMDHANDLE_FLUSH_ALL, 1);
 }
 
 

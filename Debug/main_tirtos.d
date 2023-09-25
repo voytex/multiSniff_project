@@ -18,7 +18,8 @@ main_tirtos.o: ../main_tirtos.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/BIOS.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/runtime/Types.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/runtime/Types_defs.h \
- C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/Board.h
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/Board.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/radio_api.h
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Task.h:
 
@@ -55,3 +56,5 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/runtime/Types_defs.h:
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/Board.h:
+
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/radio_api.h:
