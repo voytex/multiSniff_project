@@ -154,6 +154,6 @@ void BIOS_init(void)
 #include <ti/sysbios/runtime/Error.c>
 #include <ti/sysbios/runtime/Memory.c>
 #include <ti/sysbios/runtime/System.c>
-#include <ti/sysbios/runtime/SysCallback.c>
+#include <ti/sysbios/runtime/SysMin.c>
 #include <ti/sysbios/runtime/Timestamp.c>
 #include <ti/sysbios/runtime/Startup.c>

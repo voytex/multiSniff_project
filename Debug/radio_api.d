@@ -30,7 +30,8 @@ radio_api.o: ../radio_api.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/dpl/SemaphoreP.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/utils/List.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_prop_cmd.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/radio_api.h
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/radio_api.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/log.h
 
 syscfg/ti_drivers_config.h:
 
@@ -91,3 +92,5 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/utils/List.h:
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_prop_cmd.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/radio_api.h:
+
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/log.h:

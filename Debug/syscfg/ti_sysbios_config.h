@@ -184,14 +184,11 @@ extern "C" {
 /* Startup functions */
 extern void ti_sysbios_family_arm_cc26xx_TimestampProvider_init(void);
 
-/* SysCallback module definitions */
+/* SysMin module definitions */
 
-#define SysCallback_abortFxn_D SysCallback_defaultAbort
-#define SysCallback_exitFxn_D SysCallback_defaultExit
-#define SysCallback_flushFxn_D SysCallback_defaultFlush
-#define SysCallback_initFxn_D SysCallback_defaultInit
-#define SysCallback_putchFxn_D SysCallback_defaultPutch
-#define SysCallback_readyFxn_D SysCallback_defaultReady
+#define SysMin_bufSize_D 1024
+#define SysMin_outputFunc_D SysMin_output
+#define SysMin_flushAtExit_D true
 
 /* System module definitions */
 

@@ -76,6 +76,8 @@ int main(void)
 
     Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 1);
 
+    Radio_stopRX(pHandle);
+
 
     Task_Params_init(&testParams);
     testParams.priority = 2;

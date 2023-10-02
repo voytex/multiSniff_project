@@ -25,4 +25,5 @@ var crovFiles = [
     "ti/sysbios/knl/Semaphore.rov.js", /* /ti/sysbios/knl/Semaphore ROV support */
     "ti/sysbios/knl/Swi.rov.js", /* /ti/sysbios/knl/Swi ROV support */
     "ti/sysbios/knl/Task.rov.js", /* /ti/sysbios/knl/Task ROV support */
+    "ti/sysbios/runtime/SysMin.rov.js", /* /ti/sysbios/runtime/SysMin ROV support */
 ];

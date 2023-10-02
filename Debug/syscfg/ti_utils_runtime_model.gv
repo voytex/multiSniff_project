@@ -146,10 +146,10 @@ digraph Model
 
     // mod.$name=/ti/sysbios/runtime/Startup
 
-    // mod.$name=/ti/sysbios/runtime/SysCallback
+    // mod.$name=/ti/sysbios/runtime/SysMin
 
     // mod.$name=/ti/sysbios/runtime/System
-    ti_sysbios_runtime_System -> ti_sysbios_runtime_SysCallback
+    ti_sysbios_runtime_System -> ti_sysbios_runtime_SysMin
     ti_sysbios_runtime_System -> System_init
 
     // mod.$name=/ti/sysbios/runtime/Timestamp
