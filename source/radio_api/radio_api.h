@@ -5,8 +5,8 @@
  *      Author: Administrator
  */
 
-#ifndef RADIO_API_RADIO_API_H_
-#define RADIO_API_RADIO_API_H_
+#ifndef RADIO_API_H_
+#define RADIO_API_H_
 
 // === ENUM DEFINITIONS =========================================================================================
 
@@ -30,4 +30,5 @@ RF_CmdHandle Radio_beginRX                 (RF_Handle pHandle, RF_Protocol_t pro
 RF_Stat      Radio_stopRX                  (RF_Handle pHandle);
 
 // ==============================================================================================================
-#endif /* RADIO_API_RADIO_API_H_ */
+
+#endif /* RADIO_API_H_ */

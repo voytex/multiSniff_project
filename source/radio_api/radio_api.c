@@ -11,6 +11,8 @@
 
 #include "ti_drivers_config.h"
 
+#include <source/queue/radio_queue.h>
+
 #include <source/log/log.h>
 
 #include <source/radio_api/radio_api.h>
@@ -146,7 +148,7 @@ void Radio_initRXCmd(RF_Protocol_t proto)
     if ( proto == BluetoothLowEnergy )
     {
 
-        RFCMD_bleGenericRX.pParams->pRxQ                      = NULL; //todo: rx queue
+        RFCMD_bleGenericRX.pParams->pRxQ                      = RadioQueue_getDQpointer(); //todo: rx queue
         RFCMD_bleGenericRX.pParams->rxConfig.bAutoFlushCrcErr = 1;
         RFCMD_bleGenericRX.pParams->rxConfig.bIncludeLenByte  = 1;
         RFCMD_bleGenericRX.pParams->rxConfig.bIncludeCrc      = 1;
@@ -159,7 +161,7 @@ void Radio_initRXCmd(RF_Protocol_t proto)
 
     if ( proto == IEEE_802_15_4 )
     {
-        RFCMD_ieeeRX.pRxQ                                       = NULL; //todo rx queue
+        RFCMD_ieeeRX.pRxQ                                       = RadioQueue_getDQpointer(); //todo rx queue
         RFCMD_ieeeRX.rxConfig.bAutoFlushCrc                     = 1;
         RFCMD_ieeeRX.rxConfig.bAutoFlushIgn                     = 0;
         RFCMD_ieeeRX.rxConfig.bIncludePhyHdr                    = 0;

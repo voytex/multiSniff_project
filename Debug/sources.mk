@@ -126,5 +126,6 @@ GEN_OPTS__QUOTED :=
 SUBDIRS := \
 . \
 source/log \
+source/queue \
 source/radio_api \
 

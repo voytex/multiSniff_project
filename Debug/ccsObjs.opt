@@ -4,6 +4,7 @@
 "./syscfg/ti_drivers_config.o"
 "./syscfg/ti_sysbios_config.o"
 "./source/log/log.o"
+"./source/queue/radio_queue.o"
 "./source/radio_api/radio_api.o"
 "../cc13x2_cc26x2_tirtos7.cmd"
 -l"ti/grlib/lib/ticlang/m4f/grlib.a"

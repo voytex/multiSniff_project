@@ -1,19 +1,19 @@
 ******************************************************************************
             TI ARM Clang Linker PC v2.1.2                      
 ******************************************************************************
->> Linked Tue Oct  3 20:52:49 2023
+>> Linked Tue Oct  3 21:08:22 2023
 
 OUTPUT FILE NAME:   <multiSniff_LP_CC2652RB_tirtos7_ticlang2.out>
-ENTRY POINT SYMBOL: "ResetISR"  address: 000059d7
+ENTRY POINT SYMBOL: "ResetISR"  address: 000059ef
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00058000  00006c44  000513bc  R  X
+  FLASH                 00000000   00058000  00006c60  000513a0  R  X
   GPRAM                 11000000   00002000  00000000  00002000  RW X
-  SRAM                  20000000   00014000  00005aca  0000e536  RW X
+  SRAM                  20000000   00014000  00005ad6  0000e52a  RW X
   LOG_DATA              90000000   00040000  00000000  00040000  R   
 
 
@@ -21,21 +21,21 @@ SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00006a1c   00006a1c    r-x
+00000000    00000000    00006a34   00006a34    r-x
   00000000    00000000    0000003c   0000003c    r-- .resetVecs
-  0000003c    0000003c    000059c4   000059c4    r-x .text
-  00005a00    00005a00    0000101c   0000101c    r-- .rodata
-00006a1c    00006a1c    00000008   00000008    rw-
-  00006a1c    00006a1c    00000008   00000008    rw- .args
-00006a24    00006a24    000001c8   000001c8    r--
-  00006a24    00006a24    000001c8   000001c8    r-- .cinit
+  0000003c    0000003c    000059dc   000059dc    r-x .text
+  00005a18    00005a18    0000101c   0000101c    r-- .rodata
+00006a34    00006a34    00000008   00000008    rw-
+  00006a34    00006a34    00000008   00000008    rw- .args
+00006a3c    00006a3c    000001cc   000001cc    r--
+  00006a3c    00006a3c    000001cc   000001cc    r-- .cinit
 00057fa8    00057fa8    00000058   00000058    r--
   00057fa8    00057fa8    00000058   00000058    r-- .ccfg
 200000d8    200000d8    00004000   00000000    r--
   200000d8    200000d8    00004000   00000000    r-- .priheap
-200040d8    200040d8    000013f6   00000000    rw-
+200040d8    200040d8    00001402   00000000    rw-
   200040d8    200040d8    00000de4   00000000    rw- .bss
-  20004ec0    20004ec0    0000060e   00000000    rw- .data
+  20004ec0    20004ec0    0000061a   00000000    rw- .data
 20013a00    20013a00    00000600   00000000    rw-
   20013a00    20013a00    00000600   00000000    rw- .stack
 
@@ -47,12 +47,12 @@ section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
 .binit     0    00000000    00000000     
 
-.cinit     0    00006a24    000001c8     
-                  00006a24    000001a3     (.cinit..data.load) [load image, compression = lzss]
-                  00006bc7    00000001     --HOLE-- [fill = 0]
-                  00006bc8    0000000c     (__TI_handler_table)
-                  00006bd4    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  00006bdc    00000010     (__TI_cinit_table)
+.cinit     0    00006a3c    000001cc     
+                  00006a3c    000001a5     (.cinit..data.load) [load image, compression = lzss]
+                  00006be1    00000003     --HOLE-- [fill = 0]
+                  00006be4    0000000c     (__TI_handler_table)
+                  00006bf0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00006bf8    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00000000    00000000     UNINITIALIZED
@@ -89,7 +89,7 @@ section   page    origin      length       input sections
                   20004eb4    00000004     (.common:ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_state)
                   20004eb8    00000004     (.common:ti_sysbios_knl_Task_defaultStackHeap)
 
-.data      0    20004ec0    0000060e     UNINITIALIZED
+.data      0    20004ec0    0000061a     UNINITIALIZED
                   20004ec0    00000174     drivers_cc26x2.a : PowerCC26X2.c.obj (.data.PowerCC26X2_module)
                   20005034    00000078     ti_sysbios_config.o (.data..L_MergedGlobals)
                   200050ac    00000068     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.data..L_MergedGlobals.1)
@@ -114,15 +114,16 @@ section   page    origin      length       input sections
                   2000546c    00000010     ti_radio_config.o (.data.RFCMD_ieeeModeObject)
                   2000547c    00000010     driverlib.lib : osc.o (.data._hposcCoeffs)
                   2000548c    00000010     ti_radio_config.o (.data.ieee_pOverrides)
-                  2000549c    00000008     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.data..L_MergedGlobals)
-                  200054a4    00000008                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.data.RFCC26XX_schedulerPolicy)
-                  200054ac    00000008     ti_sysbios_config.o (.data.ti_sysbios_gates_GateMutex_Module_state)
-                  200054b4    00000008     ti_sysbios_config.o (.data.ti_sysbios_heaps_HeapMem_Module_state)
-                  200054bc    00000008     ti_sysbios_config.o (.data.ti_sysbios_knl_Semaphore_Module_state)
-                  200054c4    00000004     libc.a : _lock.c.obj (.data._lock)
-                  200054c8    00000004            : _lock.c.obj (.data._unlock)
-                  200054cc    00000001     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.data.bBt5PatchEntered)
-                  200054cd    00000001                           : rf_patch_cpe_ieee_802_15_4.c.cc26x2.ticlang.o (.data.bIeee802154PatchEntered)
+                  2000549c    0000000c     radio_queue.o (.data..L_MergedGlobals)
+                  200054a8    00000008     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.data..L_MergedGlobals)
+                  200054b0    00000008                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.data.RFCC26XX_schedulerPolicy)
+                  200054b8    00000008     ti_sysbios_config.o (.data.ti_sysbios_gates_GateMutex_Module_state)
+                  200054c0    00000008     ti_sysbios_config.o (.data.ti_sysbios_heaps_HeapMem_Module_state)
+                  200054c8    00000008     ti_sysbios_config.o (.data.ti_sysbios_knl_Semaphore_Module_state)
+                  200054d0    00000004     libc.a : _lock.c.obj (.data._lock)
+                  200054d4    00000004            : _lock.c.obj (.data._unlock)
+                  200054d8    00000001     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.data.bBt5PatchEntered)
+                  200054d9    00000001                           : rf_patch_cpe_ieee_802_15_4.c.cc26x2.ticlang.o (.data.bIeee802154PatchEntered)
 
 .stack     0    20013a00    00000600     UNINITIALIZED
                   20013a00    00000004     sysbios.a : boot_cortex_m.obj (.stack)
@@ -147,7 +148,7 @@ __llvm_prf_cnts
 __llvm_prf_bits 
 *          0    20000000    00000000     UNINITIALIZED
 
-.text      0    0000003c    000059c4     
+.text      0    0000003c    000059dc     
                   0000003c    00000498     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_fsmActiveState)
                   000004d4    0000029c                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_open)
                   00000770    000001dc                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_dispatchNextCmd)
@@ -203,314 +204,315 @@ __llvm_prf_bits
                   00002db4    00000078     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_postInit)
                   00002e2c    00000074     drivers_cc26x2.a : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_updateSubSecInc)
                   00002ea0    00000074     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hwiHw)
-                  00002f14    00000074     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_restoreHwi)
-                  00002f88    00000070     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_Instance_init)
-                  00002ff8    00000070     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_startup)
-                  00003068    0000006c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_issueRadioFreeCb)
-                  000030d4    0000006c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_dispatchC)
-                  00003140    0000006a     libc.a : copy_decompress_lzss.c.obj (.text:decompress:lzss)
-                  000031aa    00000068     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_detachOverrides)
-                  00003212    00000002     libclang_rt.builtins.a : aeabi_div0.c.obj (.text.__aeabi_ldiv0)
-                  00003214    00000068     radio_api.o (.text.Radio_initRXCmd)
-                  0000327c    00000068     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_run)
-                  000032e4    00000064     drivers_cc26x2.a : PowerCC26X2_calibrateRCOSC.c.obj (.text.PowerCC26X2_initiateCalibration)
-                  00003348    00000064     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_attachOverrides)
-                  000033ac    00000064                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_dispatchNextEvent)
-                  00003410    00000064                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hwiCpe0PowerFsm)
-                  00003474    00000064     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.oscillatorISR)
-                  000034d8    00000064     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_init)
-                  0000353c    00000064     ti_sysbios_config.o (.text.ti_sysbios_knl_TaskSupport_buildTaskStack)
-                  000035a0    00000062     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_syncCb)
-                  00003602    00000060     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_allocUnprotected)
-                  00003662    00000002     libc.a : _lock.c.obj (.text._nop)
-                  00003664    00000060     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_walkQueueDynamic)
-                  000036c4    00000060     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_post)
-                  00003724    00000060     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_schedule)
-                  00003784    0000005e     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCAnaDivTxOverride)
-                  000037e2    00000002     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.emptyClockFunc)
-                  000037e4    00000058     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_applyRfCorePatch)
-                  0000383c    00000058     sysbios.a : Hwi_asm_switch_gnu.obj (.text.ti_sysbios_family_arm_m3_Hwi_initStacks)
-                  00003894    00000054     libsysbm.a : hostwrite.c.obj (.text.HOSTwrite)
-                  000038e8    00000054     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_fsmXOSCState)
-                  0000393c    00000054                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_getCurrentTime)
-                  00003990    00000054     ti_sysbios_config.o (.text.ti_sysbios_runtime_Startup_exec)
-                  000039e4    00000052     driverlib.lib : chipinfo.o (.text.NOROM_ChipInfo_GetHwRevision)
-                  00003a36    00000002     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_exitSpin)
-                  00003a38    00000050     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_wakeupNotification)
-                  00003a88    00000050     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_post)
-                  00003ad8    00000050     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_runLoop)
-                  00003b28    0000004e     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_freeUnprotected)
-                  00003b76    00000002     --HOLE-- [fill = 0]
-                  00003b78    0000004c     ti_sysbios_config.o (.text.BIOS_startFunc)
-                  00003bc4    0000004c     driverlib.lib : osc.o (.text.NOROM_OSC_HPOSCRelativeFrequencyOffsetGet)
-                  00003c10    0000004c     radio_api.o (.text.Radio_openRadioCore)
-                  00003c5c    0000004c     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.text.configureBt5Patch)
-                  00003ca8    0000004c     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.switchXOSCHF)
-                  00003cf4    0000004c     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_Instance_init)
-                  00003d40    00000048     ti_sysbios_config.o (.text.BIOS_init)
-                  00003d88    00000048     driverlib.lib : aux_sysif.o (.text.NOROM_AUXSYSIFOpModeChange)
-                  00003dd0    00000048     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCSynthPowerDown)
-                  00003e18    00000048     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.PowerCC26XX_switchXOSC_HF)
-                  00003e60    00000048     main_tirtos.o (.text.main)
-                  00003ea8    00000048     rf_multiMode_cc26x2.a : rf_patch_cpe_ieee_802_15_4.c.cc26x2.ticlang.o (.text.rf_patch_cpe_ieee_802_15_4)
-                  00003ef0    00000048     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_start)
-                  00003f38    00000048     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_Instance_init)
-                  00003f80    00000048     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_alloc)
-                  00003fc8    00000048     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_schedule)
-                  00004010    00000044     ti_sysbios_config.o (.text.BIOS_atExitFunc)
-                  00004054    00000044     driverlib.lib : prcm.o (.text.NOROM_PRCMPowerDomainsAllOff)
-                  00004098    00000044                   : prcm.o (.text.NOROM_PRCMPowerDomainsAllOn)
-                  000040dc    00000044     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdGet)
-                  00004120    00000044                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_updatePowerupDuration)
-                  00004164    00000044     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_construct2)
-                  000041a8    00000044     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_disableInterrupt)
-                  000041ec    00000044     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_enableInterrupt)
-                  00004230    00000044     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_restore)
-                  00004274    00000040     drivers_cc26x2.a : PowerCC26X2_calibrateRCOSC.c.obj (.text.PowerCC26X2_RCOSC_clockFunc)
-                  000042b4    00000040                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_setAclkRefSrc)
-                  000042f4    00000040     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_getStats)
-                  00004334    00000040     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_getTicksUntilInterrupt)
-                  00004374    00000040     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_exit)
-                  000043b4    0000003c     ti_sysbios_config.o (.text.HwiP_construct)
-                  000043f0    0000003c     driverlib.lib : sys_ctrl.o (.text.NOROM_SysCtrlIdle)
-                  0000442c    0000003c     drivers_cc26x2.a : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_setTdcClkSrc24M)
-                  00004468    0000003c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_periodicStub)
-                  000044a4    0000003c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_setThreshold)
-                  000044e0    0000003c     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_construct)
-                  0000451c    0000003c     ti_sysbios_config.o (.text.ti_sysbios_knl_ClockSupport_init)
-                  00004558    0000003c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_blockI)
-                  00004594    0000003c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_restore)
-                  000045d0    0000003c     ti_sysbios_config.o (.text.ti_sysbios_runtime_Memory_alloc)
-                  0000460c    0000003c     ti_sysbios_config.o (.text.ti_sysbios_runtime_SystemSupport_flush)
-                  00004648    00000038     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oscDisableQualifiers)
-                  00004680    00000038     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.text.rf_patch_cpe_bt5)
-                  000046b8    00000038     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_processVitalTaskFlag)
-                  000046f0    00000038     libc.a : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit)
-                  00004728    00000034     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_releaseConstraint)
-                  0000475c    00000034     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_powerConstraintRelease)
-                  00004790    00000034     radio_api.o (.text.Radio_beginRX)
-                  000047c4    00000034     ti_sysbios_config.o (.text.SwiP_construct)
-                  000047f8    00000034     libsysbm.a : trgmsg.c.obj (.text.__TI_writemsg)
-                  0000482c    00000034     ti_sysbios_config.o (.text._pthread_cleanupFxn)
-                  00004860    00000034     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_getStackInfo)
-                  00004894    00000034     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_init)
-                  000048c8    00000034     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_Instance_init)
-                  000048fc    00000034     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_unblockI)
-                  00004930    00000034     ti_sysbios_config.o (.text.ti_sysbios_runtime_Error_raiseX)
-                  00004964    00000034     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_processAtExit)
-                  00004998    00000034     sysbios.a : boot_cortex_m.obj (.text:_c_int00)
-                  000049cc    00000032     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_pendTimeout)
-                  000049fe    00000002     --HOLE-- [fill = 0]
-                  00004a00    00000030     ti_sysbios_config.o (.text.ClockP_construct)
-                  00004a30    00000030     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_setConstraint)
-                  00004a60    00000030     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_checkCmdFsError)
-                  00004a90    00000030     libsysbm.a : trgmsg.c.obj (.text.__TI_readmsg)
-                  00004ac0    00000030     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.notify)
-                  00004af0    00000030     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_excHandlerMin)
-                  00004b20    00000030     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_free)
-                  00004b50    00000030     ti_sysbios_config.o (.text.ti_sysbios_knl_TaskSupport_start)
-                  00004b80    00000030     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_atexit)
-                  00004bb0    0000002e     driverlib.lib : chipinfo.o (.text.NOROM_ThisLibraryIsFor_CC13x2_CC26x2_HwRev20AndLater_HaltIfViolated)
-                  00004bde    0000002e     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_calculateDeltaTimeUs)
-                  00004c0c    0000002c     ti_sysbios_config.o (.text.PowerCC26XX_schedulerDisable)
-                  00004c38    0000002c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_executeDirectImmediateCmd)
-                  00004c64    0000002c     radio_api.o (.text.Radio_setFrequencySynthesizer)
-                  00004c90    0000002c     ti_sysbios_config.o (.text._pthread_delete)
-                  00004cbc    0000002c     ti_sysbios_config.o (.text.ti_sysbios_gates_GateMutex_enter)
-                  00004ce8    0000002c     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_getTicks)
-                  00004d14    0000002c     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_getTimeout)
-                  00004d40    0000002c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_restoreHwi)
-                  00004d6c    0000002a     driverlib.lib : osc.o (.text.NOROM_OSCHF_TurnOnXosc)
-                  00004d96    0000002a     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_setNextTick)
-                  00004dc0    0000002a     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_allBlockedFunction)
-                  00004dea    00000002     --HOLE-- [fill = 0]
-                  00004dec    00000028     ti_sysbios_config.o (.text.BIOS_registerRTSLock)
-                  00004e14    00000028     drivers_cc26x2.a : List.c.obj (.text.List_remove)
-                  00004e3c    00000028                      : PowerCC26X2.c.obj (.text.PowerCC26XX_isStableXOSC_HF)
-                  00004e64    00000028     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdStoreEvents)
-                  00004e8c    00000028     sysbios.a : Hwi_asm_gnu.obj (.text.ti_sysbios_family_arm_m3_Hwi_excHandlerAsm)
-                  00004eb4    00000028     ti_sysbios_config.o (.text.ti_sysbios_gates_GateMutex_Instance_init)
-                  00004edc    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_Instance_init)
-                  00004f04    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_init)
-                  00004f2c    00000028     sysbios.a : TaskSupport_asm_gnu.obj (.text.ti_sysbios_knl_TaskSupport_swap)
-                  00004f54    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_construct)
-                  00004f7c    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_init)
-                  00004fa4    00000026     drivers_cc26x2.a : List.c.obj (.text.List_insert)
-                  00004fca    00000026                      : List.c.obj (.text.List_putHead)
-                  00004ff0    00000026     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_runCmd)
-                  00005016    00000002     --HOLE-- [fill = 0]
-                  00005018    00000024     ti_sysbios_config.o (.text.BIOS_removeRTSLock)
-                  0000503c    00000024     drivers_cc26x2.a : List.c.obj (.text.List_put)
-                  00005060    00000024                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_getOscHfSourceReady)
-                  00005084    00000024                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_setSubSecIncToXoscLf)
-                  000050a8    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeCtrim)
-                  000050cc    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeCtrimFract)
-                  000050f0    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeCtrimFractEn)
-                  00005114    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeRtrim)
-                  00005138    00000024                      : PowerCC26X2.c.obj (.text.Power_registerNotify)
-                  0000515c    00000024     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_clkPowerUp)
-                  00005180    00000024                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hwiCpe0ChangePhy)
-                  000051a4    00000024                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_isStateTransitionAllowed)
-                  000051c8    00000024                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_searchAndReplacePAOverride)
-                  000051ec    00000024     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_construct)
-                  00005210    00000024     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_destruct)
-                  00005234    00000024     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_enter)
-                  00005258    00000022     drivers_cc26x2.a : List.c.obj (.text.List_get)
-                  0000527a    00000022     ti_sysbios_config.o (.text.ti_sysbios_runtime_SysMin_output)
-                  0000529c    00000020     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCDoorbellSendTo)
-                  000052bc    00000020                           : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCOverrideSearch)
-                  000052dc    00000020     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_disableTCXOQual)
-                  000052fc    00000020                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_enableTCXOQual)
-                  0000531c    00000020     ti_sysbios_config.o (.text.PowerCC26XX_schedulerRestore)
-                  0000533c    00000020     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdAlloc)
-                  0000535c    00000020                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_invokeGlobalCallback)
-                  0000537c    00000020                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_ratIsRunning)
-                  0000539c    00000020     ti_sysbios_config.o (.text.SemaphoreP_constructBinary)
-                  000053bc    00000020     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_initStack)
-                  000053dc    00000020     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_delete)
-                  000053fc    00000020     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_destruct)
-                  0000541c    0000001e     sysbios.a : Hwi_asm_switch_gnu.obj (.text.ti_sysbios_family_arm_m3_Hwi_switchAndRunFunc)
-                  0000543a    00000002     --HOLE-- [fill = 0]
-                  0000543c    0000001c     ti_sysbios_config.o (.text.BIOS_rtsLock)
-                  00005458    0000001c     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_getTransitionLatency)
-                  00005474    0000001c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_clkInactivityCallback)
-                  00005490    0000001c                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_getPAOverrideOffsetAndValue)
-                  000054ac    0000001c                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_powerConstraintSet)
-                  000054c8    0000001c                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_swiFsm)
-                  000054e4    0000001c     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_run)
-                  00005500    0000001c     ti_sysbios_config.o (.text.ti_sysbios_knl_Queue_put)
-                  0000551c    0000001c     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_construct)
-                  00005538    00000018     ti_sysbios_config.o (.text.BIOS_exitFunc)
-                  00005550    00000018     ti_sysbios_config.o (.text.BIOS_rtsUnlock)
-                  00005568    00000018     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.PowerCC26XX_calibrate)
-                  00005580    00000018                      : PowerCC26X2.c.obj (.text.Power_idleFunc)
-                  00005598    00000018     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_restartClockTimeout)
-                  000055b0    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_scheduleNextTick)
-                  000055c8    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_construct2)
-                  000055e0    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_or)
-                  000055f8    00000018     sysbios.a : TaskSupport_asm_gnu.obj (.text.ti_sysbios_knl_TaskSupport_glue)
-                  00005610    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_unblock)
-                  00005628    00000016     ti_sysbios_config.o (.text.HwiP_setFunc)
-                  0000563e    00000016     drivers_cc26x2.a : List.c.obj (.text.List_clearList)
-                  00005654    00000016     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_start)
-                  0000566a    00000002     --HOLE-- [fill = 0]
-                  0000566c    00000014     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_dbellSyncOnAck)
-                  00005680    00000014                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_flushCmd)
-                  00005694    00000014     ti_sysbios_config.o (.text.SwiP_disable)
-                  000056a8    00000014     libc.a : args_main.c.obj (.text._args_main)
-                  000056bc    00000014     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_switchFromBootStack)
-                  000056d0    00000014     libclang_rt.builtins.a : aeabi_memset.S.obj (.text)
-                  000056e4    00000014                            : aeabi_uldivmod.S.obj (.text)
-                  000056f8    00000012     libc.a : memcpy_t2.S.obj (.text:TI_memcpy_small)
-                  0000570a    00000010     ti_sysbios_config.o (.text.HwiP_Params_init)
-                  0000571a    00000002     --HOLE-- [fill = 0]
-                  0000571c    00000010     ti_sysbios_config.o (.text.HwiP_post)
-                  0000572c    00000010     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCCpeIntGetAndClear)
-                  0000573c    00000010                           : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCHwIntGetAndClear)
-                  0000574c    00000010     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oscCtlClearXtal)
-                  0000575c    00000010                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_prcmEnableCacheRetention)
-                  0000576c    00000010                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_readCtrim)
-                  0000577c    00000010                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_readCtrimFract)
-                  0000578c    00000010                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_readRtrim)
-                  0000579c    00000010                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_switchToTCXO)
-                  000057ac    00000010     ti_sysbios_config.o (.text.SwiP_Params_init)
-                  000057bc    00000010     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_dynamicStub)
-                  000057cc    00000010     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_excHandler)
-                  000057dc    00000010     libc.a : copy_zero_init.c.obj (.text:decompress:ZI)
-                  000057ec    0000000e     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.OUTLINED_FUNCTION_0)
-                  000057fa    0000000e     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_0)
-                  00005808    0000000e                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_3)
-                  00005816    0000000e     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.switchToTCXO)
-                  00005824    0000000e     ti_sysbios_config.o (.text.ti_sysbios_gates_GateMutex_leave)
-                  00005832    0000000e     libc.a : memset_t2.S.obj (.text:TI_memset_small)
-                  00005840    0000000e            : copy_decompress_none.c.obj (.text:decompress:none)
-                  0000584e    00000002     --HOLE-- [fill = 0]
-                  00005850    0000000c     ti_sysbios_config.o (.text.BIOS_linkedWithIncorrectBootLibrary)
-                  0000585c    0000000c     ti_sysbios_config.o (.text.BIOS_start)
-                  00005868    0000000c     ti_sysbios_config.o (.text.HwiP_disable)
-                  00005874    0000000c     driverlib.lib : cpu.o (.text.NOROM_CPUcpsid)
-                  00005880    0000000c                   : cpu.o (.text.NOROM_CPUcpsie)
-                  0000588c    0000000c     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oscClockSourceGet)
-                  00005898    0000000c                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_setPeriphDeepSleepEnable)
-                  000058a4    0000000c                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlGetResetSource)
-                  000058b0    0000000c                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlVoltageConditionalControl)
-                  000058bc    0000000c                      : PowerCC26X2.c.obj (.text.Power_getConstraintMask)
-                  000058c8    0000000c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_Params_init)
-                  000058d4    0000000c     ti_sysbios_config.o (.text.SwiP_getTrigger)
-                  000058e0    0000000c     libc.a : _lock.c.obj (.text._register_lock)
-                  000058ec    0000000c            : _lock.c.obj (.text._register_unlock)
-                  000058f8    0000000c     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_init)
-                  00005904    0000000c     ti_sysbios_config.o (.text.ti_sysbios_knl_ClockSupport_setNextTick)
-                  00005910    0000000c     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_tick)
-                  0000591c    0000000c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_Params_init)
-                  00005928    0000000a     ti_sysbios_config.o (.text.ClockP_Params_init)
-                  00005932    0000000a     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_5)
-                  0000593c    0000000a     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlStandby)
-                  00005946    0000000a     radio_api.o (.text.Radio_stopRX)
-                  00005950    0000000a     ti_sysbios_config.o (.text.SemaphoreP_pend)
-                  0000595a    00000008     driverlib.lib : cpu.o (.text.NOROM_CPUdelay)
-                  00005962    00000008     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_2)
-                  0000596a    00000008     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oschfTrySwitchToXosc)
-                  00005972    00000008     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_exit)
-                  0000597a    00000006     ti_sysbios_config.o (.text.ClockP_stop)
-                  00005980    00000006     ti_sysbios_config.o (.text.HwiP_restore)
-                  00005986    00000006     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_4)
-                  0000598c    00000006                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_clkReqAccess)
-                  00005992    00000006     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_doSwiRestore)
-                  00005998    00000006     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_doTaskRestore)
-                  0000599e    00000006     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_loop)
-                  000059a4    00000006     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_startup)
-                  000059aa    00000004     ti_sysbios_config.o (.text.ClockP_getSystemTickPeriod)
-                  000059ae    00000004     ti_sysbios_config.o (.text.ClockP_getTimeout)
-                  000059b2    00000004     ti_sysbios_config.o (.text.ClockP_isActive)
-                  000059b6    00000004     ti_sysbios_config.o (.text.ClockP_setTimeout)
-                  000059ba    00000004     ti_sysbios_config.o (.text.ClockP_start)
-                  000059be    00000004     ti_sysbios_config.o (.text.HwiP_enableInterrupt)
-                  000059c2    00000004     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCOverrideUpdate)
-                  000059c6    00000004     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oschfSwitchToRcosc)
-                  000059ca    00000004                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlIdle)
-                  000059ce    00000004                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_turnOnXosc)
-                  000059d2    00000004     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_defaultExecutionPolicy)
-                  000059d6    00000004     ti_sysbios_config.o (.text.ResetISR)
-                  000059da    00000004     ti_sysbios_config.o (.text.SemaphoreP_post)
-                  000059de    00000004     ti_sysbios_config.o (.text.SwiP_or)
-                  000059e2    00000004     ti_sysbios_config.o (.text.SwiP_restore)
-                  000059e6    00000004     ti_sysbios_config.o (.text._system_post_cinit)
-                  000059ea    00000004     ti_sysbios_config.o (.text._system_pre_init)
-                  000059ee    00000004     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.configureRFCoreClocks)
-                  000059f2    00000004                      : PowerCC26X2.c.obj (.text.nopResourceHandler)
-                  000059f6    00000004     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_isBlocking)
-                  000059fa    00000002     --HOLE-- [fill = 0]
-                  000059fc    00000004     libclang_rt.builtins.a : aeabi_memcpy.S.obj (.text)
+                  00002f14    00000074     radio_api.o (.text.Radio_initRXCmd)
+                  00002f88    00000074     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_restoreHwi)
+                  00002ffc    00000070     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_Instance_init)
+                  0000306c    00000070     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_startup)
+                  000030dc    0000006c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_issueRadioFreeCb)
+                  00003148    0000006c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_dispatchC)
+                  000031b4    0000006a     libc.a : copy_decompress_lzss.c.obj (.text:decompress:lzss)
+                  0000321e    00000068     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_detachOverrides)
+                  00003286    00000002     libclang_rt.builtins.a : aeabi_div0.c.obj (.text.__aeabi_ldiv0)
+                  00003288    00000068     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_run)
+                  000032f0    00000064     drivers_cc26x2.a : PowerCC26X2_calibrateRCOSC.c.obj (.text.PowerCC26X2_initiateCalibration)
+                  00003354    00000064     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_attachOverrides)
+                  000033b8    00000064                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_dispatchNextEvent)
+                  0000341c    00000064                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hwiCpe0PowerFsm)
+                  00003480    00000064     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.oscillatorISR)
+                  000034e4    00000064     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_init)
+                  00003548    00000064     ti_sysbios_config.o (.text.ti_sysbios_knl_TaskSupport_buildTaskStack)
+                  000035ac    00000062     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_syncCb)
+                  0000360e    00000060     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_allocUnprotected)
+                  0000366e    00000002     libc.a : _lock.c.obj (.text._nop)
+                  00003670    00000060     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_walkQueueDynamic)
+                  000036d0    00000060     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_post)
+                  00003730    00000060     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_schedule)
+                  00003790    0000005e     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCAnaDivTxOverride)
+                  000037ee    00000002     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.emptyClockFunc)
+                  000037f0    00000058     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_applyRfCorePatch)
+                  00003848    00000058     sysbios.a : Hwi_asm_switch_gnu.obj (.text.ti_sysbios_family_arm_m3_Hwi_initStacks)
+                  000038a0    00000054     libsysbm.a : hostwrite.c.obj (.text.HOSTwrite)
+                  000038f4    00000054     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_fsmXOSCState)
+                  00003948    00000054                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_getCurrentTime)
+                  0000399c    00000054     ti_sysbios_config.o (.text.ti_sysbios_runtime_Startup_exec)
+                  000039f0    00000052     driverlib.lib : chipinfo.o (.text.NOROM_ChipInfo_GetHwRevision)
+                  00003a42    00000002     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_exitSpin)
+                  00003a44    00000050     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_wakeupNotification)
+                  00003a94    00000050     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_post)
+                  00003ae4    00000050     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_runLoop)
+                  00003b34    0000004e     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_freeUnprotected)
+                  00003b82    00000002     --HOLE-- [fill = 0]
+                  00003b84    0000004c     ti_sysbios_config.o (.text.BIOS_startFunc)
+                  00003bd0    0000004c     driverlib.lib : osc.o (.text.NOROM_OSC_HPOSCRelativeFrequencyOffsetGet)
+                  00003c1c    0000004c     radio_api.o (.text.Radio_openRadioCore)
+                  00003c68    0000004c     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.text.configureBt5Patch)
+                  00003cb4    0000004c     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.switchXOSCHF)
+                  00003d00    0000004c     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_Instance_init)
+                  00003d4c    00000048     ti_sysbios_config.o (.text.BIOS_init)
+                  00003d94    00000048     driverlib.lib : aux_sysif.o (.text.NOROM_AUXSYSIFOpModeChange)
+                  00003ddc    00000048     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCSynthPowerDown)
+                  00003e24    00000048     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.PowerCC26XX_switchXOSC_HF)
+                  00003e6c    00000048     main_tirtos.o (.text.main)
+                  00003eb4    00000048     rf_multiMode_cc26x2.a : rf_patch_cpe_ieee_802_15_4.c.cc26x2.ticlang.o (.text.rf_patch_cpe_ieee_802_15_4)
+                  00003efc    00000048     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_start)
+                  00003f44    00000048     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_Instance_init)
+                  00003f8c    00000048     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_alloc)
+                  00003fd4    00000048     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_schedule)
+                  0000401c    00000044     ti_sysbios_config.o (.text.BIOS_atExitFunc)
+                  00004060    00000044     driverlib.lib : prcm.o (.text.NOROM_PRCMPowerDomainsAllOff)
+                  000040a4    00000044                   : prcm.o (.text.NOROM_PRCMPowerDomainsAllOn)
+                  000040e8    00000044     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdGet)
+                  0000412c    00000044                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_updatePowerupDuration)
+                  00004170    00000044     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_construct2)
+                  000041b4    00000044     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_disableInterrupt)
+                  000041f8    00000044     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_enableInterrupt)
+                  0000423c    00000044     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_restore)
+                  00004280    00000040     drivers_cc26x2.a : PowerCC26X2_calibrateRCOSC.c.obj (.text.PowerCC26X2_RCOSC_clockFunc)
+                  000042c0    00000040                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_setAclkRefSrc)
+                  00004300    00000040     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_getStats)
+                  00004340    00000040     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_getTicksUntilInterrupt)
+                  00004380    00000040     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_exit)
+                  000043c0    0000003c     ti_sysbios_config.o (.text.HwiP_construct)
+                  000043fc    0000003c     driverlib.lib : sys_ctrl.o (.text.NOROM_SysCtrlIdle)
+                  00004438    0000003c     drivers_cc26x2.a : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_setTdcClkSrc24M)
+                  00004474    0000003c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_periodicStub)
+                  000044b0    0000003c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_setThreshold)
+                  000044ec    0000003c     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_construct)
+                  00004528    0000003c     ti_sysbios_config.o (.text.ti_sysbios_knl_ClockSupport_init)
+                  00004564    0000003c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_blockI)
+                  000045a0    0000003c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_restore)
+                  000045dc    0000003c     ti_sysbios_config.o (.text.ti_sysbios_runtime_Memory_alloc)
+                  00004618    0000003c     ti_sysbios_config.o (.text.ti_sysbios_runtime_SystemSupport_flush)
+                  00004654    00000038     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oscDisableQualifiers)
+                  0000468c    00000038     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.text.rf_patch_cpe_bt5)
+                  000046c4    00000038     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_processVitalTaskFlag)
+                  000046fc    00000038     libc.a : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit)
+                  00004734    00000034     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_releaseConstraint)
+                  00004768    00000034     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_powerConstraintRelease)
+                  0000479c    00000034     radio_api.o (.text.Radio_beginRX)
+                  000047d0    00000034     ti_sysbios_config.o (.text.SwiP_construct)
+                  00004804    00000034     libsysbm.a : trgmsg.c.obj (.text.__TI_writemsg)
+                  00004838    00000034     ti_sysbios_config.o (.text._pthread_cleanupFxn)
+                  0000486c    00000034     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_getStackInfo)
+                  000048a0    00000034     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_init)
+                  000048d4    00000034     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_Instance_init)
+                  00004908    00000034     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_unblockI)
+                  0000493c    00000034     ti_sysbios_config.o (.text.ti_sysbios_runtime_Error_raiseX)
+                  00004970    00000034     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_processAtExit)
+                  000049a4    00000034     sysbios.a : boot_cortex_m.obj (.text:_c_int00)
+                  000049d8    00000032     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_pendTimeout)
+                  00004a0a    00000002     --HOLE-- [fill = 0]
+                  00004a0c    00000030     ti_sysbios_config.o (.text.ClockP_construct)
+                  00004a3c    00000030     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_setConstraint)
+                  00004a6c    00000030     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_checkCmdFsError)
+                  00004a9c    00000030     libsysbm.a : trgmsg.c.obj (.text.__TI_readmsg)
+                  00004acc    00000030     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.notify)
+                  00004afc    00000030     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_excHandlerMin)
+                  00004b2c    00000030     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_free)
+                  00004b5c    00000030     ti_sysbios_config.o (.text.ti_sysbios_knl_TaskSupport_start)
+                  00004b8c    00000030     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_atexit)
+                  00004bbc    0000002e     driverlib.lib : chipinfo.o (.text.NOROM_ThisLibraryIsFor_CC13x2_CC26x2_HwRev20AndLater_HaltIfViolated)
+                  00004bea    0000002e     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_calculateDeltaTimeUs)
+                  00004c18    0000002c     ti_sysbios_config.o (.text.PowerCC26XX_schedulerDisable)
+                  00004c44    0000002c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_executeDirectImmediateCmd)
+                  00004c70    0000002c     radio_api.o (.text.Radio_setFrequencySynthesizer)
+                  00004c9c    0000002c     ti_sysbios_config.o (.text._pthread_delete)
+                  00004cc8    0000002c     ti_sysbios_config.o (.text.ti_sysbios_gates_GateMutex_enter)
+                  00004cf4    0000002c     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_getTicks)
+                  00004d20    0000002c     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_getTimeout)
+                  00004d4c    0000002c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_restoreHwi)
+                  00004d78    0000002a     driverlib.lib : osc.o (.text.NOROM_OSCHF_TurnOnXosc)
+                  00004da2    0000002a     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_setNextTick)
+                  00004dcc    0000002a     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_allBlockedFunction)
+                  00004df6    00000002     --HOLE-- [fill = 0]
+                  00004df8    00000028     ti_sysbios_config.o (.text.BIOS_registerRTSLock)
+                  00004e20    00000028     drivers_cc26x2.a : List.c.obj (.text.List_remove)
+                  00004e48    00000028                      : PowerCC26X2.c.obj (.text.PowerCC26XX_isStableXOSC_HF)
+                  00004e70    00000028     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdStoreEvents)
+                  00004e98    00000028     sysbios.a : Hwi_asm_gnu.obj (.text.ti_sysbios_family_arm_m3_Hwi_excHandlerAsm)
+                  00004ec0    00000028     ti_sysbios_config.o (.text.ti_sysbios_gates_GateMutex_Instance_init)
+                  00004ee8    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_Instance_init)
+                  00004f10    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_init)
+                  00004f38    00000028     sysbios.a : TaskSupport_asm_gnu.obj (.text.ti_sysbios_knl_TaskSupport_swap)
+                  00004f60    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_construct)
+                  00004f88    00000028     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_init)
+                  00004fb0    00000026     drivers_cc26x2.a : List.c.obj (.text.List_insert)
+                  00004fd6    00000026                      : List.c.obj (.text.List_putHead)
+                  00004ffc    00000026     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_runCmd)
+                  00005022    00000002     --HOLE-- [fill = 0]
+                  00005024    00000024     ti_sysbios_config.o (.text.BIOS_removeRTSLock)
+                  00005048    00000024     drivers_cc26x2.a : List.c.obj (.text.List_put)
+                  0000506c    00000024                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_getOscHfSourceReady)
+                  00005090    00000024                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_setSubSecIncToXoscLf)
+                  000050b4    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeCtrim)
+                  000050d8    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeCtrimFract)
+                  000050fc    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeCtrimFractEn)
+                  00005120    00000024                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_writeRtrim)
+                  00005144    00000024                      : PowerCC26X2.c.obj (.text.Power_registerNotify)
+                  00005168    00000024     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_clkPowerUp)
+                  0000518c    00000024                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hwiCpe0ChangePhy)
+                  000051b0    00000024                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_isStateTransitionAllowed)
+                  000051d4    00000024                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_searchAndReplacePAOverride)
+                  000051f8    00000024     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_construct)
+                  0000521c    00000024     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_destruct)
+                  00005240    00000024     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_enter)
+                  00005264    00000022     drivers_cc26x2.a : List.c.obj (.text.List_get)
+                  00005286    00000022     ti_sysbios_config.o (.text.ti_sysbios_runtime_SysMin_output)
+                  000052a8    00000020     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCDoorbellSendTo)
+                  000052c8    00000020                           : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCOverrideSearch)
+                  000052e8    00000020     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_disableTCXOQual)
+                  00005308    00000020                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_enableTCXOQual)
+                  00005328    00000020     ti_sysbios_config.o (.text.PowerCC26XX_schedulerRestore)
+                  00005348    00000020     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdAlloc)
+                  00005368    00000020                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_invokeGlobalCallback)
+                  00005388    00000020                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_ratIsRunning)
+                  000053a8    00000020     ti_sysbios_config.o (.text.SemaphoreP_constructBinary)
+                  000053c8    00000020     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_initStack)
+                  000053e8    00000020     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_delete)
+                  00005408    00000020     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_destruct)
+                  00005428    0000001e     sysbios.a : Hwi_asm_switch_gnu.obj (.text.ti_sysbios_family_arm_m3_Hwi_switchAndRunFunc)
+                  00005446    00000002     --HOLE-- [fill = 0]
+                  00005448    0000001c     ti_sysbios_config.o (.text.BIOS_rtsLock)
+                  00005464    0000001c     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_getTransitionLatency)
+                  00005480    0000001c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_clkInactivityCallback)
+                  0000549c    0000001c                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_getPAOverrideOffsetAndValue)
+                  000054b8    0000001c                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_powerConstraintSet)
+                  000054d4    0000001c                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_swiFsm)
+                  000054f0    0000001c     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_run)
+                  0000550c    0000001c     ti_sysbios_config.o (.text.ti_sysbios_knl_Queue_put)
+                  00005528    0000001c     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_construct)
+                  00005544    00000018     ti_sysbios_config.o (.text.BIOS_exitFunc)
+                  0000555c    00000018     ti_sysbios_config.o (.text.BIOS_rtsUnlock)
+                  00005574    00000018     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.PowerCC26XX_calibrate)
+                  0000558c    00000018                      : PowerCC26X2.c.obj (.text.Power_idleFunc)
+                  000055a4    00000018     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_restartClockTimeout)
+                  000055bc    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_scheduleNextTick)
+                  000055d4    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_construct2)
+                  000055ec    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_or)
+                  00005604    00000018     sysbios.a : TaskSupport_asm_gnu.obj (.text.ti_sysbios_knl_TaskSupport_glue)
+                  0000561c    00000018     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_unblock)
+                  00005634    00000016     ti_sysbios_config.o (.text.HwiP_setFunc)
+                  0000564a    00000016     drivers_cc26x2.a : List.c.obj (.text.List_clearList)
+                  00005660    00000016     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_start)
+                  00005676    00000002     --HOLE-- [fill = 0]
+                  00005678    00000014     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_dbellSyncOnAck)
+                  0000568c    00000014                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_flushCmd)
+                  000056a0    00000014     ti_sysbios_config.o (.text.SwiP_disable)
+                  000056b4    00000014     libc.a : args_main.c.obj (.text._args_main)
+                  000056c8    00000014     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_switchFromBootStack)
+                  000056dc    00000014     libclang_rt.builtins.a : aeabi_memset.S.obj (.text)
+                  000056f0    00000014                            : aeabi_uldivmod.S.obj (.text)
+                  00005704    00000012     libc.a : memcpy_t2.S.obj (.text:TI_memcpy_small)
+                  00005716    00000010     ti_sysbios_config.o (.text.HwiP_Params_init)
+                  00005726    00000002     --HOLE-- [fill = 0]
+                  00005728    00000010     ti_sysbios_config.o (.text.HwiP_post)
+                  00005738    00000010     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCCpeIntGetAndClear)
+                  00005748    00000010                           : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCHwIntGetAndClear)
+                  00005758    00000010     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oscCtlClearXtal)
+                  00005768    00000010                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_prcmEnableCacheRetention)
+                  00005778    00000010                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_readCtrim)
+                  00005788    00000010                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_readCtrimFract)
+                  00005798    00000010                      : PowerCC26X2_calibrateRCOSC_helpers.c.obj (.text.PowerCC26X2_readRtrim)
+                  000057a8    00000010                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_switchToTCXO)
+                  000057b8    00000010     ti_sysbios_config.o (.text.SwiP_Params_init)
+                  000057c8    00000010     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_dynamicStub)
+                  000057d8    00000010     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_excHandler)
+                  000057e8    00000010     libc.a : copy_zero_init.c.obj (.text:decompress:ZI)
+                  000057f8    0000000e     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.OUTLINED_FUNCTION_0)
+                  00005806    0000000e     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_0)
+                  00005814    0000000e                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_3)
+                  00005822    0000000e     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.switchToTCXO)
+                  00005830    0000000e     ti_sysbios_config.o (.text.ti_sysbios_gates_GateMutex_leave)
+                  0000583e    0000000e     libc.a : memset_t2.S.obj (.text:TI_memset_small)
+                  0000584c    0000000e            : copy_decompress_none.c.obj (.text:decompress:none)
+                  0000585a    00000002     --HOLE-- [fill = 0]
+                  0000585c    0000000c     ti_sysbios_config.o (.text.BIOS_linkedWithIncorrectBootLibrary)
+                  00005868    0000000c     ti_sysbios_config.o (.text.BIOS_start)
+                  00005874    0000000c     ti_sysbios_config.o (.text.HwiP_disable)
+                  00005880    0000000c     driverlib.lib : cpu.o (.text.NOROM_CPUcpsid)
+                  0000588c    0000000c                   : cpu.o (.text.NOROM_CPUcpsie)
+                  00005898    0000000c     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oscClockSourceGet)
+                  000058a4    0000000c                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_setPeriphDeepSleepEnable)
+                  000058b0    0000000c                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlGetResetSource)
+                  000058bc    0000000c                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlVoltageConditionalControl)
+                  000058c8    0000000c                      : PowerCC26X2.c.obj (.text.Power_getConstraintMask)
+                  000058d4    0000000c     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_Params_init)
+                  000058e0    0000000c     radio_queue.o (.text.RadioQueue_getDQpointer)
+                  000058ec    0000000c     ti_sysbios_config.o (.text.SwiP_getTrigger)
+                  000058f8    0000000c     libc.a : _lock.c.obj (.text._register_lock)
+                  00005904    0000000c            : _lock.c.obj (.text._register_unlock)
+                  00005910    0000000c     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_init)
+                  0000591c    0000000c     ti_sysbios_config.o (.text.ti_sysbios_knl_ClockSupport_setNextTick)
+                  00005928    0000000c     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_tick)
+                  00005934    0000000c     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_Params_init)
+                  00005940    0000000a     ti_sysbios_config.o (.text.ClockP_Params_init)
+                  0000594a    0000000a     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_5)
+                  00005954    0000000a     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlStandby)
+                  0000595e    0000000a     radio_api.o (.text.Radio_stopRX)
+                  00005968    0000000a     ti_sysbios_config.o (.text.SemaphoreP_pend)
+                  00005972    00000008     driverlib.lib : cpu.o (.text.NOROM_CPUdelay)
+                  0000597a    00000008     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_2)
+                  00005982    00000008     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oschfTrySwitchToXosc)
+                  0000598a    00000008     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_exit)
+                  00005992    00000006     ti_sysbios_config.o (.text.ClockP_stop)
+                  00005998    00000006     ti_sysbios_config.o (.text.HwiP_restore)
+                  0000599e    00000006     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.OUTLINED_FUNCTION_4)
+                  000059a4    00000006                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_clkReqAccess)
+                  000059aa    00000006     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_doSwiRestore)
+                  000059b0    00000006     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_doTaskRestore)
+                  000059b6    00000006     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_loop)
+                  000059bc    00000006     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_startup)
+                  000059c2    00000004     ti_sysbios_config.o (.text.ClockP_getSystemTickPeriod)
+                  000059c6    00000004     ti_sysbios_config.o (.text.ClockP_getTimeout)
+                  000059ca    00000004     ti_sysbios_config.o (.text.ClockP_isActive)
+                  000059ce    00000004     ti_sysbios_config.o (.text.ClockP_setTimeout)
+                  000059d2    00000004     ti_sysbios_config.o (.text.ClockP_start)
+                  000059d6    00000004     ti_sysbios_config.o (.text.HwiP_enableInterrupt)
+                  000059da    00000004     rf_multiMode_cc26x2.a : rfc.c.cc26x2.ticlang.o (.text.NOROM_RFCOverrideUpdate)
+                  000059de    00000004     drivers_cc26x2.a : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_oschfSwitchToRcosc)
+                  000059e2    00000004                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_sysCtrlIdle)
+                  000059e6    00000004                      : PowerCC26X2_helpers.c.obj (.text.PowerCC26X2_turnOnXosc)
+                  000059ea    00000004     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_defaultExecutionPolicy)
+                  000059ee    00000004     ti_sysbios_config.o (.text.ResetISR)
+                  000059f2    00000004     ti_sysbios_config.o (.text.SemaphoreP_post)
+                  000059f6    00000004     ti_sysbios_config.o (.text.SwiP_or)
+                  000059fa    00000004     ti_sysbios_config.o (.text.SwiP_restore)
+                  000059fe    00000004     ti_sysbios_config.o (.text._system_post_cinit)
+                  00005a02    00000004     ti_sysbios_config.o (.text._system_pre_init)
+                  00005a06    00000004     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.configureRFCoreClocks)
+                  00005a0a    00000004                      : PowerCC26X2.c.obj (.text.nopResourceHandler)
+                  00005a0e    00000004     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_isBlocking)
+                  00005a12    00000002     --HOLE-- [fill = 0]
+                  00005a14    00000004     libclang_rt.builtins.a : aeabi_memcpy.S.obj (.text)
 
-.rodata    0    00005a00    0000101c     
-                  00005a00    000005d0     ti_sysbios_config.o (.rodata.str1.1)
-                  00005fd0    00000538     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.rodata.patchImageBt5)
-                  00006508    000001ac                           : rf_patch_cpe_ieee_802_15_4.c.cc26x2.ticlang.o (.rodata.patchImageIeee802154)
-                  000066b4    0000008d     ti_sysbios_config.o (.rodata.ti_sysbios_heaps_HeapMem_alloc.err)
-                  00006741    00000089     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_Instance_init.err.1)
-                  000067ca    00000089     ti_sysbios_config.o (.rodata.ti_sysbios_runtime_Memory_alloc.err)
-                  00006853    00000086     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_Instance_init.err)
-                  000068d9    00000001     --HOLE-- [fill = 0]
-                  000068da    00000054     drivers_cc26x2.a : PowerCC26X2.c.obj (.rodata.resourceDB)
-                  0000692e    00000002     --HOLE-- [fill = 0]
-                  00006930    00000024     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Task_Params_default)
-                  00006954    00000020     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.rodata.cst32)
-                  00006974    0000001c     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_cc26xx_Timer_Params_default)
-                  00006990    00000018     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_Params_default)
-                  000069a8    00000014     ti_drivers_config.o (.rodata.PowerCC26X2_config)
-                  000069bc    00000014     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Swi_Params_default)
-                  000069d0    0000000c     ti_drivers_config.o (.rodata.RFCC26XX_hwAttrs)
-                  000069dc    0000000c     ti_sysbios_config.o (.rodata.ti_sysbios_heaps_HeapMem_Params_default)
-                  000069e8    0000000c     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Clock_Params_default)
-                  000069f4    0000000c     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Semaphore_Params_default)
-                  00006a00    00000008     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.rodata..L__const.RF_hwiCpe0Active.activeCmd)
-                  00006a08    00000008     driverlib.lib : aux_sysif.o (.rodata.cst4)
-                  00006a10    00000008     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Idle_funcList)
-                  00006a18    00000004     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_swiTaskKeyAddress)
+.rodata    0    00005a18    0000101c     
+                  00005a18    000005d0     ti_sysbios_config.o (.rodata.str1.1)
+                  00005fe8    00000538     rf_multiMode_cc26x2.a : rf_patch_cpe_bt5.c.cc26x2.ticlang.o (.rodata.patchImageBt5)
+                  00006520    000001ac                           : rf_patch_cpe_ieee_802_15_4.c.cc26x2.ticlang.o (.rodata.patchImageIeee802154)
+                  000066cc    0000008d     ti_sysbios_config.o (.rodata.ti_sysbios_heaps_HeapMem_alloc.err)
+                  00006759    00000089     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_Instance_init.err.1)
+                  000067e2    00000089     ti_sysbios_config.o (.rodata.ti_sysbios_runtime_Memory_alloc.err)
+                  0000686b    00000086     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_Instance_init.err)
+                  000068f1    00000001     --HOLE-- [fill = 0]
+                  000068f2    00000054     drivers_cc26x2.a : PowerCC26X2.c.obj (.rodata.resourceDB)
+                  00006946    00000002     --HOLE-- [fill = 0]
+                  00006948    00000024     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Task_Params_default)
+                  0000696c    00000020     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.rodata.cst32)
+                  0000698c    0000001c     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_cc26xx_Timer_Params_default)
+                  000069a8    00000018     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_Params_default)
+                  000069c0    00000014     ti_drivers_config.o (.rodata.PowerCC26X2_config)
+                  000069d4    00000014     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Swi_Params_default)
+                  000069e8    0000000c     ti_drivers_config.o (.rodata.RFCC26XX_hwAttrs)
+                  000069f4    0000000c     ti_sysbios_config.o (.rodata.ti_sysbios_heaps_HeapMem_Params_default)
+                  00006a00    0000000c     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Clock_Params_default)
+                  00006a0c    0000000c     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Semaphore_Params_default)
+                  00006a18    00000008     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.rodata..L__const.RF_hwiCpe0Active.activeCmd)
+                  00006a20    00000008     driverlib.lib : aux_sysif.o (.rodata.cst4)
+                  00006a28    00000008     ti_sysbios_config.o (.rodata.ti_sysbios_knl_Idle_funcList)
+                  00006a30    00000004     ti_sysbios_config.o (.rodata.ti_sysbios_family_arm_m3_Hwi_swiTaskKeyAddress)
 
-.args      0    00006a1c    00000008     
-                  00006a1c    00000008     --HOLE-- [fill = 0]
+.args      0    00006a34    00000008     
+                  00006a34    00000008     --HOLE-- [fill = 0]
 
 MODULE SUMMARY
 
@@ -521,10 +523,15 @@ MODULE SUMMARY
     +--+-----------------------------------------------+-------+---------+---------+
        Total:                                          72      0         36     
                                                                                 
-    .\source\radio_api\
-       radio_api.o                                     286     0         0      
+    .\source\queue\
+       radio_queue.o                                   12      0         12     
     +--+-----------------------------------------------+-------+---------+---------+
-       Total:                                          286     0         0      
+       Total:                                          12      0         12     
+                                                                                
+    .\source\radio_api\
+       radio_api.o                                     298     0         0      
+    +--+-----------------------------------------------+-------+---------+---------+
+       Total:                                          298     0         0      
                                                                                 
     .\syscfg\
        ti_sysbios_config.o                             7504    2253      2832   
@@ -599,21 +606,21 @@ MODULE SUMMARY
        Total:                                          222     0         0      
                                                                                 
        Stack:                                          0       0         1536   
-       Linker Generated:                               0       455       0      
+       Linker Generated:                               0       457       0      
     +--+-----------------------------------------------+-------+---------+---------+
-       Grand Total:                                    22962   4724      6858   
+       Grand Total:                                    22986   4726      6870   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00006bdc records: 2, size/record: 8, table size: 16
-	.data: load addr=00006a24, load size=000001a3 bytes, run addr=20004ec0, run size=0000060e bytes, compression=lzss
-	.bss: load addr=00006bd4, load size=00000008 bytes, run addr=200040d8, run size=00000de4 bytes, compression=zero_init
+__TI_cinit_table @ 00006bf8 records: 2, size/record: 8, table size: 16
+	.data: load addr=00006a3c, load size=000001a5 bytes, run addr=20004ec0, run size=0000061a bytes, compression=lzss
+	.bss: load addr=00006bf0, load size=00000008 bytes, run addr=200040d8, run size=00000de4 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00006bc8 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00006be4 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -624,124 +631,124 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 address   name                                                               
 -------   ----                                                               
 20005118  BIOS_Module_state                                                  
-00004011  BIOS_atExitFunc                                                    
-00005539  BIOS_exitFunc                                                      
+0000401d  BIOS_atExitFunc                                                    
+00005545  BIOS_exitFunc                                                      
 20004dd4  BIOS_heapMemObject                                                 
-00003d41  BIOS_init                                                          
-00005851  BIOS_linkedWithIncorrectBootLibrary                                
+00003d4d  BIOS_init                                                          
+0000585d  BIOS_linkedWithIncorrectBootLibrary                                
 00001ed7  BIOS_nullFunc                                                      
-00004ded  BIOS_registerRTSLock                                               
-00005019  BIOS_removeRTSLock                                                 
+00004df9  BIOS_registerRTSLock                                               
+00005025  BIOS_removeRTSLock                                                 
 20004e00  BIOS_rtsGate                                                       
-0000543d  BIOS_rtsLock                                                       
-00005551  BIOS_rtsUnlock                                                     
-0000585d  BIOS_start                                                         
-00003b79  BIOS_startFunc                                                     
-00004823  C$$IO$$                                                            
-00005929  ClockP_Params_init                                                 
-00004a01  ClockP_construct                                                   
-000059ab  ClockP_getSystemTickPeriod                                         
-000059af  ClockP_getTimeout                                                  
-000059b3  ClockP_isActive                                                    
-000059b7  ClockP_setTimeout                                                  
-000059bb  ClockP_start                                                       
-0000597b  ClockP_stop                                                        
+00005449  BIOS_rtsLock                                                       
+0000555d  BIOS_rtsUnlock                                                     
+00005869  BIOS_start                                                         
+00003b85  BIOS_startFunc                                                     
+0000482f  C$$IO$$                                                            
+00005941  ClockP_Params_init                                                 
+00004a0d  ClockP_construct                                                   
+000059c3  ClockP_getSystemTickPeriod                                         
+000059c7  ClockP_getTimeout                                                  
+000059cb  ClockP_isActive                                                    
+000059cf  ClockP_setTimeout                                                  
+000059d3  ClockP_start                                                       
+00005993  ClockP_stop                                                        
 00004000  HEAPSIZE                                                           
-00003895  HOSTwrite                                                          
-0000570b  HwiP_Params_init                                                   
-000043b5  HwiP_construct                                                     
-00005869  HwiP_disable                                                       
-000059bf  HwiP_enableInterrupt                                               
-0000571d  HwiP_post                                                          
-00005981  HwiP_restore                                                       
-00005629  HwiP_setFunc                                                       
+000038a1  HOSTwrite                                                          
+00005717  HwiP_Params_init                                                   
+000043c1  HwiP_construct                                                     
+00005875  HwiP_disable                                                       
+000059d7  HwiP_enableInterrupt                                               
+00005729  HwiP_post                                                          
+00005999  HwiP_restore                                                       
+00005635  HwiP_setFunc                                                       
 UNDEFED   ITM_flush                                                          
 UNDEFED   ITM_restore                                                        
-0000563f  List_clearList                                                     
-00005259  List_get                                                           
-00004fa5  List_insert                                                        
-0000503d  List_put                                                           
-00004fcb  List_putHead                                                       
-00004e15  List_remove                                                        
-00003d89  NOROM_AUXSYSIFOpModeChange                                         
-00005875  NOROM_CPUcpsid                                                     
-00005881  NOROM_CPUcpsie                                                     
-0000595b  NOROM_CPUdelay                                                     
+0000564b  List_clearList                                                     
+00005265  List_get                                                           
+00004fb1  List_insert                                                        
+00005049  List_put                                                           
+00004fd7  List_putHead                                                       
+00004e21  List_remove                                                        
+00003d95  NOROM_AUXSYSIFOpModeChange                                         
+00005881  NOROM_CPUcpsid                                                     
+0000588d  NOROM_CPUcpsie                                                     
+00005973  NOROM_CPUdelay                                                     
 00002b51  NOROM_ChipInfo_GetChipType                                         
-000039e5  NOROM_ChipInfo_GetHwRevision                                       
+000039f1  NOROM_ChipInfo_GetHwRevision                                       
 0000204d  NOROM_OSCHF_AttemptToSwitchToXosc                                  
 00002c4d  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                               
-00004d6d  NOROM_OSCHF_TurnOnXosc                                             
+00004d79  NOROM_OSCHF_TurnOnXosc                                             
 00002cc5  NOROM_OSC_CapArrayAdjustWorkaround_Boot                            
-00003bc5  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                          
-00004055  NOROM_PRCMPowerDomainsAllOff                                       
-00004099  NOROM_PRCMPowerDomainsAllOn                                        
-00003785  NOROM_RFCAnaDivTxOverride                                          
-0000572d  NOROM_RFCCpeIntGetAndClear                                         
+00003bd1  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                          
+00004061  NOROM_PRCMPowerDomainsAllOff                                       
+000040a5  NOROM_PRCMPowerDomainsAllOn                                        
+00003791  NOROM_RFCAnaDivTxOverride                                          
+00005739  NOROM_RFCCpeIntGetAndClear                                         
 0000278b  NOROM_RFCCpePatchReset                                             
-0000529d  NOROM_RFCDoorbellSendTo                                            
-0000573d  NOROM_RFCHwIntGetAndClear                                          
-000052bd  NOROM_RFCOverrideSearch                                            
-000059c3  NOROM_RFCOverrideUpdate                                            
-00003dd1  NOROM_RFCSynthPowerDown                                            
+000052a9  NOROM_RFCDoorbellSendTo                                            
+00005749  NOROM_RFCHwIntGetAndClear                                          
+000052c9  NOROM_RFCOverrideSearch                                            
+000059db  NOROM_RFCOverrideUpdate                                            
+00003ddd  NOROM_RFCSynthPowerDown                                            
 00001841  NOROM_SetupTrimDevice                                              
-000043f1  NOROM_SysCtrlIdle                                                  
+000043fd  NOROM_SysCtrlIdle                                                  
 00002a51  NOROM_SysCtrlSetRechargeBeforePowerDown                            
 0000174d  NOROM_SysCtrlStandby                                               
-00004bb1  NOROM_ThisLibraryIsFor_CC13x2_CC26x2_HwRev20AndLater_HaltIfViolated
-00004275  PowerCC26X2_RCOSC_clockFunc                                        
+00004bbd  NOROM_ThisLibraryIsFor_CC13x2_CC26x2_HwRev20AndLater_HaltIfViolated
+00004281  PowerCC26X2_RCOSC_clockFunc                                        
 0000094d  PowerCC26X2_auxISR                                                 
 0000143d  PowerCC26X2_calibrate                                              
-000069a8  PowerCC26X2_config                                                 
-000052dd  PowerCC26X2_disableTCXOQual                                        
-000052fd  PowerCC26X2_enableTCXOQual                                         
-00005061  PowerCC26X2_getOscHfSourceReady                                    
-000032e5  PowerCC26X2_initiateCalibration                                    
+000069c0  PowerCC26X2_config                                                 
+000052e9  PowerCC26X2_disableTCXOQual                                        
+00005309  PowerCC26X2_enableTCXOQual                                         
+0000506d  PowerCC26X2_getOscHfSourceReady                                    
+000032f1  PowerCC26X2_initiateCalibration                                    
 20004ec0  PowerCC26X2_module                                                 
-0000588d  PowerCC26X2_oscClockSourceGet                                      
-0000574d  PowerCC26X2_oscCtlClearXtal                                        
-00004649  PowerCC26X2_oscDisableQualifiers                                   
-000059c7  PowerCC26X2_oschfSwitchToRcosc                                     
-0000596b  PowerCC26X2_oschfTrySwitchToXosc                                   
-0000575d  PowerCC26X2_prcmEnableCacheRetention                               
-0000576d  PowerCC26X2_readCtrim                                              
-0000577d  PowerCC26X2_readCtrimFract                                         
-0000578d  PowerCC26X2_readRtrim                                              
-000042b5  PowerCC26X2_setAclkRefSrc                                          
-00005899  PowerCC26X2_setPeriphDeepSleepEnable                               
-00005085  PowerCC26X2_setSubSecIncToXoscLf                                   
-0000442d  PowerCC26X2_setTdcClkSrc24M                                        
-0000579d  PowerCC26X2_switchToTCXO                                           
-000058a5  PowerCC26X2_sysCtrlGetResetSource                                  
-000059cb  PowerCC26X2_sysCtrlIdle                                            
-0000593d  PowerCC26X2_sysCtrlStandby                                         
-000058b1  PowerCC26X2_sysCtrlVoltageConditionalControl                       
-000059cf  PowerCC26X2_turnOnXosc                                             
+00005899  PowerCC26X2_oscClockSourceGet                                      
+00005759  PowerCC26X2_oscCtlClearXtal                                        
+00004655  PowerCC26X2_oscDisableQualifiers                                   
+000059df  PowerCC26X2_oschfSwitchToRcosc                                     
+00005983  PowerCC26X2_oschfTrySwitchToXosc                                   
+00005769  PowerCC26X2_prcmEnableCacheRetention                               
+00005779  PowerCC26X2_readCtrim                                              
+00005789  PowerCC26X2_readCtrimFract                                         
+00005799  PowerCC26X2_readRtrim                                              
+000042c1  PowerCC26X2_setAclkRefSrc                                          
+000058a5  PowerCC26X2_setPeriphDeepSleepEnable                               
+00005091  PowerCC26X2_setSubSecIncToXoscLf                                   
+00004439  PowerCC26X2_setTdcClkSrc24M                                        
+000057a9  PowerCC26X2_switchToTCXO                                           
+000058b1  PowerCC26X2_sysCtrlGetResetSource                                  
+000059e3  PowerCC26X2_sysCtrlIdle                                            
+00005955  PowerCC26X2_sysCtrlStandby                                         
+000058bd  PowerCC26X2_sysCtrlVoltageConditionalControl                       
+000059e7  PowerCC26X2_turnOnXosc                                             
 00002e2d  PowerCC26X2_updateSubSecInc                                        
-000050a9  PowerCC26X2_writeCtrim                                             
-000050cd  PowerCC26X2_writeCtrimFract                                        
-000050f1  PowerCC26X2_writeCtrimFractEn                                      
-00005115  PowerCC26X2_writeRtrim                                             
-00005569  PowerCC26XX_calibrate                                              
-00004e3d  PowerCC26XX_isStableXOSC_HF                                        
-00004c0d  PowerCC26XX_schedulerDisable                                       
-0000531d  PowerCC26XX_schedulerRestore                                       
+000050b5  PowerCC26X2_writeCtrim                                             
+000050d9  PowerCC26X2_writeCtrimFract                                        
+000050fd  PowerCC26X2_writeCtrimFractEn                                      
+00005121  PowerCC26X2_writeRtrim                                             
+00005575  PowerCC26XX_calibrate                                              
+00004e49  PowerCC26XX_isStableXOSC_HF                                        
+00004c19  PowerCC26XX_schedulerDisable                                       
+00005329  PowerCC26XX_schedulerRestore                                       
 00002101  PowerCC26XX_standbyPolicy                                          
 20004eac  PowerCC26XX_swiKey                                                 
-00003e19  PowerCC26XX_switchXOSC_HF                                          
+00003e25  PowerCC26XX_switchXOSC_HF                                          
 20004eb0  PowerCC26XX_taskKey                                                
-000058bd  Power_getConstraintMask                                            
-00005459  Power_getTransitionLatency                                         
-00005581  Power_idleFunc                                                     
+000058c9  Power_getConstraintMask                                            
+00005465  Power_getTransitionLatency                                         
+0000558d  Power_idleFunc                                                     
 0000120d  Power_init                                                         
-00005139  Power_registerNotify                                               
-00004729  Power_releaseConstraint                                            
+00005145  Power_registerNotify                                               
+00004735  Power_releaseConstraint                                            
 000021b5  Power_releaseDependency                                            
-00004a31  Power_setConstraint                                                
+00004a3d  Power_setConstraint                                                
 00002269  Power_setDependency                                                
 00000ae1  Power_sleep                                                        
-000069d0  RFCC26XX_hwAttrs                                                   
-200054a4  RFCC26XX_schedulerPolicy                                           
+000069e8  RFCC26XX_hwAttrs                                                   
+200054b0  RFCC26XX_schedulerPolicy                                           
 200053d4  RFCMD_bleFrequencySynthesizer                                      
 20005398  RFCMD_bleGenericRX                                                 
 20005434  RFCMD_bleGenericRXPar                                              
@@ -751,66 +758,67 @@ UNDEFED   ITM_restore
 2000546c  RFCMD_ieeeModeObject                                               
 200052f8  RFCMD_ieeeRX                                                       
 20005404  RFCMD_ieeeRadioSetup                                               
-000058c9  RF_Params_init                                                     
-000059d3  RF_defaultExecutionPolicy                                          
+000058d5  RF_Params_init                                                     
+000059eb  RF_defaultExecutionPolicy                                          
 0000265d  RF_defaultSubmitPolicy                                             
-00005681  RF_flushCmd                                                        
-0000393d  RF_getCurrentTime                                                  
+0000568d  RF_flushCmd                                                        
+00003949  RF_getCurrentTime                                                  
 000004d5  RF_open                                                            
 000023c9  RF_pendCmd                                                         
 00001bb1  RF_postCmd                                                         
-0000475d  RF_powerConstraintRelease                                          
-000054ad  RF_powerConstraintSet                                              
-00004ff1  RF_runCmd                                                          
-00004791  Radio_beginRX                                                      
-00003215  Radio_initRXCmd                                                    
-00003c11  Radio_openRadioCore                                                
-00004c65  Radio_setFrequencySynthesizer                                      
-00005947  Radio_stopRX                                                       
-000059d7  ResetISR                                                           
-0000539d  SemaphoreP_constructBinary                                         
-00005951  SemaphoreP_pend                                                    
-000059db  SemaphoreP_post                                                    
-000057ad  SwiP_Params_init                                                   
-000047c5  SwiP_construct                                                     
-00005695  SwiP_disable                                                       
-000058d5  SwiP_getTrigger                                                    
-000059df  SwiP_or                                                            
-000059e3  SwiP_restore                                                       
-000056f9  TI_memcpy_small                                                    
-00005833  TI_memset_small                                                    
+00004769  RF_powerConstraintRelease                                          
+000054b9  RF_powerConstraintSet                                              
+00004ffd  RF_runCmd                                                          
+000058e1  RadioQueue_getDQpointer                                            
+0000479d  Radio_beginRX                                                      
+00002f15  Radio_initRXCmd                                                    
+00003c1d  Radio_openRadioCore                                                
+00004c71  Radio_setFrequencySynthesizer                                      
+0000595f  Radio_stopRX                                                       
+000059ef  ResetISR                                                           
+000053a9  SemaphoreP_constructBinary                                         
+00005969  SemaphoreP_pend                                                    
+000059f3  SemaphoreP_post                                                    
+000057b9  SwiP_Params_init                                                   
+000047d1  SwiP_construct                                                     
+000056a1  SwiP_disable                                                       
+000058ed  SwiP_getTrigger                                                    
+000059f7  SwiP_or                                                            
+000059fb  SwiP_restore                                                       
+00005705  TI_memcpy_small                                                    
+0000583f  TI_memset_small                                                    
 20004998  _CIOBUF_                                                           
 20004998  __CIOBUF_                                                          
 20014000  __STACK_END                                                        
 00000600  __STACK_SIZE                                                       
-00006bdc  __TI_CINIT_Base                                                    
-00006bec  __TI_CINIT_Limit                                                   
-00006bec  __TI_CINIT_Warm                                                    
-00006bc8  __TI_Handler_Table_Base                                            
-00006bd4  __TI_Handler_Table_Limit                                           
-000046f1  __TI_auto_init_nobinit_nopinit                                     
-00003141  __TI_decompress_lzss                                               
-00005841  __TI_decompress_none                                               
+00006bf8  __TI_CINIT_Base                                                    
+00006c08  __TI_CINIT_Limit                                                   
+00006c08  __TI_CINIT_Warm                                                    
+00006be4  __TI_Handler_Table_Base                                            
+00006bf0  __TI_Handler_Table_Limit                                           
+000046fd  __TI_auto_init_nobinit_nopinit                                     
+000031b5  __TI_decompress_lzss                                               
+0000584d  __TI_decompress_none                                               
 ffffffff  __TI_pprof_out_hndl                                                
 ffffffff  __TI_prof_data_size                                                
 ffffffff  __TI_prof_data_start                                               
-00004a91  __TI_readmsg                                                       
+00004a9d  __TI_readmsg                                                       
 00000000  __TI_static_base__                                                 
-000047f9  __TI_writemsg                                                      
-000057dd  __TI_zero_init                                                     
-00003213  __aeabi_ldiv0                                                      
-000056dd  __aeabi_memclr                                                     
-000056dd  __aeabi_memclr4                                                    
-000056dd  __aeabi_memclr8                                                    
-000059fd  __aeabi_memcpy                                                     
-000059fd  __aeabi_memcpy4                                                    
-000059fd  __aeabi_memcpy8                                                    
-000056d1  __aeabi_memset                                                     
-000056d1  __aeabi_memset4                                                    
-000056d1  __aeabi_memset8                                                    
-000056e5  __aeabi_uldivmod                                                   
+00004805  __TI_writemsg                                                      
+000057e9  __TI_zero_init                                                     
+00003287  __aeabi_ldiv0                                                      
+000056e9  __aeabi_memclr                                                     
+000056e9  __aeabi_memclr4                                                    
+000056e9  __aeabi_memclr8                                                    
+00005a15  __aeabi_memcpy                                                     
+00005a15  __aeabi_memcpy4                                                    
+00005a15  __aeabi_memcpy8                                                    
+000056dd  __aeabi_memset                                                     
+000056dd  __aeabi_memset4                                                    
+000056dd  __aeabi_memset8                                                    
+000056f1  __aeabi_uldivmod                                                   
 ffffffff  __binit__                                                          
-00006a1c  __c_args__                                                         
+00006a34  __c_args__                                                         
 00057fa8  __ccfg                                                             
 UNDEFED   __mpu_init                                                         
 200040d8  __primary_heap_end__                                               
@@ -821,167 +829,167 @@ UNDEFED   __mpu_init
 20000000  __stop___llvm_prf_bits                                             
 20000000  __stop___llvm_prf_cnts                                             
 00002319  __udivmoddi4                                                       
-000056a9  _args_main                                                         
-00004999  _c_int00                                                           
+000056b5  _args_main                                                         
+000049a5  _c_int00                                                           
 2000547c  _hposcCoeffs                                                       
-200054c4  _lock                                                              
-00003663  _nop                                                               
-0000482d  _pthread_cleanupFxn                                                
-000058e1  _register_lock                                                     
-000058ed  _register_unlock                                                   
-000059e7  _system_post_cinit                                                 
-000059eb  _system_pre_init                                                   
-200054c8  _unlock                                                            
+200054d0  _lock                                                              
+0000366f  _nop                                                               
+00004839  _pthread_cleanupFxn                                                
+000058f9  _register_lock                                                     
+00005905  _register_unlock                                                   
+000059ff  _system_post_cinit                                                 
+00005a03  _system_pre_init                                                   
+200054d4  _unlock                                                            
 ffffffff  binit                                                              
 2000541c  ble_pOverrides1Mbps                                                
 200053b8  ble_pOverrides2Mbps                                                
 20005448  ble_pOverridesCoded                                                
 200052a4  ble_pOverridesCommon                                               
 2000548c  ieee_pOverrides                                                    
-00003e61  main                                                               
+00003e6d  main                                                               
 20004e94  parmbuf                                                            
-000068da  resourceDB                                                         
-00004681  rf_patch_cpe_bt5                                                   
-00003ea9  rf_patch_cpe_ieee_802_15_4                                         
+000068f2  resourceDB                                                         
+0000468d  rf_patch_cpe_bt5                                                   
+00003eb5  rf_patch_cpe_ieee_802_15_4                                         
 20004e50  testParams                                                         
 2000505c  ti_sysbios_family_arm_cc26xx_Timer_Module_state                    
 00000fd1  ti_sysbios_family_arm_cc26xx_Timer_construct                       
-000057bd  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub                     
-00004469  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
-00004d97  ti_sysbios_family_arm_cc26xx_Timer_setNextTick                     
-000044a5  ti_sysbios_family_arm_cc26xx_Timer_setThreshold                    
-00003ef1  ti_sysbios_family_arm_cc26xx_Timer_start                           
+000057c9  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub                     
+00004475  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
+00004da3  ti_sysbios_family_arm_cc26xx_Timer_setNextTick                     
+000044b1  ti_sysbios_family_arm_cc26xx_Timer_setThreshold                    
+00003efd  ti_sysbios_family_arm_cc26xx_Timer_start                           
 20004eb4  ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_state        
-00002f89  ti_sysbios_family_arm_m3_Hwi_Instance_init                         
+00002ffd  ti_sysbios_family_arm_m3_Hwi_Instance_init                         
 20005144  ti_sysbios_family_arm_m3_Hwi_Module_state                          
-000051ed  ti_sysbios_family_arm_m3_Hwi_construct                             
-00004165  ti_sysbios_family_arm_m3_Hwi_construct2                            
-000041a9  ti_sysbios_family_arm_m3_Hwi_disableInterrupt                      
+000051f9  ti_sysbios_family_arm_m3_Hwi_construct                             
+00004171  ti_sysbios_family_arm_m3_Hwi_construct2                            
+000041b5  ti_sysbios_family_arm_m3_Hwi_disableInterrupt                      
 000010f1  ti_sysbios_family_arm_m3_Hwi_dispatch                              
-000030d5  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
+00003149  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
 20004ab8  ti_sysbios_family_arm_m3_Hwi_dispatchTable                         
-00005993  ti_sysbios_family_arm_m3_Hwi_doSwiRestore                          
-00005999  ti_sysbios_family_arm_m3_Hwi_doTaskRestore                         
-000041ed  ti_sysbios_family_arm_m3_Hwi_enableInterrupt                       
+000059ab  ti_sysbios_family_arm_m3_Hwi_doSwiRestore                          
+000059b1  ti_sysbios_family_arm_m3_Hwi_doTaskRestore                         
+000041f9  ti_sysbios_family_arm_m3_Hwi_enableInterrupt                       
 00001a09  ti_sysbios_family_arm_m3_Hwi_excFillContext                        
-000057cd  ti_sysbios_family_arm_m3_Hwi_excHandler                            
-00004e8d  ti_sysbios_family_arm_m3_Hwi_excHandlerAsm                         
-00004af1  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
-00004861  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
-00004895  ti_sysbios_family_arm_m3_Hwi_init                                  
+000057d9  ti_sysbios_family_arm_m3_Hwi_excHandler                            
+00004e99  ti_sysbios_family_arm_m3_Hwi_excHandlerAsm                         
+00004afd  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
+0000486d  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
+000048a1  ti_sysbios_family_arm_m3_Hwi_init                                  
 00002ad1  ti_sysbios_family_arm_m3_Hwi_initNVIC                              
-000053bd  ti_sysbios_family_arm_m3_Hwi_initStack                             
-0000383d  ti_sysbios_family_arm_m3_Hwi_initStacks                            
+000053c9  ti_sysbios_family_arm_m3_Hwi_initStack                             
+00003849  ti_sysbios_family_arm_m3_Hwi_initStacks                            
 000011c8  ti_sysbios_family_arm_m3_Hwi_interruptsAreDisabledButShouldNotBe   
 000011cd  ti_sysbios_family_arm_m3_Hwi_pendSV                                
 00002bd1  ti_sysbios_family_arm_m3_Hwi_postInit                              
 20000000  ti_sysbios_family_arm_m3_Hwi_ramVectors                            
 00000000  ti_sysbios_family_arm_m3_Hwi_resetVectors                          
 000011f0  ti_sysbios_family_arm_m3_Hwi_return                                
-00006a18  ti_sysbios_family_arm_m3_Hwi_swiTaskKeyAddress                     
-0000541d  ti_sysbios_family_arm_m3_Hwi_switchAndRunFunc                      
-000056bd  ti_sysbios_family_arm_m3_Hwi_switchFromBootStack                   
-00004eb5  ti_sysbios_gates_GateMutex_Instance_init                           
-200054ac  ti_sysbios_gates_GateMutex_Module_state                            
-00004cbd  ti_sysbios_gates_GateMutex_enter                                   
-00005825  ti_sysbios_gates_GateMutex_leave                                   
-00003f39  ti_sysbios_heaps_HeapMem_Instance_init                             
-200054b4  ti_sysbios_heaps_HeapMem_Module_state                              
-00003f81  ti_sysbios_heaps_HeapMem_alloc                                     
-00003603  ti_sysbios_heaps_HeapMem_allocUnprotected                          
-000044e1  ti_sysbios_heaps_HeapMem_construct                                 
-00004b21  ti_sysbios_heaps_HeapMem_free                                      
-00003b29  ti_sysbios_heaps_HeapMem_freeUnprotected                           
+00006a30  ti_sysbios_family_arm_m3_Hwi_swiTaskKeyAddress                     
+00005429  ti_sysbios_family_arm_m3_Hwi_switchAndRunFunc                      
+000056c9  ti_sysbios_family_arm_m3_Hwi_switchFromBootStack                   
+00004ec1  ti_sysbios_gates_GateMutex_Instance_init                           
+200054b8  ti_sysbios_gates_GateMutex_Module_state                            
+00004cc9  ti_sysbios_gates_GateMutex_enter                                   
+00005831  ti_sysbios_gates_GateMutex_leave                                   
+00003f45  ti_sysbios_heaps_HeapMem_Instance_init                             
+200054c0  ti_sysbios_heaps_HeapMem_Module_state                              
+00003f8d  ti_sysbios_heaps_HeapMem_alloc                                     
+0000360f  ti_sysbios_heaps_HeapMem_allocUnprotected                          
+000044ed  ti_sysbios_heaps_HeapMem_construct                                 
+00004b2d  ti_sysbios_heaps_HeapMem_free                                      
+00003b35  ti_sysbios_heaps_HeapMem_freeUnprotected                           
 20004e28  ti_sysbios_heaps_HeapMem_gate                                      
-000042f5  ti_sysbios_heaps_HeapMem_getStats                                  
-000058f9  ti_sysbios_heaps_HeapMem_init                                      
-000059f7  ti_sysbios_heaps_HeapMem_isBlocking                                
-0000451d  ti_sysbios_knl_ClockSupport_init                                   
-00005905  ti_sysbios_knl_ClockSupport_setNextTick                            
+00004301  ti_sysbios_heaps_HeapMem_getStats                                  
+00005911  ti_sysbios_heaps_HeapMem_init                                      
+00005a0f  ti_sysbios_heaps_HeapMem_isBlocking                                
+00004529  ti_sysbios_knl_ClockSupport_init                                   
+0000591d  ti_sysbios_knl_ClockSupport_setNextTick                            
 20004bf8  ti_sysbios_knl_ClockSupport_timerStruct                            
-000048c9  ti_sysbios_knl_Clock_Instance_init                                 
+000048d5  ti_sysbios_knl_Clock_Instance_init                                 
 20005180  ti_sysbios_knl_Clock_Module_state                                  
-00004ce9  ti_sysbios_knl_Clock_getTicks                                      
-00004335  ti_sysbios_knl_Clock_getTicksUntilInterrupt                        
-00004d15  ti_sysbios_knl_Clock_getTimeout                                    
+00004cf5  ti_sysbios_knl_Clock_getTicks                                      
+00004341  ti_sysbios_knl_Clock_getTicksUntilInterrupt                        
+00004d21  ti_sysbios_knl_Clock_getTimeout                                    
 000028b5  ti_sysbios_knl_Clock_init                                          
-000055b1  ti_sysbios_knl_Clock_scheduleNextTick                              
-00005655  ti_sysbios_knl_Clock_start                                         
+000055bd  ti_sysbios_knl_Clock_scheduleNextTick                              
+00005661  ti_sysbios_knl_Clock_start                                         
 00002821  ti_sysbios_knl_Clock_startI                                        
-00005911  ti_sysbios_knl_Clock_tick                                          
-00003665  ti_sysbios_knl_Clock_walkQueueDynamic                              
+00005929  ti_sysbios_knl_Clock_tick                                          
+00003671  ti_sysbios_knl_Clock_walkQueueDynamic                              
 00001c7d  ti_sysbios_knl_Clock_workFuncDynamic                               
-00006a10  ti_sysbios_knl_Idle_funcList                                       
-000034d9  ti_sysbios_knl_Idle_init                                           
+00006a28  ti_sysbios_knl_Idle_funcList                                       
+000034e5  ti_sysbios_knl_Idle_init                                           
 20005037  ti_sysbios_knl_Idle_initDone                                       
-0000599f  ti_sysbios_knl_Idle_loop                                           
-000054e5  ti_sysbios_knl_Idle_run                                            
+000059b7  ti_sysbios_knl_Idle_loop                                           
+000054f1  ti_sysbios_knl_Idle_run                                            
 20004798  ti_sysbios_knl_Idle_taskStack                                      
 20004c58  ti_sysbios_knl_Idle_taskStruct                                     
-00005501  ti_sysbios_knl_Queue_put                                           
-00004edd  ti_sysbios_knl_Semaphore_Instance_init                             
-200054bc  ti_sysbios_knl_Semaphore_Module_state                              
-00005211  ti_sysbios_knl_Semaphore_destruct                                  
+0000550d  ti_sysbios_knl_Queue_put                                           
+00004ee9  ti_sysbios_knl_Semaphore_Instance_init                             
+200054c8  ti_sysbios_knl_Semaphore_Module_state                              
+0000521d  ti_sysbios_knl_Semaphore_destruct                                  
 00001925  ti_sysbios_knl_Semaphore_pend                                      
-000049cd  ti_sysbios_knl_Semaphore_pendTimeout                               
-000036c5  ti_sysbios_knl_Semaphore_post                                      
-00003cf5  ti_sysbios_knl_Swi_Instance_init                                   
+000049d9  ti_sysbios_knl_Semaphore_pendTimeout                               
+000036d1  ti_sysbios_knl_Semaphore_post                                      
+00003d01  ti_sysbios_knl_Swi_Instance_init                                   
 20005084  ti_sysbios_knl_Swi_Module_state                                    
-0000551d  ti_sysbios_knl_Swi_construct                                       
-000055c9  ti_sysbios_knl_Swi_construct2                                      
-00004f05  ti_sysbios_knl_Swi_init                                            
-000055e1  ti_sysbios_knl_Swi_or                                              
-00003a89  ti_sysbios_knl_Swi_post                                            
+00005529  ti_sysbios_knl_Swi_construct                                       
+000055d5  ti_sysbios_knl_Swi_construct2                                      
+00004f11  ti_sysbios_knl_Swi_init                                            
+000055ed  ti_sysbios_knl_Swi_or                                              
+00003a95  ti_sysbios_knl_Swi_post                                            
 20004d74  ti_sysbios_knl_Swi_readyQs                                         
-00004231  ti_sysbios_knl_Swi_restore                                         
-00002f15  ti_sysbios_knl_Swi_restoreHwi                                      
-0000327d  ti_sysbios_knl_Swi_run                                             
-00003ad9  ti_sysbios_knl_Swi_runLoop                                         
-00003725  ti_sysbios_knl_Swi_schedule                                        
-000059a5  ti_sysbios_knl_Swi_startup                                         
-0000353d  ti_sysbios_knl_TaskSupport_buildTaskStack                          
-000055f9  ti_sysbios_knl_TaskSupport_glue                                    
-00004b51  ti_sysbios_knl_TaskSupport_start                                   
-00004f2d  ti_sysbios_knl_TaskSupport_swap                                    
-00004f38  ti_sysbios_knl_TaskSupport_swapReturn                              
+0000423d  ti_sysbios_knl_Swi_restore                                         
+00002f89  ti_sysbios_knl_Swi_restoreHwi                                      
+00003289  ti_sysbios_knl_Swi_run                                             
+00003ae5  ti_sysbios_knl_Swi_runLoop                                         
+00003731  ti_sysbios_knl_Swi_schedule                                        
+000059bd  ti_sysbios_knl_Swi_startup                                         
+00003549  ti_sysbios_knl_TaskSupport_buildTaskStack                          
+00005605  ti_sysbios_knl_TaskSupport_glue                                    
+00004b5d  ti_sysbios_knl_TaskSupport_start                                   
+00004f39  ti_sysbios_knl_TaskSupport_swap                                    
+00004f44  ti_sysbios_knl_TaskSupport_swapReturn                              
 00001f95  ti_sysbios_knl_Task_Instance_finalize                              
 00002519  ti_sysbios_knl_Task_Instance_init                                  
 20005338  ti_sysbios_knl_Task_Module_state                                   
-0000591d  ti_sysbios_knl_Task_Params_init                                    
-00004dc1  ti_sysbios_knl_Task_allBlockedFunction                             
-00004559  ti_sysbios_knl_Task_blockI                                         
-00004f55  ti_sysbios_knl_Task_construct                                      
+00005935  ti_sysbios_knl_Task_Params_init                                    
+00004dcd  ti_sysbios_knl_Task_allBlockedFunction                             
+00004565  ti_sysbios_knl_Task_blockI                                         
+00004f61  ti_sysbios_knl_Task_construct                                      
 20004eb8  ti_sysbios_knl_Task_defaultStackHeap                               
-000053dd  ti_sysbios_knl_Task_delete                                         
-000053fd  ti_sysbios_knl_Task_destruct                                       
-00005235  ti_sysbios_knl_Task_enter                                          
-00004375  ti_sysbios_knl_Task_exit                                           
-00004f7d  ti_sysbios_knl_Task_init                                           
+000053e9  ti_sysbios_knl_Task_delete                                         
+00005409  ti_sysbios_knl_Task_destruct                                       
+00005241  ti_sysbios_knl_Task_enter                                          
+00004381  ti_sysbios_knl_Task_exit                                           
+00004f89  ti_sysbios_knl_Task_init                                           
 00002db5  ti_sysbios_knl_Task_postInit                                       
-000046b9  ti_sysbios_knl_Task_processVitalTaskFlag                           
+000046c5  ti_sysbios_knl_Task_processVitalTaskFlag                           
 20004da4  ti_sysbios_knl_Task_readyQs                                        
-00004595  ti_sysbios_knl_Task_restore                                        
-00004d41  ti_sysbios_knl_Task_restoreHwi                                     
-00003fc9  ti_sysbios_knl_Task_schedule                                       
-00002ff9  ti_sysbios_knl_Task_startup                                        
-00005611  ti_sysbios_knl_Task_unblock                                        
-000048fd  ti_sysbios_knl_Task_unblockI                                       
+000045a1  ti_sysbios_knl_Task_restore                                        
+00004d4d  ti_sysbios_knl_Task_restoreHwi                                     
+00003fd5  ti_sysbios_knl_Task_schedule                                       
+0000306d  ti_sysbios_knl_Task_startup                                        
+0000561d  ti_sysbios_knl_Task_unblock                                        
+00004909  ti_sysbios_knl_Task_unblockI                                       
 20005050  ti_sysbios_runtime_Error_ignore                                    
-00004931  ti_sysbios_runtime_Error_raiseX                                    
-000045d1  ti_sysbios_runtime_Memory_alloc                                    
+0000493d  ti_sysbios_runtime_Error_raiseX                                    
+000045dd  ti_sysbios_runtime_Memory_alloc                                    
 20005038  ti_sysbios_runtime_Memory_defaultHeapInstance                      
 20005034  ti_sysbios_runtime_Startup_done                                    
-00003991  ti_sysbios_runtime_Startup_exec                                    
+0000399d  ti_sysbios_runtime_Startup_exec                                    
 20005074  ti_sysbios_runtime_SysMin_Module_state                             
 200040d8  ti_sysbios_runtime_SysMin_outbuf                                   
-0000527b  ti_sysbios_runtime_SysMin_output                                   
-0000460d  ti_sysbios_runtime_SystemSupport_flush                             
+00005287  ti_sysbios_runtime_SysMin_output                                   
+00004619  ti_sysbios_runtime_SystemSupport_flush                             
 20005068  ti_sysbios_runtime_System_Module_state                             
-00004b81  ti_sysbios_runtime_System_atexit                                   
+00004b8d  ti_sysbios_runtime_System_atexit                                   
 20004e74  ti_sysbios_runtime_System_atexitHandlers                           
-00005973  ti_sysbios_runtime_System_exit                                     
-00003a37  ti_sysbios_runtime_System_exitSpin                                 
-00004965  ti_sysbios_runtime_System_processAtExit                            
+0000598b  ti_sysbios_runtime_System_exit                                     
+00003a43  ti_sysbios_runtime_System_exitSpin                                 
+00004971  ti_sysbios_runtime_System_processAtExit                            
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -1028,254 +1036,255 @@ address   name
 00002cc5  NOROM_OSC_CapArrayAdjustWorkaround_Boot                            
 00002db5  ti_sysbios_knl_Task_postInit                                       
 00002e2d  PowerCC26X2_updateSubSecInc                                        
-00002f15  ti_sysbios_knl_Swi_restoreHwi                                      
-00002f89  ti_sysbios_family_arm_m3_Hwi_Instance_init                         
-00002ff9  ti_sysbios_knl_Task_startup                                        
-000030d5  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
-00003141  __TI_decompress_lzss                                               
-00003213  __aeabi_ldiv0                                                      
-00003215  Radio_initRXCmd                                                    
-0000327d  ti_sysbios_knl_Swi_run                                             
-000032e5  PowerCC26X2_initiateCalibration                                    
-000034d9  ti_sysbios_knl_Idle_init                                           
-0000353d  ti_sysbios_knl_TaskSupport_buildTaskStack                          
-00003603  ti_sysbios_heaps_HeapMem_allocUnprotected                          
-00003663  _nop                                                               
-00003665  ti_sysbios_knl_Clock_walkQueueDynamic                              
-000036c5  ti_sysbios_knl_Semaphore_post                                      
-00003725  ti_sysbios_knl_Swi_schedule                                        
-00003785  NOROM_RFCAnaDivTxOverride                                          
-0000383d  ti_sysbios_family_arm_m3_Hwi_initStacks                            
-00003895  HOSTwrite                                                          
-0000393d  RF_getCurrentTime                                                  
-00003991  ti_sysbios_runtime_Startup_exec                                    
-000039e5  NOROM_ChipInfo_GetHwRevision                                       
-00003a37  ti_sysbios_runtime_System_exitSpin                                 
-00003a89  ti_sysbios_knl_Swi_post                                            
-00003ad9  ti_sysbios_knl_Swi_runLoop                                         
-00003b29  ti_sysbios_heaps_HeapMem_freeUnprotected                           
-00003b79  BIOS_startFunc                                                     
-00003bc5  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                          
-00003c11  Radio_openRadioCore                                                
-00003cf5  ti_sysbios_knl_Swi_Instance_init                                   
-00003d41  BIOS_init                                                          
-00003d89  NOROM_AUXSYSIFOpModeChange                                         
-00003dd1  NOROM_RFCSynthPowerDown                                            
-00003e19  PowerCC26XX_switchXOSC_HF                                          
-00003e61  main                                                               
-00003ea9  rf_patch_cpe_ieee_802_15_4                                         
-00003ef1  ti_sysbios_family_arm_cc26xx_Timer_start                           
-00003f39  ti_sysbios_heaps_HeapMem_Instance_init                             
-00003f81  ti_sysbios_heaps_HeapMem_alloc                                     
-00003fc9  ti_sysbios_knl_Task_schedule                                       
+00002f15  Radio_initRXCmd                                                    
+00002f89  ti_sysbios_knl_Swi_restoreHwi                                      
+00002ffd  ti_sysbios_family_arm_m3_Hwi_Instance_init                         
+0000306d  ti_sysbios_knl_Task_startup                                        
+00003149  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
+000031b5  __TI_decompress_lzss                                               
+00003287  __aeabi_ldiv0                                                      
+00003289  ti_sysbios_knl_Swi_run                                             
+000032f1  PowerCC26X2_initiateCalibration                                    
+000034e5  ti_sysbios_knl_Idle_init                                           
+00003549  ti_sysbios_knl_TaskSupport_buildTaskStack                          
+0000360f  ti_sysbios_heaps_HeapMem_allocUnprotected                          
+0000366f  _nop                                                               
+00003671  ti_sysbios_knl_Clock_walkQueueDynamic                              
+000036d1  ti_sysbios_knl_Semaphore_post                                      
+00003731  ti_sysbios_knl_Swi_schedule                                        
+00003791  NOROM_RFCAnaDivTxOverride                                          
+00003849  ti_sysbios_family_arm_m3_Hwi_initStacks                            
+000038a1  HOSTwrite                                                          
+00003949  RF_getCurrentTime                                                  
+0000399d  ti_sysbios_runtime_Startup_exec                                    
+000039f1  NOROM_ChipInfo_GetHwRevision                                       
+00003a43  ti_sysbios_runtime_System_exitSpin                                 
+00003a95  ti_sysbios_knl_Swi_post                                            
+00003ae5  ti_sysbios_knl_Swi_runLoop                                         
+00003b35  ti_sysbios_heaps_HeapMem_freeUnprotected                           
+00003b85  BIOS_startFunc                                                     
+00003bd1  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                          
+00003c1d  Radio_openRadioCore                                                
+00003d01  ti_sysbios_knl_Swi_Instance_init                                   
+00003d4d  BIOS_init                                                          
+00003d95  NOROM_AUXSYSIFOpModeChange                                         
+00003ddd  NOROM_RFCSynthPowerDown                                            
+00003e25  PowerCC26XX_switchXOSC_HF                                          
+00003e6d  main                                                               
+00003eb5  rf_patch_cpe_ieee_802_15_4                                         
+00003efd  ti_sysbios_family_arm_cc26xx_Timer_start                           
+00003f45  ti_sysbios_heaps_HeapMem_Instance_init                             
+00003f8d  ti_sysbios_heaps_HeapMem_alloc                                     
+00003fd5  ti_sysbios_knl_Task_schedule                                       
 00004000  HEAPSIZE                                                           
-00004011  BIOS_atExitFunc                                                    
-00004055  NOROM_PRCMPowerDomainsAllOff                                       
-00004099  NOROM_PRCMPowerDomainsAllOn                                        
-00004165  ti_sysbios_family_arm_m3_Hwi_construct2                            
-000041a9  ti_sysbios_family_arm_m3_Hwi_disableInterrupt                      
-000041ed  ti_sysbios_family_arm_m3_Hwi_enableInterrupt                       
-00004231  ti_sysbios_knl_Swi_restore                                         
-00004275  PowerCC26X2_RCOSC_clockFunc                                        
-000042b5  PowerCC26X2_setAclkRefSrc                                          
-000042f5  ti_sysbios_heaps_HeapMem_getStats                                  
-00004335  ti_sysbios_knl_Clock_getTicksUntilInterrupt                        
-00004375  ti_sysbios_knl_Task_exit                                           
-000043b5  HwiP_construct                                                     
-000043f1  NOROM_SysCtrlIdle                                                  
-0000442d  PowerCC26X2_setTdcClkSrc24M                                        
-00004469  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
-000044a5  ti_sysbios_family_arm_cc26xx_Timer_setThreshold                    
-000044e1  ti_sysbios_heaps_HeapMem_construct                                 
-0000451d  ti_sysbios_knl_ClockSupport_init                                   
-00004559  ti_sysbios_knl_Task_blockI                                         
-00004595  ti_sysbios_knl_Task_restore                                        
-000045d1  ti_sysbios_runtime_Memory_alloc                                    
-0000460d  ti_sysbios_runtime_SystemSupport_flush                             
-00004649  PowerCC26X2_oscDisableQualifiers                                   
-00004681  rf_patch_cpe_bt5                                                   
-000046b9  ti_sysbios_knl_Task_processVitalTaskFlag                           
-000046f1  __TI_auto_init_nobinit_nopinit                                     
-00004729  Power_releaseConstraint                                            
-0000475d  RF_powerConstraintRelease                                          
-00004791  Radio_beginRX                                                      
-000047c5  SwiP_construct                                                     
-000047f9  __TI_writemsg                                                      
-00004823  C$$IO$$                                                            
-0000482d  _pthread_cleanupFxn                                                
-00004861  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
-00004895  ti_sysbios_family_arm_m3_Hwi_init                                  
-000048c9  ti_sysbios_knl_Clock_Instance_init                                 
-000048fd  ti_sysbios_knl_Task_unblockI                                       
-00004931  ti_sysbios_runtime_Error_raiseX                                    
-00004965  ti_sysbios_runtime_System_processAtExit                            
-00004999  _c_int00                                                           
-000049cd  ti_sysbios_knl_Semaphore_pendTimeout                               
-00004a01  ClockP_construct                                                   
-00004a31  Power_setConstraint                                                
-00004a91  __TI_readmsg                                                       
-00004af1  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
-00004b21  ti_sysbios_heaps_HeapMem_free                                      
-00004b51  ti_sysbios_knl_TaskSupport_start                                   
-00004b81  ti_sysbios_runtime_System_atexit                                   
-00004bb1  NOROM_ThisLibraryIsFor_CC13x2_CC26x2_HwRev20AndLater_HaltIfViolated
-00004c0d  PowerCC26XX_schedulerDisable                                       
-00004c65  Radio_setFrequencySynthesizer                                      
-00004cbd  ti_sysbios_gates_GateMutex_enter                                   
-00004ce9  ti_sysbios_knl_Clock_getTicks                                      
-00004d15  ti_sysbios_knl_Clock_getTimeout                                    
-00004d41  ti_sysbios_knl_Task_restoreHwi                                     
-00004d6d  NOROM_OSCHF_TurnOnXosc                                             
-00004d97  ti_sysbios_family_arm_cc26xx_Timer_setNextTick                     
-00004dc1  ti_sysbios_knl_Task_allBlockedFunction                             
-00004ded  BIOS_registerRTSLock                                               
-00004e15  List_remove                                                        
-00004e3d  PowerCC26XX_isStableXOSC_HF                                        
-00004e8d  ti_sysbios_family_arm_m3_Hwi_excHandlerAsm                         
-00004eb5  ti_sysbios_gates_GateMutex_Instance_init                           
-00004edd  ti_sysbios_knl_Semaphore_Instance_init                             
-00004f05  ti_sysbios_knl_Swi_init                                            
-00004f2d  ti_sysbios_knl_TaskSupport_swap                                    
-00004f38  ti_sysbios_knl_TaskSupport_swapReturn                              
-00004f55  ti_sysbios_knl_Task_construct                                      
-00004f7d  ti_sysbios_knl_Task_init                                           
-00004fa5  List_insert                                                        
-00004fcb  List_putHead                                                       
-00004ff1  RF_runCmd                                                          
-00005019  BIOS_removeRTSLock                                                 
-0000503d  List_put                                                           
-00005061  PowerCC26X2_getOscHfSourceReady                                    
-00005085  PowerCC26X2_setSubSecIncToXoscLf                                   
-000050a9  PowerCC26X2_writeCtrim                                             
-000050cd  PowerCC26X2_writeCtrimFract                                        
-000050f1  PowerCC26X2_writeCtrimFractEn                                      
-00005115  PowerCC26X2_writeRtrim                                             
-00005139  Power_registerNotify                                               
-000051ed  ti_sysbios_family_arm_m3_Hwi_construct                             
-00005211  ti_sysbios_knl_Semaphore_destruct                                  
-00005235  ti_sysbios_knl_Task_enter                                          
-00005259  List_get                                                           
-0000527b  ti_sysbios_runtime_SysMin_output                                   
-0000529d  NOROM_RFCDoorbellSendTo                                            
-000052bd  NOROM_RFCOverrideSearch                                            
-000052dd  PowerCC26X2_disableTCXOQual                                        
-000052fd  PowerCC26X2_enableTCXOQual                                         
-0000531d  PowerCC26XX_schedulerRestore                                       
-0000539d  SemaphoreP_constructBinary                                         
-000053bd  ti_sysbios_family_arm_m3_Hwi_initStack                             
-000053dd  ti_sysbios_knl_Task_delete                                         
-000053fd  ti_sysbios_knl_Task_destruct                                       
-0000541d  ti_sysbios_family_arm_m3_Hwi_switchAndRunFunc                      
-0000543d  BIOS_rtsLock                                                       
-00005459  Power_getTransitionLatency                                         
-000054ad  RF_powerConstraintSet                                              
-000054e5  ti_sysbios_knl_Idle_run                                            
-00005501  ti_sysbios_knl_Queue_put                                           
-0000551d  ti_sysbios_knl_Swi_construct                                       
-00005539  BIOS_exitFunc                                                      
-00005551  BIOS_rtsUnlock                                                     
-00005569  PowerCC26XX_calibrate                                              
-00005581  Power_idleFunc                                                     
-000055b1  ti_sysbios_knl_Clock_scheduleNextTick                              
-000055c9  ti_sysbios_knl_Swi_construct2                                      
-000055e1  ti_sysbios_knl_Swi_or                                              
-000055f9  ti_sysbios_knl_TaskSupport_glue                                    
-00005611  ti_sysbios_knl_Task_unblock                                        
-00005629  HwiP_setFunc                                                       
-0000563f  List_clearList                                                     
-00005655  ti_sysbios_knl_Clock_start                                         
-00005681  RF_flushCmd                                                        
-00005695  SwiP_disable                                                       
-000056a9  _args_main                                                         
-000056bd  ti_sysbios_family_arm_m3_Hwi_switchFromBootStack                   
-000056d1  __aeabi_memset                                                     
-000056d1  __aeabi_memset4                                                    
-000056d1  __aeabi_memset8                                                    
-000056dd  __aeabi_memclr                                                     
-000056dd  __aeabi_memclr4                                                    
-000056dd  __aeabi_memclr8                                                    
-000056e5  __aeabi_uldivmod                                                   
-000056f9  TI_memcpy_small                                                    
-0000570b  HwiP_Params_init                                                   
-0000571d  HwiP_post                                                          
-0000572d  NOROM_RFCCpeIntGetAndClear                                         
-0000573d  NOROM_RFCHwIntGetAndClear                                          
-0000574d  PowerCC26X2_oscCtlClearXtal                                        
-0000575d  PowerCC26X2_prcmEnableCacheRetention                               
-0000576d  PowerCC26X2_readCtrim                                              
-0000577d  PowerCC26X2_readCtrimFract                                         
-0000578d  PowerCC26X2_readRtrim                                              
-0000579d  PowerCC26X2_switchToTCXO                                           
-000057ad  SwiP_Params_init                                                   
-000057bd  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub                     
-000057cd  ti_sysbios_family_arm_m3_Hwi_excHandler                            
-000057dd  __TI_zero_init                                                     
-00005825  ti_sysbios_gates_GateMutex_leave                                   
-00005833  TI_memset_small                                                    
-00005841  __TI_decompress_none                                               
-00005851  BIOS_linkedWithIncorrectBootLibrary                                
-0000585d  BIOS_start                                                         
-00005869  HwiP_disable                                                       
-00005875  NOROM_CPUcpsid                                                     
-00005881  NOROM_CPUcpsie                                                     
-0000588d  PowerCC26X2_oscClockSourceGet                                      
-00005899  PowerCC26X2_setPeriphDeepSleepEnable                               
-000058a5  PowerCC26X2_sysCtrlGetResetSource                                  
-000058b1  PowerCC26X2_sysCtrlVoltageConditionalControl                       
-000058bd  Power_getConstraintMask                                            
-000058c9  RF_Params_init                                                     
-000058d5  SwiP_getTrigger                                                    
-000058e1  _register_lock                                                     
-000058ed  _register_unlock                                                   
-000058f9  ti_sysbios_heaps_HeapMem_init                                      
-00005905  ti_sysbios_knl_ClockSupport_setNextTick                            
-00005911  ti_sysbios_knl_Clock_tick                                          
-0000591d  ti_sysbios_knl_Task_Params_init                                    
-00005929  ClockP_Params_init                                                 
-0000593d  PowerCC26X2_sysCtrlStandby                                         
-00005947  Radio_stopRX                                                       
-00005951  SemaphoreP_pend                                                    
-0000595b  NOROM_CPUdelay                                                     
-0000596b  PowerCC26X2_oschfTrySwitchToXosc                                   
-00005973  ti_sysbios_runtime_System_exit                                     
-0000597b  ClockP_stop                                                        
-00005981  HwiP_restore                                                       
-00005993  ti_sysbios_family_arm_m3_Hwi_doSwiRestore                          
-00005999  ti_sysbios_family_arm_m3_Hwi_doTaskRestore                         
-0000599f  ti_sysbios_knl_Idle_loop                                           
-000059a5  ti_sysbios_knl_Swi_startup                                         
-000059ab  ClockP_getSystemTickPeriod                                         
-000059af  ClockP_getTimeout                                                  
-000059b3  ClockP_isActive                                                    
-000059b7  ClockP_setTimeout                                                  
-000059bb  ClockP_start                                                       
-000059bf  HwiP_enableInterrupt                                               
-000059c3  NOROM_RFCOverrideUpdate                                            
-000059c7  PowerCC26X2_oschfSwitchToRcosc                                     
-000059cb  PowerCC26X2_sysCtrlIdle                                            
-000059cf  PowerCC26X2_turnOnXosc                                             
-000059d3  RF_defaultExecutionPolicy                                          
-000059d7  ResetISR                                                           
-000059db  SemaphoreP_post                                                    
-000059df  SwiP_or                                                            
-000059e3  SwiP_restore                                                       
-000059e7  _system_post_cinit                                                 
-000059eb  _system_pre_init                                                   
-000059f7  ti_sysbios_heaps_HeapMem_isBlocking                                
-000059fd  __aeabi_memcpy                                                     
-000059fd  __aeabi_memcpy4                                                    
-000059fd  __aeabi_memcpy8                                                    
-000068da  resourceDB                                                         
-000069a8  PowerCC26X2_config                                                 
-000069d0  RFCC26XX_hwAttrs                                                   
-00006a10  ti_sysbios_knl_Idle_funcList                                       
-00006a18  ti_sysbios_family_arm_m3_Hwi_swiTaskKeyAddress                     
-00006a1c  __c_args__                                                         
-00006bc8  __TI_Handler_Table_Base                                            
-00006bd4  __TI_Handler_Table_Limit                                           
-00006bdc  __TI_CINIT_Base                                                    
-00006bec  __TI_CINIT_Limit                                                   
-00006bec  __TI_CINIT_Warm                                                    
+0000401d  BIOS_atExitFunc                                                    
+00004061  NOROM_PRCMPowerDomainsAllOff                                       
+000040a5  NOROM_PRCMPowerDomainsAllOn                                        
+00004171  ti_sysbios_family_arm_m3_Hwi_construct2                            
+000041b5  ti_sysbios_family_arm_m3_Hwi_disableInterrupt                      
+000041f9  ti_sysbios_family_arm_m3_Hwi_enableInterrupt                       
+0000423d  ti_sysbios_knl_Swi_restore                                         
+00004281  PowerCC26X2_RCOSC_clockFunc                                        
+000042c1  PowerCC26X2_setAclkRefSrc                                          
+00004301  ti_sysbios_heaps_HeapMem_getStats                                  
+00004341  ti_sysbios_knl_Clock_getTicksUntilInterrupt                        
+00004381  ti_sysbios_knl_Task_exit                                           
+000043c1  HwiP_construct                                                     
+000043fd  NOROM_SysCtrlIdle                                                  
+00004439  PowerCC26X2_setTdcClkSrc24M                                        
+00004475  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
+000044b1  ti_sysbios_family_arm_cc26xx_Timer_setThreshold                    
+000044ed  ti_sysbios_heaps_HeapMem_construct                                 
+00004529  ti_sysbios_knl_ClockSupport_init                                   
+00004565  ti_sysbios_knl_Task_blockI                                         
+000045a1  ti_sysbios_knl_Task_restore                                        
+000045dd  ti_sysbios_runtime_Memory_alloc                                    
+00004619  ti_sysbios_runtime_SystemSupport_flush                             
+00004655  PowerCC26X2_oscDisableQualifiers                                   
+0000468d  rf_patch_cpe_bt5                                                   
+000046c5  ti_sysbios_knl_Task_processVitalTaskFlag                           
+000046fd  __TI_auto_init_nobinit_nopinit                                     
+00004735  Power_releaseConstraint                                            
+00004769  RF_powerConstraintRelease                                          
+0000479d  Radio_beginRX                                                      
+000047d1  SwiP_construct                                                     
+00004805  __TI_writemsg                                                      
+0000482f  C$$IO$$                                                            
+00004839  _pthread_cleanupFxn                                                
+0000486d  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
+000048a1  ti_sysbios_family_arm_m3_Hwi_init                                  
+000048d5  ti_sysbios_knl_Clock_Instance_init                                 
+00004909  ti_sysbios_knl_Task_unblockI                                       
+0000493d  ti_sysbios_runtime_Error_raiseX                                    
+00004971  ti_sysbios_runtime_System_processAtExit                            
+000049a5  _c_int00                                                           
+000049d9  ti_sysbios_knl_Semaphore_pendTimeout                               
+00004a0d  ClockP_construct                                                   
+00004a3d  Power_setConstraint                                                
+00004a9d  __TI_readmsg                                                       
+00004afd  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
+00004b2d  ti_sysbios_heaps_HeapMem_free                                      
+00004b5d  ti_sysbios_knl_TaskSupport_start                                   
+00004b8d  ti_sysbios_runtime_System_atexit                                   
+00004bbd  NOROM_ThisLibraryIsFor_CC13x2_CC26x2_HwRev20AndLater_HaltIfViolated
+00004c19  PowerCC26XX_schedulerDisable                                       
+00004c71  Radio_setFrequencySynthesizer                                      
+00004cc9  ti_sysbios_gates_GateMutex_enter                                   
+00004cf5  ti_sysbios_knl_Clock_getTicks                                      
+00004d21  ti_sysbios_knl_Clock_getTimeout                                    
+00004d4d  ti_sysbios_knl_Task_restoreHwi                                     
+00004d79  NOROM_OSCHF_TurnOnXosc                                             
+00004da3  ti_sysbios_family_arm_cc26xx_Timer_setNextTick                     
+00004dcd  ti_sysbios_knl_Task_allBlockedFunction                             
+00004df9  BIOS_registerRTSLock                                               
+00004e21  List_remove                                                        
+00004e49  PowerCC26XX_isStableXOSC_HF                                        
+00004e99  ti_sysbios_family_arm_m3_Hwi_excHandlerAsm                         
+00004ec1  ti_sysbios_gates_GateMutex_Instance_init                           
+00004ee9  ti_sysbios_knl_Semaphore_Instance_init                             
+00004f11  ti_sysbios_knl_Swi_init                                            
+00004f39  ti_sysbios_knl_TaskSupport_swap                                    
+00004f44  ti_sysbios_knl_TaskSupport_swapReturn                              
+00004f61  ti_sysbios_knl_Task_construct                                      
+00004f89  ti_sysbios_knl_Task_init                                           
+00004fb1  List_insert                                                        
+00004fd7  List_putHead                                                       
+00004ffd  RF_runCmd                                                          
+00005025  BIOS_removeRTSLock                                                 
+00005049  List_put                                                           
+0000506d  PowerCC26X2_getOscHfSourceReady                                    
+00005091  PowerCC26X2_setSubSecIncToXoscLf                                   
+000050b5  PowerCC26X2_writeCtrim                                             
+000050d9  PowerCC26X2_writeCtrimFract                                        
+000050fd  PowerCC26X2_writeCtrimFractEn                                      
+00005121  PowerCC26X2_writeRtrim                                             
+00005145  Power_registerNotify                                               
+000051f9  ti_sysbios_family_arm_m3_Hwi_construct                             
+0000521d  ti_sysbios_knl_Semaphore_destruct                                  
+00005241  ti_sysbios_knl_Task_enter                                          
+00005265  List_get                                                           
+00005287  ti_sysbios_runtime_SysMin_output                                   
+000052a9  NOROM_RFCDoorbellSendTo                                            
+000052c9  NOROM_RFCOverrideSearch                                            
+000052e9  PowerCC26X2_disableTCXOQual                                        
+00005309  PowerCC26X2_enableTCXOQual                                         
+00005329  PowerCC26XX_schedulerRestore                                       
+000053a9  SemaphoreP_constructBinary                                         
+000053c9  ti_sysbios_family_arm_m3_Hwi_initStack                             
+000053e9  ti_sysbios_knl_Task_delete                                         
+00005409  ti_sysbios_knl_Task_destruct                                       
+00005429  ti_sysbios_family_arm_m3_Hwi_switchAndRunFunc                      
+00005449  BIOS_rtsLock                                                       
+00005465  Power_getTransitionLatency                                         
+000054b9  RF_powerConstraintSet                                              
+000054f1  ti_sysbios_knl_Idle_run                                            
+0000550d  ti_sysbios_knl_Queue_put                                           
+00005529  ti_sysbios_knl_Swi_construct                                       
+00005545  BIOS_exitFunc                                                      
+0000555d  BIOS_rtsUnlock                                                     
+00005575  PowerCC26XX_calibrate                                              
+0000558d  Power_idleFunc                                                     
+000055bd  ti_sysbios_knl_Clock_scheduleNextTick                              
+000055d5  ti_sysbios_knl_Swi_construct2                                      
+000055ed  ti_sysbios_knl_Swi_or                                              
+00005605  ti_sysbios_knl_TaskSupport_glue                                    
+0000561d  ti_sysbios_knl_Task_unblock                                        
+00005635  HwiP_setFunc                                                       
+0000564b  List_clearList                                                     
+00005661  ti_sysbios_knl_Clock_start                                         
+0000568d  RF_flushCmd                                                        
+000056a1  SwiP_disable                                                       
+000056b5  _args_main                                                         
+000056c9  ti_sysbios_family_arm_m3_Hwi_switchFromBootStack                   
+000056dd  __aeabi_memset                                                     
+000056dd  __aeabi_memset4                                                    
+000056dd  __aeabi_memset8                                                    
+000056e9  __aeabi_memclr                                                     
+000056e9  __aeabi_memclr4                                                    
+000056e9  __aeabi_memclr8                                                    
+000056f1  __aeabi_uldivmod                                                   
+00005705  TI_memcpy_small                                                    
+00005717  HwiP_Params_init                                                   
+00005729  HwiP_post                                                          
+00005739  NOROM_RFCCpeIntGetAndClear                                         
+00005749  NOROM_RFCHwIntGetAndClear                                          
+00005759  PowerCC26X2_oscCtlClearXtal                                        
+00005769  PowerCC26X2_prcmEnableCacheRetention                               
+00005779  PowerCC26X2_readCtrim                                              
+00005789  PowerCC26X2_readCtrimFract                                         
+00005799  PowerCC26X2_readRtrim                                              
+000057a9  PowerCC26X2_switchToTCXO                                           
+000057b9  SwiP_Params_init                                                   
+000057c9  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub                     
+000057d9  ti_sysbios_family_arm_m3_Hwi_excHandler                            
+000057e9  __TI_zero_init                                                     
+00005831  ti_sysbios_gates_GateMutex_leave                                   
+0000583f  TI_memset_small                                                    
+0000584d  __TI_decompress_none                                               
+0000585d  BIOS_linkedWithIncorrectBootLibrary                                
+00005869  BIOS_start                                                         
+00005875  HwiP_disable                                                       
+00005881  NOROM_CPUcpsid                                                     
+0000588d  NOROM_CPUcpsie                                                     
+00005899  PowerCC26X2_oscClockSourceGet                                      
+000058a5  PowerCC26X2_setPeriphDeepSleepEnable                               
+000058b1  PowerCC26X2_sysCtrlGetResetSource                                  
+000058bd  PowerCC26X2_sysCtrlVoltageConditionalControl                       
+000058c9  Power_getConstraintMask                                            
+000058d5  RF_Params_init                                                     
+000058e1  RadioQueue_getDQpointer                                            
+000058ed  SwiP_getTrigger                                                    
+000058f9  _register_lock                                                     
+00005905  _register_unlock                                                   
+00005911  ti_sysbios_heaps_HeapMem_init                                      
+0000591d  ti_sysbios_knl_ClockSupport_setNextTick                            
+00005929  ti_sysbios_knl_Clock_tick                                          
+00005935  ti_sysbios_knl_Task_Params_init                                    
+00005941  ClockP_Params_init                                                 
+00005955  PowerCC26X2_sysCtrlStandby                                         
+0000595f  Radio_stopRX                                                       
+00005969  SemaphoreP_pend                                                    
+00005973  NOROM_CPUdelay                                                     
+00005983  PowerCC26X2_oschfTrySwitchToXosc                                   
+0000598b  ti_sysbios_runtime_System_exit                                     
+00005993  ClockP_stop                                                        
+00005999  HwiP_restore                                                       
+000059ab  ti_sysbios_family_arm_m3_Hwi_doSwiRestore                          
+000059b1  ti_sysbios_family_arm_m3_Hwi_doTaskRestore                         
+000059b7  ti_sysbios_knl_Idle_loop                                           
+000059bd  ti_sysbios_knl_Swi_startup                                         
+000059c3  ClockP_getSystemTickPeriod                                         
+000059c7  ClockP_getTimeout                                                  
+000059cb  ClockP_isActive                                                    
+000059cf  ClockP_setTimeout                                                  
+000059d3  ClockP_start                                                       
+000059d7  HwiP_enableInterrupt                                               
+000059db  NOROM_RFCOverrideUpdate                                            
+000059df  PowerCC26X2_oschfSwitchToRcosc                                     
+000059e3  PowerCC26X2_sysCtrlIdle                                            
+000059e7  PowerCC26X2_turnOnXosc                                             
+000059eb  RF_defaultExecutionPolicy                                          
+000059ef  ResetISR                                                           
+000059f3  SemaphoreP_post                                                    
+000059f7  SwiP_or                                                            
+000059fb  SwiP_restore                                                       
+000059ff  _system_post_cinit                                                 
+00005a03  _system_pre_init                                                   
+00005a0f  ti_sysbios_heaps_HeapMem_isBlocking                                
+00005a15  __aeabi_memcpy                                                     
+00005a15  __aeabi_memcpy4                                                    
+00005a15  __aeabi_memcpy8                                                    
+000068f2  resourceDB                                                         
+000069c0  PowerCC26X2_config                                                 
+000069e8  RFCC26XX_hwAttrs                                                   
+00006a28  ti_sysbios_knl_Idle_funcList                                       
+00006a30  ti_sysbios_family_arm_m3_Hwi_swiTaskKeyAddress                     
+00006a34  __c_args__                                                         
+00006be4  __TI_Handler_Table_Base                                            
+00006bf0  __TI_Handler_Table_Limit                                           
+00006bf8  __TI_CINIT_Base                                                    
+00006c08  __TI_CINIT_Limit                                                   
+00006c08  __TI_CINIT_Warm                                                    
 00057fa8  __ccfg                                                             
 20000000  __start___llvm_prf_bits                                            
 20000000  __start___llvm_prf_cnts                                            
@@ -1331,12 +1340,12 @@ address   name
 2000546c  RFCMD_ieeeModeObject                                               
 2000547c  _hposcCoeffs                                                       
 2000548c  ieee_pOverrides                                                    
-200054a4  RFCC26XX_schedulerPolicy                                           
-200054ac  ti_sysbios_gates_GateMutex_Module_state                            
-200054b4  ti_sysbios_heaps_HeapMem_Module_state                              
-200054bc  ti_sysbios_knl_Semaphore_Module_state                              
-200054c4  _lock                                                              
-200054c8  _unlock                                                            
+200054b0  RFCC26XX_schedulerPolicy                                           
+200054b8  ti_sysbios_gates_GateMutex_Module_state                            
+200054c0  ti_sysbios_heaps_HeapMem_Module_state                              
+200054c8  ti_sysbios_knl_Semaphore_Module_state                              
+200054d0  _lock                                                              
+200054d4  _unlock                                                            
 20013a00  __stack                                                            
 20014000  __STACK_END                                                        
 ffffffff  __TI_pprof_out_hndl                                                
@@ -1348,4 +1357,4 @@ UNDEFED   ITM_flush
 UNDEFED   ITM_restore                                                        
 UNDEFED   __mpu_init                                                         
 
-[359 symbols]
+[360 symbols]
