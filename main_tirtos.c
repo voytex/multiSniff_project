@@ -46,6 +46,8 @@
 
 #include <ti/drivers/Board.h>
 
+#include <ti/sysbios/knl/Semaphore.h>
+
 #include "ti_drivers_config.h"
 
 #include "ti_radio_config.h"
@@ -63,26 +65,45 @@ Task_Handle testHandle;
 /*
  *  ======== main ========
  */
+
+void testTask(UArg a0, UArg a1)
+{
+    //RF_Handle pHandle;
+       RF_Object pObj;
+       RF_Params pParams;
+       RF_EventMask lastEvent;
+       RF_CmdHandle handle;
+
+       RF_Params_init(&pParams);
+
+       Log_print(NULL, &RFCMD_bleFrequencySynthesizer, CmdStatus);
+
+       //Radio_openRadioCore(&pParams, &pObj, BluetoothLowEnergy, pHandle);
+       RF_Handle pHandle = RF_open(&pObj, (RF_Mode*)&RFCMD_bleModeObject, (RF_RadioSetup*)&RFCMD_bleRadioSetup, &pParams);
+
+       Radio_initRXCmd(BluetoothLowEnergy);
+
+       lastEvent = RF_runCmd(pHandle, (RF_Op*)&RFCMD_bleFrequencySynthesizer, RF_PriorityNormal, NULL, 0);
+       //lastEvent = Radio_setFrequencySynthesizer(pHandle, BluetoothLowEnergy);
+
+       Log_print("Set Frequency Synthesizer\n", &lastEvent, RfEvent);
+
+       handle = Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 1);
+
+       Log_print("Begin RX Status\n", &RFCMD_bleGenericRX, CmdStatus);
+
+       Radio_stopRX(pHandle);
+
+       Log_print("Begin RX Status\n", &RFCMD_bleGenericRX, CmdStatus);
+
+}
+
+
 int main(void)
 {
-    RF_Handle pHandle;
-    RF_Object pObj;
-    RF_Params pParams;
-
-    Radio_openRadioCore(&pParams, &pObj, BluetoothLowEnergy, pHandle);
-
-    Radio_initRXCmd(BluetoothLowEnergy);
-
-    Radio_setFrequencySynthesizer(pHandle, BluetoothLowEnergy);
-
-    Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 1);
-
-    Radio_stopRX(pHandle);
-
-
     Task_Params_init(&testParams);
-    testParams.priority = 2;
-
+    testParams.stackSize = 1024;
+    testHandle = Task_create((Task_FuncPtr)testTask, &testParams, NULL);
 
     BIOS_start();
 
