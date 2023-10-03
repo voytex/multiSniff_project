@@ -5,8 +5,8 @@
  *      Author: Administrator
  */
 
-#ifndef SOURCE_LOG_LOG_H_
-#define SOURCE_LOG_LOG_H_
+#ifndef LOG_LOG_H_
+#define LOG_LOG_H_
 
 // === ENUM DEFINITIONS =========================================================================================
 
@@ -26,4 +26,4 @@ void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType);
 
 // ==============================================================================================================
 
-#endif /* SOURCE_LOG_LOG_H_ */
+#endif /* LOG_LOG_H_ */

@@ -7,12 +7,13 @@
 
 // === INCLUDES =================================================================================================
 
-#include <source/log/log.h>
-#include <source/radio_api/radio_api.h>
-#include "ti_drivers_config.h"
-
 #include "ti_radio_config.h"
 
+#include "ti_drivers_config.h"
+
+#include <source/log/log.h>
+
+#include <source/radio_api/radio_api.h>
 
 // ==============================================================================================================
 

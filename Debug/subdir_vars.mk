@@ -12,13 +12,11 @@ SYSCFG_SRCS += \
 ../multiSniff.syscfg 
 
 C_SRCS += \
-../log.c \
 ../main_tirtos.c \
 ./syscfg/ti_devices_config.c \
 ./syscfg/ti_radio_config.c \
 ./syscfg/ti_drivers_config.c \
-./syscfg/ti_sysbios_config.c \
-../radio_api.c 
+./syscfg/ti_sysbios_config.c 
 
 GEN_FILES += \
 ./syscfg/ti_devices_config.c \
@@ -30,22 +28,18 @@ GEN_MISC_DIRS += \
 ./syscfg/ 
 
 C_DEPS += \
-./log.d \
 ./main_tirtos.d \
 ./syscfg/ti_devices_config.d \
 ./syscfg/ti_radio_config.d \
 ./syscfg/ti_drivers_config.d \
-./syscfg/ti_sysbios_config.d \
-./radio_api.d 
+./syscfg/ti_sysbios_config.d 
 
 OBJS += \
-./log.o \
 ./main_tirtos.o \
 ./syscfg/ti_devices_config.o \
 ./syscfg/ti_radio_config.o \
 ./syscfg/ti_drivers_config.o \
-./syscfg/ti_sysbios_config.o \
-./radio_api.o 
+./syscfg/ti_sysbios_config.o 
 
 GEN_MISC_FILES += \
 ./syscfg/ti_radio_config.h \
@@ -60,13 +54,11 @@ GEN_MISC_DIRS__QUOTED += \
 "syscfg\" 
 
 OBJS__QUOTED += \
-"log.o" \
 "main_tirtos.o" \
 "syscfg\ti_devices_config.o" \
 "syscfg\ti_radio_config.o" \
 "syscfg\ti_drivers_config.o" \
-"syscfg\ti_sysbios_config.o" \
-"radio_api.o" 
+"syscfg\ti_sysbios_config.o" 
 
 GEN_MISC_FILES__QUOTED += \
 "syscfg\ti_radio_config.h" \
@@ -78,13 +70,11 @@ GEN_MISC_FILES__QUOTED += \
 "syscfg\ti_sysbios_config.h" 
 
 C_DEPS__QUOTED += \
-"log.d" \
 "main_tirtos.d" \
 "syscfg\ti_devices_config.d" \
 "syscfg\ti_radio_config.d" \
 "syscfg\ti_drivers_config.d" \
-"syscfg\ti_sysbios_config.d" \
-"radio_api.d" 
+"syscfg\ti_sysbios_config.d" 
 
 GEN_FILES__QUOTED += \
 "syscfg\ti_devices_config.c" \
@@ -93,13 +83,11 @@ GEN_FILES__QUOTED += \
 "syscfg\ti_sysbios_config.c" 
 
 C_SRCS__QUOTED += \
-"../log.c" \
 "../main_tirtos.c" \
 "./syscfg/ti_devices_config.c" \
 "./syscfg/ti_radio_config.c" \
 "./syscfg/ti_drivers_config.c" \
-"./syscfg/ti_sysbios_config.c" \
-"../radio_api.c" 
+"./syscfg/ti_sysbios_config.c" 
 
 SYSCFG_SRCS__QUOTED += \
 "../multiSniff.syscfg" 

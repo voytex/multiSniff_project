@@ -34,7 +34,6 @@
 /*
  *  ======== main_tirtos.c ========
  */
-#include <source/radio_api/radio_api.h>
 #include <stdint.h>
 
 /*
@@ -51,7 +50,9 @@
 
 #include "ti_radio_config.h"
 
+#include <source/log/log.h>
 
+#include <source/radio_api/radio_api.h>
 
 Task_Params testParams;
 Task_Handle testHandle;

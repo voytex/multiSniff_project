@@ -7,11 +7,11 @@
 
 // === INCLUDES =================================================================================================
 
-#include <source/log/log.h>
-#include <xdc/runtime/System.h>
-
 #include "ti_radio_config.h"
 
+#include <xdc/runtime/System.h>
+
+#include <source/log/log.h>
 
 // ==============================================================================================================
 

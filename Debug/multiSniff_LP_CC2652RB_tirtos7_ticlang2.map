@@ -1,7 +1,7 @@
 ******************************************************************************
             TI ARM Clang Linker PC v2.1.2                      
 ******************************************************************************
->> Linked Tue Oct  3 20:23:46 2023
+>> Linked Tue Oct  3 20:52:49 2023
 
 OUTPUT FILE NAME:   <multiSniff_LP_CC2652RB_tirtos7_ticlang2.out>
 ENTRY POINT SYMBOL: "ResetISR"  address: 000059d7
@@ -517,10 +517,14 @@ MODULE SUMMARY
        Module                                          code    ro data   rw data
        ------                                          ----    -------   -------
     .\
-       radio_api.o                                     286     0         0      
        main_tirtos.o                                   72      0         36     
     +--+-----------------------------------------------+-------+---------+---------+
-       Total:                                          358     0         36     
+       Total:                                          72      0         36     
+                                                                                
+    .\source\radio_api\
+       radio_api.o                                     286     0         0      
+    +--+-----------------------------------------------+-------+---------+---------+
+       Total:                                          286     0         0      
                                                                                 
     .\syscfg\
        ti_sysbios_config.o                             7504    2253      2832   
