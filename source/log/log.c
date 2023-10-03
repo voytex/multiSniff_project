@@ -7,11 +7,11 @@
 
 // === INCLUDES =================================================================================================
 
+#include <source/log/log.h>
 #include <xdc/runtime/System.h>
 
 #include "ti_radio_config.h"
 
-#include "log.h"
 
 // ==============================================================================================================
 
@@ -22,15 +22,18 @@
 /*
  * === Log_print
  * Prints (using System_printf) log message formatted by
- * passed LogEntity_t type.
+ * passed-in LogEntity_t type.
  *
  * Parameters:
+ *      msg[in]                 - message that gets printed before
+ *                                actual diagnostics data
  *      pEntity[in]             - pointer to entity to be printed
+ *                                (diagnostics data)
  *      entityType[in]          - type of entity
  * Returns:
  *      N/A
  */
-void Log_print(const char msg[], void* pEntity, LogEntity_t entityType)
+void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
 {
 #ifdef LOG_ENABLED
 
@@ -39,9 +42,9 @@ void Log_print(const char msg[], void* pEntity, LogEntity_t entityType)
     uint64_t* events  = (uint64_t*)pEntity;
     uint32_t* integer = (uint32_t*)pEntity;
 
-    if (msg != NULL)
+    if (pMsg != NULL)
     {
-        System_printf("%s\n", msg);
+        System_printf("%s\n", pMsg);
     }
 
     switch (entityType)
@@ -112,7 +115,7 @@ void Log_print(const char msg[], void* pEntity, LogEntity_t entityType)
         System_printf("Unhandeled Log Event...\n");
         break;
     }
-#endif
+#endif /* LOG_ENABLED */
 
     return;
 }

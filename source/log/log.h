@@ -5,8 +5,8 @@
  *      Author: Administrator
  */
 
-#ifndef LOG_H_
-#define LOG_H_
+#ifndef SOURCE_LOG_LOG_H_
+#define SOURCE_LOG_LOG_H_
 
 // === ENUM DEFINITIONS =========================================================================================
 
@@ -22,8 +22,8 @@ typedef enum LogEntity {
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
-void Log_print(const char msg[], void* pEntity, LogEntity_t entityType);
+void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType);
 
 // ==============================================================================================================
 
-#endif /* LOG_H_ */
+#endif /* SOURCE_LOG_LOG_H_ */
