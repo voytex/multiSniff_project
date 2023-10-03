@@ -8,11 +8,22 @@
 #ifndef LOG_H_
 #define LOG_H_
 
+// === ENUM DEFINITIONS =========================================================================================
+
 typedef enum LogEntity {
     RfStat,
-    CmdStatus
+    CmdStatus,
+    RfEvent,
+    Integer,
+    Buffer
 } LogEntity_t;
 
-void Log_print(void* pEntity, LogEntity_t entityType);
+// ==============================================================================================================
+
+// === PUBLISHED FUNCTIONS ======================================================================================
+
+void Log_print(const char msg[], void* pEntity, LogEntity_t entityType);
+
+// ==============================================================================================================
 
 #endif /* LOG_H_ */
