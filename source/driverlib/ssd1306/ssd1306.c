@@ -31,70 +31,85 @@
 
 // === GLOBAL VARIABLES =========================================================================================
 
+/*
+ * === SSD1306_InitSequence
+ * Sequence of commands to be sent at startup
+ *
+ */
 const uint8_t SSD1306_InitSequence[] = {
-        SSD1306_DISPLAY_OFF,                                         // 0xAE = Set Display OFF
-        SSD1306_DISPLAY_OFF,                                         // 0xAE = Set Display OFF (twice because first command always got damaged)
-        SSD1306_SET_MUX_RATIO, 63,                                   // 0xA8 - 64MUX for 128 x 64 version
-                                                                     //      - 32MUX for 128 x 32 version
-        SSD1306_MEMORY_ADDR_MODE, 0x00,                              // 0x20 = Set Memory Addressing Mode
-                                                                     // 0x00 - Horizontal Addressing Mode
-                                                                     // 0x01 - Vertical Addressing Mode
-                                                                     // 0x02 - Page Addressing Mode (RESET)
-        SSD1306_SET_COLUMN_ADDR, START_COLUMN_ADDR, END_COLUMN_ADDR, // 0x21 = Set Column Address, 0 - 127
-        SSD1306_SET_PAGE_ADDR, START_PAGE_ADDR, END_PAGE_ADDR,       // 0x22 = Set Page Address, 0 - 7
-        SSD1306_SET_START_LINE,                                      // 0x40
-        SSD1306_DISPLAY_OFFSET, 0x00,                                // 0xD3
-        SSD1306_SEG_REMAP_OP,                                        // 0xA0 / remap 0xA1
-        SSD1306_COM_SCAN_DIR_OP,                                     // 0xC0 / remap 0xC8
-        SSD1306_COM_PIN_CONF, 0x12,                                  // 0xDA, 0x12 - Disable COM Left/Right remap, Alternative COM pin configuration
-                                                                     //       0x12 - for 128 x 64 version
-                                                                     //       0x02 - for 128 x 32 version
-        SSD1306_SET_CONTRAST, 0x7F,                                  // 0x81, 0x7F - reset value (max 0xFF)
-        SSD1306_DIS_ENT_DISP_ON,                                     // 0xA4
-        SSD1306_DIS_NORMAL,                                          // 0xA6
-        SSD1306_SET_OSC_FREQ, 0x80,                                  // 0xD5, 0x80 => D=1; DCLK = Fosc / D <=> DCLK = Fosc
-        SSD1306_SET_PRECHARGE, 0xc2,                                 // 0xD9, higher value less blinking
-                                                                     // 0xC2, 1st phase = 2 DCLK,  2nd phase = 13 DCLK
-        SSD1306_VCOM_DESELECT, 0x20,                                 // Set V COMH Deselect, reset value 0x22 = 0,77xUcc
-        SSD1306_SET_CHAR_REG, 0x14,                                  // 0x8D, Enable charge pump during display on
-        SSD1306_DISPLAY_ON                                           // 0xAF = Set Display ON
+    SSD1306_DISPLAY_OFF,                                         // 0xAE = Set Display OFF
+    SSD1306_DISPLAY_OFF,                                         // 0xAE = Set Display OFF (twice because first command always returns error)
+    SSD1306_SET_MUX_RATIO, 63,                                   // 0xA8 - 64MUX for 128 x 64 version
+                                                                 //      - 32MUX for 128 x 32 version
+    SSD1306_MEMORY_ADDR_MODE, 0x00,                              // 0x20 = Set Memory Addressing Mode
+                                                                 // 0x00 - Horizontal Addressing Mode
+                                                                 // 0x01 - Vertical Addressing Mode
+                                                                 // 0x02 - Page Addressing Mode (RESET)
+    SSD1306_SET_COLUMN_ADDR, START_COLUMN_ADDR, END_COLUMN_ADDR, // 0x21 = Set Column Address, 0 - 127
+    SSD1306_SET_PAGE_ADDR, START_PAGE_ADDR, END_PAGE_ADDR,       // 0x22 = Set Page Address, 0 - 7
+    SSD1306_SET_START_LINE,                                      // 0x40
+    SSD1306_DISPLAY_OFFSET, 0x00,                                // 0xD3
+    SSD1306_SEG_REMAP_OP,                                        // 0xA0 / remap 0xA1
+    SSD1306_COM_SCAN_DIR_OP,                                     // 0xC0 / remap 0xC8
+    SSD1306_COM_PIN_CONF, 0x12,                                  // 0xDA, 0x12 - Disable COM Left/Right remap, Alternative COM pin configuration
+                                                                 //       0x12 - for 128 x 64 version
+                                                                 //       0x02 - for 128 x 32 version
+    SSD1306_SET_CONTRAST, 0x7F,                                  // 0x81, 0x7F - reset value (max 0xFF)
+    SSD1306_DIS_ENT_DISP_ON,                                     // 0xA4
+    SSD1306_DIS_NORMAL,                                          // 0xA6
+    SSD1306_SET_OSC_FREQ, 0x80,                                  // 0xD5, 0x80 => D=1; DCLK = Fosc / D <=> DCLK = Fosc
+    SSD1306_SET_PRECHARGE, 0xc2,                                 // 0xD9, higher value less blinking
+                                                                 // 0xC2, 1st phase = 2 DCLK,  2nd phase = 13 DCLK
+    SSD1306_VCOM_DESELECT, 0x20,                                 // Set V COMH Deselect, reset value 0x22 = 0,77xUcc
+    SSD1306_SET_CHAR_REG, 0x14,                                  // 0x8D, Enable charge pump during display on
+    SSD1306_DISPLAY_ON                                           // 0xAF = Set Display ON
 };
 
+//
+// Memory buffer for LCD screen including one byte for
+// command definition
+//
 static char SSD1306_LcdBufferInclStreamByte[CACHE_SIZE_MEM + 1];
+
+//
+// Pointer to the [1]th member of the buffer, i.e. [0]th member
+// of LCD screen.
+//
 char *const SSD1306_Lcd = SSD1306_LcdBufferInclStreamByte + 1;
 
-
+//
+// Since I2C will not be used for any other peripheral
+// it was convenient to initialize these variables as "global"
+// within the SSD1306 scope.
+//
 static I2C_Params _i2cParams;
-
 static I2C_Handle _i2c;
 
 // ==============================================================================================================
 
-
 // === INTERNAL FUNCTIONS =======================================================================================
 
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === sendData
+ * Non-published function handling I2C transfer of data. Can be called after
+ * I2C Initialization. Uses global handle `_i2c`.
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      address[in]  - address of I2C device
+ *      data[in]     - pointer to data stream to be sent
+ *      count[in]    - size of data = number of bytes to be sente
  * Returns:
- *      N/A
- *
+ *      0x1 if I2C transfer was successful, 0x0 otherwise
  */
 uint8_t sendData(uint8_t address, void *data, uint8_t count)
 {
     I2C_Transaction txn;
 
-    txn.writeBuf      = data;
-    txn.writeCount    = count;
-    txn.readCount     = 0;
-    txn.readBuf       = NULL;
-    txn.slaveAddress  = address;
+    txn.writeBuf = data;
+    txn.writeCount = count;
+    txn.readCount = 0;
+    txn.readBuf = NULL;
+    txn.slaveAddress = address;
 
     return I2C_transfer(_i2c, &txn);
 }
@@ -104,17 +119,14 @@ uint8_t sendData(uint8_t address, void *data, uint8_t count)
 // === FUNCTION DEFINITIONS =====================================================================================
 
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_Init
+ * Initializes GPIO, I2C and SSD1306 itself by sending sequence of commands.
+ * Also sets the zeroth byte of Lcd Buffer Stream to 0x40 for easier sending.
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
- * Returns:
  *      N/A
- *
+ * Returns:
+ *      SSD1306_SUCCES, SSD1306_ERROR or I2C_ERROR
  */
 uint8_t SSD1306_Init()
 {
@@ -139,37 +151,32 @@ uint8_t SSD1306_Init()
 
     _i2c = I2C_open(CONFIG_I2C, &_i2cParams);
 
-    if ( _i2c == NULL )
+    if (_i2c == NULL)
     {
         return I2C_ERROR;
     }
 
-    for ( i = 0; i < sizeof(SSD1306_InitSequence); i++)
+    for (i = 0; i < sizeof(SSD1306_InitSequence); i++)
     {
         status = SSD1306_SendCommand(SSD1306_InitSequence[i]);
 
-//        if ( status != SSD1306_SUCCESS )
-//        {
-//            return status;
-//        }
+        //        if ( status != SSD1306_SUCCESS )
+        //        {
+        //            return status;
+        //        }
     }
 
     return SSD1306_SUCCESS;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_SendCommand
+ * Sends one command to SSD1306 default address of SSD1306_ADDR = 0x3C.
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      cmd[in]      - command to by sent
  * Returns:
- *      N/A
- *
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  */
 uint8_t SSD1306_SendCommand(uint8_t cmd)
 {
@@ -181,7 +188,7 @@ uint8_t SSD1306_SendCommand(uint8_t cmd)
 
     uint8_t status = sendData(SSD1306_ADDR, buffer, 2);
 
-    if ( status == 1 )
+    if (status == 1)
     {
         return SSD1306_SUCCESS;
     }
@@ -190,63 +197,49 @@ uint8_t SSD1306_SendCommand(uint8_t cmd)
 }
 
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_NormalScreen
+ * Sets SSD1306 Screen to normal (non-inverted) mode.
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
- * Returns:
  *      N/A
- *
+ * Returns:
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  */
 uint8_t SSD1306_NormalScreen()
 {
     return SSD1306_SendCommand(SSD1306_DIS_NORMAL);
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_InverseScreen
+ * Sets SSD1306 Screen to inverted mode. (color-wise)
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
- * Returns:
  *      N/A
- *
+ * Returns:
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  */
 uint8_t SSD1306_InverseScreen()
 {
     return SSD1306_SendCommand(SSD1306_DIS_INVERSE);
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_UpdateScreen
+ * Sends contents of LCD buffer to SSD1306 thus updating the screen itself.
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
- * Returns:
  *      N/A
- *
+ * Returns:
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  */
 uint8_t SSD1306_UpdateScreen()
 {
     uint8_t status = INIT_STATUS;
 
-    status = sendData(SSD1306_ADDR, (void*)SSD1306_LcdBufferInclStreamByte, (uint8_t)(CACHE_SIZE_MEM + 1));
+    status = sendData(SSD1306_ADDR, (void *)SSD1306_LcdBufferInclStreamByte, (uint8_t)(CACHE_SIZE_MEM + 1));
 
-    if ( status == 1)
+    if (status == 1)
     {
         return SSD1306_SUCCESS;
     }
@@ -254,98 +247,81 @@ uint8_t SSD1306_UpdateScreen()
     return SSD1306_ERROR;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_ClearScreenBuffer
+ * Sets the whole LCD buffer to zero
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      N/A
  * Returns:
  *      N/A
- *
  */
 void SSD1306_ClearScreenBuffer()
 {
-    memset((void *)SSD1306_Lcd, 0xFF, CACHE_SIZE_MEM);
+    memset((void *)SSD1306_Lcd, 0x0, CACHE_SIZE_MEM);
 
     return;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_SetPosition
+ * Sets position for character or graphic insertion.
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      x[in]        - horizontal coordinate
+ *      y[in]        - vertical coordinate
  * Returns:
  *      N/A
- *
  */
 void SSD1306_SetPosition(uint8_t x, uint8_t y)
 {
-    _counter = x + ( y << 7 );
+    _counter = x + (y << 7);
 
     return;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_UpdatePosition
+ * Probably sets `_counter` to next position if the next character
+ * to be drawn would not fit onto the same line.
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
- * Returns:
  *      N/A
+ * Returns:
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  *
  */
 uint8_t SSD1306_UpdatePosition()
 {
     uint8_t y = _counter >> 7;
 
-    uint8_t x = _counter - ( y << 7 );
+    uint8_t x = _counter - (y << 7);
 
     uint8_t xNew = x + CHARS_COLS_LENGTH + 1;
 
-    if ( xNew > END_COLUMN_ADDR )
+    if (xNew > END_COLUMN_ADDR)
     {
-        if ( y > END_PAGE_ADDR )
+        if (y > END_PAGE_ADDR)
         {
             return SSD1306_ERROR;
         }
-        else if ( y < ( END_PAGE_ADDR - 1))
+        else if (y < (END_PAGE_ADDR - 1))
         {
-            _counter = (( ++y ) << 7 );
+            _counter = ((++y) << 7);
         }
     }
 
     return SSD1306_SUCCESS;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_DrawCharacter
+ * Draws character onto the next possible position
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      character[in]  - ASCII character to be printed
  * Returns:
- *      N/A
- *
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  */
 uint8_t SSD1306_DrawChar(char character)
 {
@@ -353,12 +329,12 @@ uint8_t SSD1306_DrawChar(char character)
 
     uint8_t canDrawChar = SSD1306_UpdatePosition();
 
-    if ( canDrawChar == SSD1306_ERROR )
+    if (canDrawChar == SSD1306_ERROR)
     {
         return SSD1306_ERROR;
     }
 
-    while ( i < CHARS_COLS_LENGTH )
+    while (i < CHARS_COLS_LENGTH)
     {
         SSD1306_Lcd[_counter++] = FONTS[character - 32][i++];
     }
@@ -368,19 +344,15 @@ uint8_t SSD1306_DrawChar(char character)
     return SSD1306_SUCCESS;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_DrawString
+ * Draws series of chars onto the screen. Should alse break lines
+ * if necessary
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      str[in]      - pointer to char array
  * Returns:
- *      N/A
- *
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  */
 uint8_t SSD1306_DrawString(char *str)
 {
@@ -388,7 +360,7 @@ uint8_t SSD1306_DrawString(char *str)
 
     uint8_t status = SSD1306_SUCCESS;
 
-    while (( str[i] != '\0' ) && ( status == SSD1306_SUCCESS ))
+    while ((str[i] != '\0') && (status == SSD1306_SUCCESS))
     {
         status = SSD1306_DrawChar(str[i++]);
     }
@@ -396,51 +368,46 @@ uint8_t SSD1306_DrawString(char *str)
     return status;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_DrawPixel
+ * Draws single pixel onto the screen
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      y[in]        - vertical coordinate of the pixel
+ *      x[in]        - horizontal coordinate of the pixel
  * Returns:
- *      N/A
- *
+ *      SSD1306_SUCCESS or SSD1306_ERROR
  */
 uint8_t SSD1306_DrawPixel(uint8_t x, uint8_t y)
 {
     uint8_t page = 0;
     uint8_t pixel = 0;
 
-    if (( x > MAX_X ) || ( y > MAX_Y ))
+    if ((x > MAX_X) || (y > MAX_Y))
     {
         return SSD1306_ERROR;
     }
 
     page = y >> 3;
 
-    pixel = 1 << ( y - ( page << 3 ));
+    pixel = 1 << (y - (page << 3));
 
-    _counter = x + ( page << 7 );
+    _counter = x + (page << 7);
 
     SSD1306_Lcd[_counter++] |= pixel;
 
     return SSD1306_SUCCESS;
 }
 
-
 /*
- * === Template
- * Lorem Ipsum Dolor sit amet.
+ * === SSD1306_DrawLine
+ * TODO: Draws line acording to Bechnitchew algorithm
  *
  * Parameters:
- *      pParams[in]  - pointer to parameters structure
- *      pObj[in]     - pointer to object storing internal configuration
- *      proto[in     - RF protocol to which Radio Core should be opened
- *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ *      x1[in]       - start horizontal coordinate
+ *      x2[in]       - end horizontal coordinate
+ *      y1[in]       - start vertical coordinate
+ *      y2[in]       - end vertical coordinate
  * Returns:
  *      N/A
  *
@@ -455,29 +422,29 @@ uint8_t SSD1306_DrawLine(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2)
 
     deltaY = y2 - y1;
 
-    if ( deltaX < 0 )
+    if (deltaX < 0)
     {
         deltaX = -deltaX;
         traceX = -traceX;
     }
 
-    if ( deltaY < 0 )
+    if (deltaY < 0)
     {
         deltaY = -deltaY;
         traceY = -traceY;
     }
 
-    if ( deltaY < deltaX )
+    if (deltaY < deltaX)
     {
-        det = ( deltaY << 1 ) - deltaX;
+        det = (deltaY << 1) - deltaX;
 
         SSD1306_DrawPixel(x1, y1);
 
-        while ( x1 != x2 )
+        while (x1 != x2)
         {
             x1 += traceX;
 
-            if ( det >= 0 )
+            if (det >= 0)
             {
                 y1 += traceY;
 
@@ -491,15 +458,15 @@ uint8_t SSD1306_DrawLine(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2)
     }
     else
     {
-        det = deltaY - ( deltaX << 1 );
+        det = deltaY - (deltaX << 1);
 
         SSD1306_DrawPixel(x1, y1);
 
-        while ( y1 != y2 )
+        while (y1 != y2)
         {
             y1 += traceY;
 
-            if ( det <= 0 )
+            if (det <= 0)
             {
                 x1 += traceX;
 
