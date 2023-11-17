@@ -121,6 +121,11 @@ void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
     case None:
         break;
 
+    case SSD1306:
+        if (*integer == 0) System_printf("<SSD1306> Success\n");
+        if (*integer == 1) System_printf("<SSD1306> Error\n");
+        break;
+
     default:
         System_printf("Unhandeled Log Event...\n");
         break;

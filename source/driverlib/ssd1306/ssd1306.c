@@ -13,11 +13,17 @@
 
 #include <unistd.h>
 
-#include <xdc/runtime/Memory.h>
+#include <stdio.h>
+
+#include <string.h>
+
+#include <ti/drivers/GPIO.h>
 
 #include <ti/drivers/I2C.h>
 
 #include "ti_drivers_config.h"
+
+#include <source/driverlib/ssd1306/font.h>
 
 #include <source/driverlib/ssd1306/ssd1306.h>
 
@@ -55,7 +61,7 @@ const uint8_t SSD1306_InitSequence[] = {
 };
 
 static char SSD1306_LcdBufferInclStreamByte[CACHE_SIZE_MEM + 1];
-const char *SSD1306_Lcd = SSD1306_LcdBufferInclStreamByte + 1;
+char *const SSD1306_Lcd = SSD1306_LcdBufferInclStreamByte + 1;
 
 
 static I2C_Params _i2cParams;
@@ -110,7 +116,7 @@ uint8_t sendData(uint8_t address, void *data, uint8_t count)
  *      N/A
  *
  */
-uint8_t SSD1306_Init(uint8_t address)
+uint8_t SSD1306_Init()
 {
     SSD1306_LcdBufferInclStreamByte[0] = 0x40;
 
@@ -121,6 +127,8 @@ uint8_t SSD1306_Init(uint8_t address)
     //
     // I2C Initialization
     //
+    GPIO_init();
+
     I2C_init();
 
     I2C_Params_init(&_i2cParams);
@@ -262,7 +270,247 @@ uint8_t SSD1306_UpdateScreen()
  */
 void SSD1306_ClearScreenBuffer()
 {
-    memset((void*)SSD1306_Lcd, 0x00, (uint8_t)CACHE_SIZE_MEM);
+    memset((void *)SSD1306_Lcd, 0xFF, CACHE_SIZE_MEM);
+
+    return;
 }
 
 
+/*
+ * === Template
+ * Lorem Ipsum Dolor sit amet.
+ *
+ * Parameters:
+ *      pParams[in]  - pointer to parameters structure
+ *      pObj[in]     - pointer to object storing internal configuration
+ *      proto[in     - RF protocol to which Radio Core should be opened
+ *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ * Returns:
+ *      N/A
+ *
+ */
+void SSD1306_SetPosition(uint8_t x, uint8_t y)
+{
+    _counter = x + ( y << 7 );
+
+    return;
+}
+
+
+/*
+ * === Template
+ * Lorem Ipsum Dolor sit amet.
+ *
+ * Parameters:
+ *      pParams[in]  - pointer to parameters structure
+ *      pObj[in]     - pointer to object storing internal configuration
+ *      proto[in     - RF protocol to which Radio Core should be opened
+ *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ * Returns:
+ *      N/A
+ *
+ */
+uint8_t SSD1306_UpdatePosition()
+{
+    uint8_t y = _counter >> 7;
+
+    uint8_t x = _counter - ( y << 7 );
+
+    uint8_t xNew = x + CHARS_COLS_LENGTH + 1;
+
+    if ( xNew > END_COLUMN_ADDR )
+    {
+        if ( y > END_PAGE_ADDR )
+        {
+            return SSD1306_ERROR;
+        }
+        else if ( y < ( END_PAGE_ADDR - 1))
+        {
+            _counter = (( ++y ) << 7 );
+        }
+    }
+
+    return SSD1306_SUCCESS;
+}
+
+
+/*
+ * === Template
+ * Lorem Ipsum Dolor sit amet.
+ *
+ * Parameters:
+ *      pParams[in]  - pointer to parameters structure
+ *      pObj[in]     - pointer to object storing internal configuration
+ *      proto[in     - RF protocol to which Radio Core should be opened
+ *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ * Returns:
+ *      N/A
+ *
+ */
+uint8_t SSD1306_DrawChar(char character)
+{
+    uint8_t i = 0;
+
+    uint8_t canDrawChar = SSD1306_UpdatePosition();
+
+    if ( canDrawChar == SSD1306_ERROR )
+    {
+        return SSD1306_ERROR;
+    }
+
+    while ( i < CHARS_COLS_LENGTH )
+    {
+        SSD1306_Lcd[_counter++] = FONTS[character - 32][i++];
+    }
+
+    _counter++;
+
+    return SSD1306_SUCCESS;
+}
+
+
+/*
+ * === Template
+ * Lorem Ipsum Dolor sit amet.
+ *
+ * Parameters:
+ *      pParams[in]  - pointer to parameters structure
+ *      pObj[in]     - pointer to object storing internal configuration
+ *      proto[in     - RF protocol to which Radio Core should be opened
+ *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ * Returns:
+ *      N/A
+ *
+ */
+uint8_t SSD1306_DrawString(char *str)
+{
+    uint8_t i = 0;
+
+    uint8_t status = SSD1306_SUCCESS;
+
+    while (( str[i] != '\0' ) && ( status == SSD1306_SUCCESS ))
+    {
+        status = SSD1306_DrawChar(str[i++]);
+    }
+
+    return status;
+}
+
+
+/*
+ * === Template
+ * Lorem Ipsum Dolor sit amet.
+ *
+ * Parameters:
+ *      pParams[in]  - pointer to parameters structure
+ *      pObj[in]     - pointer to object storing internal configuration
+ *      proto[in     - RF protocol to which Radio Core should be opened
+ *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ * Returns:
+ *      N/A
+ *
+ */
+uint8_t SSD1306_DrawPixel(uint8_t x, uint8_t y)
+{
+    uint8_t page = 0;
+    uint8_t pixel = 0;
+
+    if (( x > MAX_X ) || ( y > MAX_Y ))
+    {
+        return SSD1306_ERROR;
+    }
+
+    page = y >> 3;
+
+    pixel = 1 << ( y - ( page << 3 ));
+
+    _counter = x + ( page << 7 );
+
+    SSD1306_Lcd[_counter++] |= pixel;
+
+    return SSD1306_SUCCESS;
+}
+
+
+/*
+ * === Template
+ * Lorem Ipsum Dolor sit amet.
+ *
+ * Parameters:
+ *      pParams[in]  - pointer to parameters structure
+ *      pObj[in]     - pointer to object storing internal configuration
+ *      proto[in     - RF protocol to which Radio Core should be opened
+ *      pHandle[out] - pointer to RF_Handle to control Radio Core
+ * Returns:
+ *      N/A
+ *
+ */
+uint8_t SSD1306_DrawLine(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2)
+{
+    int16_t det;
+    int16_t deltaX, deltaY;
+    int16_t traceX = 1, traceY = 1;
+
+    deltaX = x2 - x1;
+
+    deltaY = y2 - y1;
+
+    if ( deltaX < 0 )
+    {
+        deltaX = -deltaX;
+        traceX = -traceX;
+    }
+
+    if ( deltaY < 0 )
+    {
+        deltaY = -deltaY;
+        traceY = -traceY;
+    }
+
+    if ( deltaY < deltaX )
+    {
+        det = ( deltaY << 1 ) - deltaX;
+
+        SSD1306_DrawPixel(x1, y1);
+
+        while ( x1 != x2 )
+        {
+            x1 += traceX;
+
+            if ( det >= 0 )
+            {
+                y1 += traceY;
+
+                det -= 2 * deltaY;
+            }
+
+            det += 2 * deltaY;
+
+            SSD1306_DrawPixel(x1, y1);
+        }
+    }
+    else
+    {
+        det = deltaY - ( deltaX << 1 );
+
+        SSD1306_DrawPixel(x1, y1);
+
+        while ( y1 != y2 )
+        {
+            y1 += traceY;
+
+            if ( det <= 0 )
+            {
+                x1 += traceX;
+
+                det += 2 * deltaY;
+            }
+
+            det -= 2 * deltaX;
+
+            SSD1306_DrawPixel(x1, y1);
+        }
+    }
+
+    return SSD1306_SUCCESS;
+}

@@ -16,6 +16,7 @@ typedef enum LogEntity {
     RfEvent,
     Integer,
     Buffer,
+    SSD1306,
     None
 } LogEntity_t;
 

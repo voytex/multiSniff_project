@@ -94,7 +94,7 @@ uint16_t _counter;
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
-uint8_t SSD1306_Init(uint8_t);
+uint8_t SSD1306_Init(void);
 
 uint8_t SSD1306_SendStartAndSLAW(uint8_t);
 
@@ -108,13 +108,13 @@ uint8_t SSD1306_InverseScreen(void);
 
 uint8_t SSD1306_UpdateScreen(void);
 
-uint8_t SSD1306_UpdatePosition(uint8_t);
+uint8_t SSD1306_UpdatePosition(void);
 
-uint8_t SSD1306_SetPosition(uint8_t);
+void    SSD1306_SetPosition(uint8_t, uint8_t);
 
 uint8_t SSD1306_DrawChar(char);
 
-void    SSD1306_DrawString(char*);
+uint8_t SSD1306_DrawString(char*);
 
 uint8_t SSD1306_DrawPixel(uint8_t, uint8_t);
 
