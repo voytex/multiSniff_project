@@ -90,6 +90,9 @@ void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
         case 0x1408:
             System_printf("BLE_DONE_STOPPED - Operation stopped after STOP cmd\n");
             break;
+        case 0x2402:
+            System_printf("IEEE_DONE_STOPPED - Operation stopped after STOP cmd\n");
+            break;
         default:
             System_printf("0x%x\n", *status);
             break;
@@ -113,6 +116,9 @@ void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
 
     case Buffer:
         System_printf("<Buffer> %s", (const char*)pEntity);
+        break;
+
+    case None:
         break;
 
     default:

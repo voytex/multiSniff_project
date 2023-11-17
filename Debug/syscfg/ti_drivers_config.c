@@ -37,8 +37,10 @@ GPIO_PinConfig gpioPinConfigs[31] = {
     GPIO_CFG_NO_DIR, /* DIO_1 */
     GPIO_CFG_NO_DIR, /* DIO_2 */
     GPIO_CFG_NO_DIR, /* DIO_3 */
-    GPIO_CFG_NO_DIR, /* DIO_4 */
-    GPIO_CFG_NO_DIR, /* DIO_5 */
+    /* Owned by CONFIG_I2C as SCL */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_UP_INTERNAL, /* CONFIG_GPIO_I2C_SCL */
+    /* Owned by CONFIG_I2C as SDA */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_UP_INTERNAL, /* CONFIG_GPIO_I2C_SDA */
     GPIO_CFG_OUTPUT_INTERNAL | GPIO_CFG_OUT_STR_MED | GPIO_CFG_OUT_LOW, /* CONFIG_GPIO_LED_0 */
     GPIO_CFG_NO_DIR, /* DIO_7 */
     GPIO_CFG_NO_DIR, /* DIO_8 */
@@ -82,6 +84,8 @@ GPIO_CallbackFxn gpioCallbackFunctions[31];
 void* gpioUserArgs[31];
 
 const uint_least8_t CONFIG_GPIO_LED_0_CONST = CONFIG_GPIO_LED_0;
+const uint_least8_t CONFIG_GPIO_I2C_SDA_CONST = CONFIG_GPIO_I2C_SDA;
+const uint_least8_t CONFIG_GPIO_I2C_SCL_CONST = CONFIG_GPIO_I2C_SCL;
 
 /*
  *  ======== GPIO_config ========
@@ -92,6 +96,58 @@ const GPIO_Config GPIO_config = {
     .userArgs = gpioUserArgs,
     .intPriority = (~0)
 };
+
+/*
+ *  =============================== I2C ===============================
+ */
+
+#include <ti/drivers/I2C.h>
+#include <ti/drivers/i2c/I2CCC26XX.h>
+#include <ti/drivers/power/PowerCC26XX.h>
+
+#include <ti/devices/DeviceFamily.h>
+#include DeviceFamily_constructPath(inc/hw_ints.h)
+#include DeviceFamily_constructPath(inc/hw_memmap.h)
+#include DeviceFamily_constructPath(driverlib/ioc.h)
+
+#define CONFIG_I2C_COUNT 1
+
+/*
+ *  ======== i2cCC26xxObjects ========
+ */
+I2CCC26XX_Object i2cCC26xxObjects[CONFIG_I2C_COUNT];
+
+/*
+ *  ======== i2cCC26xxHWAttrs ========
+ */
+const I2CCC26XX_HWAttrsV1 i2cCC26xxHWAttrs[CONFIG_I2C_COUNT] = {
+    /* CONFIG_I2C */
+    {
+        .baseAddr    = I2C0_BASE,
+        .powerMngrId = PowerCC26XX_PERIPH_I2C0,
+        .intNum      = INT_I2C_IRQ,
+        .intPriority = (~0),
+        .swiPriority = 0,
+        .sclPin      = CONFIG_GPIO_I2C_SCL,
+        .sclPinMux   = IOC_PORT_MCU_I2C_MSSCL,
+        .sdaPin      = CONFIG_GPIO_I2C_SDA,
+        .sdaPinMux   = IOC_PORT_MCU_I2C_MSSDA
+    },
+};
+
+/*
+ *  ======== I2C_config ========
+ */
+const I2C_Config I2C_config[CONFIG_I2C_COUNT] = {
+    /* CONFIG_I2C */
+    {
+        .object      = &i2cCC26xxObjects[CONFIG_I2C],
+        .hwAttrs     = &i2cCC26xxHWAttrs[CONFIG_I2C]
+    },
+};
+
+const uint_least8_t CONFIG_I2C_CONST = CONFIG_I2C;
+const uint_least8_t I2C_count = CONFIG_I2C_COUNT;
 
 /*
  *  =============================== Power ===============================

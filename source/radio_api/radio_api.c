@@ -84,7 +84,7 @@ RF_Mode* getRFModeByProto(RF_Protocol_t proto)
 // ==============================================================================================================
 
 
-// === PUBLISHED FUNCTIONS ======================================================================================
+// === FUNCTION DEFINITIONS =====================================================================================
 
 /*
  * === Radio_openRadioCore
@@ -99,7 +99,7 @@ RF_Mode* getRFModeByProto(RF_Protocol_t proto)
  *      N/A
  *
  */
-void Radio_openRadioCore(RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle pHandle)
+void Radio_openRadioCore(RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle* pHandle)
 {
     RF_Params_init(pParams);
 
@@ -107,7 +107,7 @@ void Radio_openRadioCore(RF_Params* pParams, RF_Object* pObj, RF_Protocol_t prot
 
     RF_RadioSetup* pSetup = getRSCmdByProto(proto);
 
-    pHandle = RF_open(pObj, pMode, pSetup, pParams);
+    *pHandle = RF_open(pObj, pMode, pSetup, pParams);
 
     return;
 }
@@ -129,7 +129,15 @@ RF_EventMask Radio_setFrequencySynthesizer(RF_Handle pHandle,  RF_Protocol_t pro
 {
     RF_Op* pFsCmd = getFSCmdByProto(proto);
 
-    return RF_runCmd(pHandle, pFsCmd, RF_PriorityNormal, NULL, 0);
+    RF_EventMask retVal = RF_runCmd(pHandle, pFsCmd, RF_PriorityNormal, NULL, 0);
+
+    Log_print("SetFrequencySynthesizer: ", &retVal, RfEvent);
+
+    Log_print("SetFSCmd: ", pFsCmd, CmdStatus);
+
+    return retVal;
+
+
 }
 
 
@@ -148,6 +156,7 @@ void Radio_initRXCmd(RF_Protocol_t proto)
     if ( proto == BluetoothLowEnergy )
     {
 
+        RFCMD_bleGenericRX.status                             = 0x0;
         RFCMD_bleGenericRX.pParams->pRxQ                      = RadioQueue_getDQpointer(); //todo: rx queue
         RFCMD_bleGenericRX.pParams->rxConfig.bAutoFlushCrcErr = 1;
         RFCMD_bleGenericRX.pParams->rxConfig.bIncludeLenByte  = 1;
@@ -161,6 +170,8 @@ void Radio_initRXCmd(RF_Protocol_t proto)
 
     if ( proto == IEEE_802_15_4 )
     {
+
+        RFCMD_ieeeRX.status                                     = 0x0;
         RFCMD_ieeeRX.pRxQ                                       = RadioQueue_getDQpointer(); //todo rx queue
         RFCMD_ieeeRX.rxConfig.bAutoFlushCrc                     = 1;
         RFCMD_ieeeRX.rxConfig.bAutoFlushIgn                     = 0;
@@ -197,7 +208,14 @@ RF_CmdHandle Radio_beginRX(RF_Handle pHandle, RF_Protocol_t proto, void* callbac
 {
     RF_Op* pRXCmd = getRXCmdByProto(proto);
 
-    return RF_postCmd(pHandle, pRXCmd, RF_PriorityNormal, callbackFunction, events);
+    RF_CmdHandle retVal;
+
+    retVal = RF_postCmd(pHandle, pRXCmd, RF_PriorityNormal, callbackFunction, events);
+
+    Log_print("BeginRX: ", pRXCmd, CmdStatus);
+
+    return retVal;
+
 }
 
 
@@ -213,7 +231,17 @@ RF_CmdHandle Radio_beginRX(RF_Handle pHandle, RF_Protocol_t proto, void* callbac
  */
 RF_Stat Radio_stopRX(RF_Handle pHandle)
 {
-    return RF_flushCmd(pHandle, RF_CMDHANDLE_FLUSH_ALL, 1);
+    RF_Stat retVal = RF_flushCmd(pHandle, RF_CMDHANDLE_FLUSH_ALL, 1);
+
+    Log_print("StopAllStat: ", &retVal, RfStat);
+
+    Log_print("StopAll[BLE]: ", getRXCmdByProto(BluetoothLowEnergy), CmdStatus);
+
+    Log_print("StopAll[IEEE]: ", getRXCmdByProto(IEEE_802_15_4), CmdStatus);
+
+    RF_close(pHandle);
+
+    return retVal;
 }
 
 

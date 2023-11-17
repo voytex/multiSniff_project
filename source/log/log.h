@@ -15,7 +15,8 @@ typedef enum LogEntity {
     CmdStatus,
     RfEvent,
     Integer,
-    Buffer
+    Buffer,
+    None
 } LogEntity_t;
 
 // ==============================================================================================================

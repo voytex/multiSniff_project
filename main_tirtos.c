@@ -36,6 +36,10 @@
  */
 #include <stdint.h>
 
+#include <xdc/std.h>
+#include <xdc/runtime/System.h>
+#include <xdc/runtime/Memory.h>
+#include <xdc/runtime/Error.h>
 /*
  * Task.h for Task switching
  */
@@ -54,7 +58,13 @@
 
 #include <source/log/log.h>
 
+#include <ti/drivers/GPIO.h>
+
+#include <ti/drivers/I2C.h>
+
 #include <source/radio_api/radio_api.h>
+
+#include <source/driverlib/ssd1306/ssd1306.h>
 
 Task_Params testParams;
 Task_Handle testHandle;
@@ -68,33 +78,132 @@ Task_Handle testHandle;
 
 void testTask(UArg a0, UArg a1)
 {
-    //RF_Handle pHandle;
+       RF_Handle pHandle;
        RF_Object pObj;
        RF_Params pParams;
-       RF_EventMask lastEvent;
-       RF_CmdHandle handle;
 
-       RF_Params_init(&pParams);
+       // BLE ========
 
-       Log_print(NULL, &RFCMD_bleFrequencySynthesizer, CmdStatus);
-
-       //Radio_openRadioCore(&pParams, &pObj, BluetoothLowEnergy, pHandle);
-       RF_Handle pHandle = RF_open(&pObj, (RF_Mode*)&RFCMD_bleModeObject, (RF_RadioSetup*)&RFCMD_bleRadioSetup, &pParams);
+       Radio_openRadioCore(&pParams, &pObj, BluetoothLowEnergy, &pHandle);
 
        Radio_initRXCmd(BluetoothLowEnergy);
 
-       lastEvent = RF_runCmd(pHandle, (RF_Op*)&RFCMD_bleFrequencySynthesizer, RF_PriorityNormal, NULL, 0);
-       //lastEvent = Radio_setFrequencySynthesizer(pHandle, BluetoothLowEnergy);
+       Radio_setFrequencySynthesizer(pHandle, BluetoothLowEnergy);
 
-       Log_print("Set Frequency Synthesizer\n", &lastEvent, RfEvent);
-
-       handle = Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 1);
-
-       Log_print("Begin RX Status\n", &RFCMD_bleGenericRX, CmdStatus);
+       Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 0);
 
        Radio_stopRX(pHandle);
 
-       Log_print("Begin RX Status\n", &RFCMD_bleGenericRX, CmdStatus);
+       // IEEE =======
+
+       Radio_openRadioCore(&pParams, &pObj, IEEE_802_15_4, &pHandle);
+
+       Radio_initRXCmd(IEEE_802_15_4);
+
+       Radio_setFrequencySynthesizer(pHandle, IEEE_802_15_4);
+
+       Radio_beginRX(pHandle, IEEE_802_15_4, NULL, 0);
+
+       Radio_stopRX(pHandle);
+
+       // BLE ========
+
+       Radio_openRadioCore(&pParams, &pObj, BluetoothLowEnergy, &pHandle);
+
+       Radio_initRXCmd(BluetoothLowEnergy);
+
+       Radio_setFrequencySynthesizer(pHandle, BluetoothLowEnergy);
+
+       Radio_beginRX(pHandle, BluetoothLowEnergy, NULL, 0);
+
+       Radio_stopRX(pHandle);
+
+
+}
+
+uint8_t send(I2C_Handle i2c, uint8_t data)
+{
+    uint8_t buf[2];
+    buf[0] = 0;
+    buf[1] = data;
+
+    I2C_Transaction txn;
+    txn.writeBuf = (void*)buf;
+    txn.writeCount = 2;
+    txn.readCount = 0;
+    txn.readBuf = NULL;
+    txn.slaveAddress = SSD1306_ADDR;
+    return I2C_transfer(i2c, &txn);
+}
+
+
+void displayTask(UArg a0, UArg a1)
+{
+    GPIO_init();
+    I2C_init();
+    I2C_Handle i2c;
+    I2C_Params i2cParams;
+    I2C_Params_init(&i2cParams);
+    i2cParams.bitRate = I2C_400kHz;
+    i2cParams.transferMode = I2C_MODE_BLOCKING;
+    i2c = I2C_open(CONFIG_I2C, &i2cParams);
+    if ( i2c == NULL ) Log_print("Failed to open I2C", NULL, None);
+
+    const uint8_t SSD1306_InitSequence[] = {
+            SSD1306_DISPLAY_OFF, SSD1306_DISPLAY_ON,
+            SSD1306_DISPLAY_OFF, SSD1306_DISPLAY_ON,// 0xAE = Set Display OFF
+            SSD1306_SET_MUX_RATIO, 63,                                   // 0xA8 - 64MUX for 128 x 64 version
+                                                                         //      - 32MUX for 128 x 32 version
+            SSD1306_MEMORY_ADDR_MODE, 0x00,                              // 0x20 = Set Memory Addressing Mode
+                                                                         // 0x00 - Horizontal Addressing Mode
+                                                                         // 0x01 - Vertical Addressing Mode
+                                                                         // 0x02 - Page Addressing Mode (RESET)
+            SSD1306_SET_COLUMN_ADDR, START_COLUMN_ADDR, END_COLUMN_ADDR, // 0x21 = Set Column Address, 0 - 127
+            SSD1306_SET_PAGE_ADDR, START_PAGE_ADDR, END_PAGE_ADDR,       // 0x22 = Set Page Address, 0 - 7
+            SSD1306_SET_START_LINE,                                      // 0x40
+            SSD1306_DISPLAY_OFFSET, 0x00,                                // 0xD3
+            SSD1306_SEG_REMAP_OP,                                        // 0xA0 / remap 0xA1
+            SSD1306_COM_SCAN_DIR_OP,                                     // 0xC0 / remap 0xC8
+            SSD1306_COM_PIN_CONF, 0x12,                                  // 0xDA, 0x12 - Disable COM Left/Right remap, Alternative COM pin configuration
+                                                                            //       0x12 - for 128 x 64 version
+                                                                            //       0x02 - for 128 x 32 version
+            SSD1306_SET_CONTRAST, 0x7F,                                  // 0x81, 0x7F - reset value (max 0xFF)
+            SSD1306_DIS_ENT_DISP_ON,                                     // 0xA4
+            SSD1306_DIS_NORMAL,                                          // 0xA6
+            SSD1306_SET_OSC_FREQ, 0x80,                                  // 0xD5, 0x80 => D=1; DCLK = Fosc / D <=> DCLK = Fosc
+            SSD1306_SET_PRECHARGE, 0xc2,                                 // 0xD9, higher value less blinking
+                                                                            // 0xC2, 1st phase = 2 DCLK,  2nd phase = 13 DCLK
+            SSD1306_VCOM_DESELECT, 0x20,                                 // Set V COMH Deselect, reset value 0x22 = 0,77xUcc
+            SSD1306_SET_CHAR_REG, 0x14,                                  // 0x8D, Enable charge pump during display on
+            SSD1306_DISPLAY_ON                                           // 0xAF = Set Display ON
+    };
+
+
+    uint8_t i;
+    uint32_t res;
+    for ( i = 0; i < sizeof(SSD1306_InitSequence); i++)
+    {
+        res = send(i2c, SSD1306_InitSequence[i]);
+        Log_print("I2C Transaction result:", &res, Integer);
+    }
+
+    res = send(i2c, 0x40);
+    Log_print("I2C data stream:", &res, Integer);
+    uint8_t buffer[1032];
+    buffer[0] = 0x40;
+    memset(buffer + 1, 0, 1031);
+
+    I2C_Transaction txn;
+    txn.writeBuf = buffer;
+    txn.writeCount = 1032;
+    txn.readCount = 0;
+    txn.readBuf = NULL;
+    txn.slaveAddress = SSD1306_ADDR;
+    res = I2C_transfer(i2c, &txn);
+    Log_print("I2C Draw", &res, Integer);
+
+
+
 
 }
 
@@ -102,8 +211,8 @@ void testTask(UArg a0, UArg a1)
 int main(void)
 {
     Task_Params_init(&testParams);
-    testParams.stackSize = 1024;
-    testHandle = Task_create((Task_FuncPtr)testTask, &testParams, NULL);
+    testParams.stackSize = 2048;
+    testHandle = Task_create((Task_FuncPtr)displayTask, &testParams, NULL);
 
     BIOS_start();
 

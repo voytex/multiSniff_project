@@ -19,7 +19,7 @@ typedef enum RF_Protocol {
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
-void         Radio_openRadioCore           (RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle pHandle);
+void         Radio_openRadioCore           (RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle* pHandle);
 
 RF_EventMask Radio_setFrequencySynthesizer (RF_Handle pHandle,  RF_Protocol_t proto);
 

@@ -3,6 +3,7 @@
 "./syscfg/ti_radio_config.o"
 "./syscfg/ti_drivers_config.o"
 "./syscfg/ti_sysbios_config.o"
+"./source/driverlib/ssd1306/ssd1306.o"
 "./source/log/log.o"
 "./source/queue/radio_queue.o"
 "./source/radio_api/radio_api.o"
