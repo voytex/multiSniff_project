@@ -455,7 +455,7 @@ uint8_t SSD1306_DrawLine(uint8_t x1, uint8_t x2, uint8_t y1, uint8_t y2)
             {
                 y1 += traceY;
 
-                det -= 2 * deltaY;
+                det -= 2 * deltaX;
             }
 
             det += 2 * deltaY;
