@@ -69,13 +69,13 @@ const uint8_t SSD1306_InitSequence[] = {
 // Memory buffer for LCD screen including one byte for
 // command definition
 //
-static uint8_t SSD1306_LcdBufferInclStreamByte[CACHE_SIZE_MEM + 1];
+static char SSD1306_LcdBufferInclStreamByte[CACHE_SIZE_MEM + 1];
 
 //
 // Pointer to the [1]th member of the buffer, i.e. [0]th member
 // of LCD screen.
 //
-static uint8_t *const SSD1306_Lcd = &SSD1306_LcdBufferInclStreamByte[1];
+char *const SSD1306_Lcd = &SSD1306_LcdBufferInclStreamByte[1];
 
 //
 // Since I2C will not be used for any other peripheral
@@ -346,7 +346,14 @@ uint8_t SSD1306_DrawChar(char character, bool inverted)
         }
     }
 
-    _counter++;
+    if (!inverted)
+    {
+        _counter++;
+    }
+    else
+    {
+        SSD1306_Lcd[_counter++] = 0xFF;
+    }
 
     return SSD1306_SUCCESS;
 }

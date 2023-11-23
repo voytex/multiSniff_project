@@ -227,9 +227,13 @@ void displayTask(UArg a0, UArg a1)
 
     SSD1306_DrawString("test ", false);
 
-    SSD1306_DrawString("test", true);
+    SSD1306_SetPosition(0, 1);
+
+    SSD1306_DrawString("INVERTED TEST", true);
 
     tmp = SSD1306_UpdateScreen();
+
+
 
 
 
