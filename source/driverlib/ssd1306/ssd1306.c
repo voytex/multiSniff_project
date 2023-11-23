@@ -69,13 +69,13 @@ const uint8_t SSD1306_InitSequence[] = {
 // Memory buffer for LCD screen including one byte for
 // command definition
 //
-static char SSD1306_LcdBufferInclStreamByte[CACHE_SIZE_MEM + 1];
+static uint8_t SSD1306_LcdBufferInclStreamByte[CACHE_SIZE_MEM + 1];
 
 //
 // Pointer to the [1]th member of the buffer, i.e. [0]th member
 // of LCD screen.
 //
-char *const SSD1306_Lcd = SSD1306_LcdBufferInclStreamByte + 1;
+static uint8_t *const SSD1306_Lcd = &SSD1306_LcdBufferInclStreamByte[1];
 
 //
 // Since I2C will not be used for any other peripheral
@@ -101,7 +101,7 @@ static I2C_Handle _i2c;
  * Returns:
  *      0x1 if I2C transfer was successful, 0x0 otherwise
  */
-uint8_t sendData(uint8_t address, void *data, uint8_t count)
+uint8_t sendData(uint8_t address, void *data, uint16_t count)
 {
     I2C_Transaction txn;
 
@@ -237,7 +237,7 @@ uint8_t SSD1306_UpdateScreen()
 {
     uint8_t status = INIT_STATUS;
 
-    status = sendData(SSD1306_ADDR, (void *)SSD1306_LcdBufferInclStreamByte, (uint8_t)(CACHE_SIZE_MEM + 1));
+    status = sendData(SSD1306_ADDR, (void *)SSD1306_LcdBufferInclStreamByte, (CACHE_SIZE_MEM + 1));
 
     if (status == 1)
     {
@@ -323,7 +323,7 @@ uint8_t SSD1306_UpdatePosition()
  * Returns:
  *      SSD1306_SUCCESS or SSD1306_ERROR
  */
-uint8_t SSD1306_DrawChar(char character)
+uint8_t SSD1306_DrawChar(char character, bool inverted)
 {
     uint8_t i = 0;
 
@@ -336,7 +336,14 @@ uint8_t SSD1306_DrawChar(char character)
 
     while (i < CHARS_COLS_LENGTH)
     {
-        SSD1306_Lcd[_counter++] = FONTS[character - 32][i++];
+        if (!inverted)
+        {
+            SSD1306_Lcd[_counter++] = FONTS[character - 32][i++];
+        }
+        else
+        {
+            SSD1306_Lcd[_counter++] = ~FONTS[character - 32][i++];
+        }
     }
 
     _counter++;
@@ -354,7 +361,7 @@ uint8_t SSD1306_DrawChar(char character)
  * Returns:
  *      SSD1306_SUCCESS or SSD1306_ERROR
  */
-uint8_t SSD1306_DrawString(char *str)
+uint8_t SSD1306_DrawString(char *str, bool inverted)
 {
     uint8_t i = 0;
 
@@ -362,7 +369,7 @@ uint8_t SSD1306_DrawString(char *str)
 
     while ((str[i] != '\0') && (status == SSD1306_SUCCESS))
     {
-        status = SSD1306_DrawChar(str[i++]);
+        status = SSD1306_DrawChar(str[i++], inverted);
     }
 
     return status;

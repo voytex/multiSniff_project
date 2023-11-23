@@ -205,19 +205,32 @@ void displayTask(UArg a0, UArg a1)
 
     tmp = SSD1306_Init();
 
-    Log_print("SSD1306_Init", &tmp, SSD1306);
-
     SSD1306_ClearScreenBuffer();
 
     SSD1306_SetPosition(0, 0);
 
-    //tmp = SSD1306_DrawString("Hello");
+//    tmp = SSD1306_DrawString("multiSniff");
 
-    Log_print("SSD1306_DrawString", &tmp, SSD1306);
+    SSD1306_DrawLine(0, 63, 0, 63);
+
+    SSD1306_DrawLine(0, 126, 30, 34);
+
+    SSD1306_DrawLine(63, 126, 63, 0);
+
+    SSD1306_DrawLine(0, 126, 63, 0);
+
+    SSD1306_DrawLine(0, 126, 0, 63);
+
+    //SSD1306_DrawLine(0, 126, 32, 0);
+
+    SSD1306_SetPosition(0, 0);
+
+    SSD1306_DrawString("test ", false);
+
+    SSD1306_DrawString("test", true);
 
     tmp = SSD1306_UpdateScreen();
 
-    Log_print("SSD1306_UpdateScreen", &tmp, SSD1306);
 
 
 
