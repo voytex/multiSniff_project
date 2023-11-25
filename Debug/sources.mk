@@ -125,9 +125,9 @@ GEN_OPTS__QUOTED :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 . \
-source/driverlib/oled_gui \
 source/driverlib/ssd1306 \
 source/log \
+source/oled_gui \
 source/queue \
 source/radio_api \
 

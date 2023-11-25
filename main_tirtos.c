@@ -66,7 +66,7 @@
 
 #include <source/driverlib/ssd1306/ssd1306.h>
 
-#include <source/driverlib/oled_gui/gui.h>
+#include <source/oled_gui/gui.h>
 
 Task_Params testParams;
 Task_Handle testHandle;

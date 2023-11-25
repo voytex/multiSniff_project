@@ -17,7 +17,7 @@
 
 #include <source/driverlib/ssd1306/font.h>
 
-#include <source/driverlib/oled_gui/gui.h>
+#include <source/oled_gui/gui.h>
 
 // ==============================================================================================================
 

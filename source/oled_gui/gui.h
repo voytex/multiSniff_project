@@ -5,8 +5,8 @@
  *      Author: vojtechlukas
  */
 
-#ifndef SOURCE_DRIVERLIB_OLED_GUI_GUI_H_
-#define SOURCE_DRIVERLIB_OLED_GUI_GUI_H_
+#ifndef SOURCE_OLED_GUI_GUI_H_
+#define SOURCE_OLED_GUI_GUI_H_
 
 void GUI_Init(void);
 
@@ -20,4 +20,4 @@ void GUI_ChangeRx(bool);
 
 void GUI_ChangeChannel(uint8_t);
 
-#endif /* SOURCE_DRIVERLIB_OLED_GUI_GUI_H_ */
+#endif /* SOURCE_OLED_GUI_GUI_H_ */
