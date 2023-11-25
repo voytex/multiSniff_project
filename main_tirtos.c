@@ -66,6 +66,8 @@
 
 #include <source/driverlib/ssd1306/ssd1306.h>
 
+#include <source/driverlib/oled_gui/gui.h>
+
 Task_Params testParams;
 Task_Handle testHandle;
 
@@ -201,44 +203,16 @@ void displayTask(UArg a0, UArg a1)
 //    txn.slaveAddress = SSD1306_ADDR;
 //    res = I2C_transfer(i2c, &txn);
 //    Log_print("I2C Draw", &res, Integer);
-    uint32_t tmp;
 
-    tmp = SSD1306_Init();
+    GUI_Init();
 
-    SSD1306_ClearScreenBuffer();
+    GUI_ChangeDeviceIp("192.168.1.1");
 
-    SSD1306_SetPosition(0, 0);
+    GUI_ChangeTargetIp("192.168.1.2");
 
-//    tmp = SSD1306_DrawString("multiSniff");
+    GUI_ChangeProto(0);
 
-    SSD1306_DrawLine(0, 63, 0, 63);
-
-    SSD1306_DrawLine(0, 126, 30, 34);
-
-    SSD1306_DrawLine(63, 126, 63, 0);
-
-    SSD1306_DrawLine(0, 126, 63, 0);
-
-    SSD1306_DrawLine(0, 126, 0, 63);
-
-    //SSD1306_DrawLine(0, 126, 32, 0);
-
-    SSD1306_SetPosition(0, 0);
-
-    SSD1306_DrawString("test ", false);
-
-    SSD1306_SetPosition(0, 1);
-
-    SSD1306_DrawString("INVERTED TEST", true);
-
-    tmp = SSD1306_UpdateScreen();
-
-
-
-
-
-
-
+    GUI_ChangeRx(false);
 
 }
 
