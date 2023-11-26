@@ -2,7 +2,7 @@
  * log.h
  *
  *  Created on: 2. 10. 2023
- *      Author: Administrator
+ *      Author: vojtechlukas
  */
 
 #ifndef LOG_LOG_H_
@@ -10,7 +10,8 @@
 
 // === ENUM DEFINITIONS =========================================================================================
 
-typedef enum LogEntity {
+typedef enum LogEntity
+{
     RfStat,
     CmdStatus,
     RfEvent,
@@ -24,7 +25,7 @@ typedef enum LogEntity {
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
-void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType);
+void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType);
 
 // ==============================================================================================================
 

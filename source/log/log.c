@@ -2,7 +2,7 @@
  * log.c
  *
  *  Created on: 2. 10. 2023
- *      Author: Administrator
+ *      Author: vojtechlukas
  */
 
 // === INCLUDES =================================================================================================
@@ -17,7 +17,7 @@
 
 #define LOG_ENABLED
 
-// === PUBLISHED FUNCTIONS =====================================================================================
+// === PUBLISHED FUNCTIONS ======================================================================================
 
 /*
  * === Log_print
@@ -33,14 +33,14 @@
  * Returns:
  *      N/A
  */
-void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
+void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType)
 {
 #ifdef LOG_ENABLED
 
-    RF_Stat*  eStat   = (RF_Stat*) pEntity;
-    uint16_t* status  = (uint16_t*)pEntity + 1;
-    uint64_t* events  = (uint64_t*)pEntity;
-    uint32_t* integer = (uint32_t*)pEntity;
+    RF_Stat *eStat = (RF_Stat *)pEntity;
+    uint16_t *status = (uint16_t *)pEntity + 1;
+    uint64_t *events = (uint64_t *)pEntity;
+    uint32_t *integer = (uint32_t *)pEntity;
 
     if (pMsg != NULL)
     {
@@ -101,13 +101,20 @@ void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
 
     case RfEvent:
         System_printf("<RF_Events> [0x%x]\n", *events);
-        if (*events & RF_EventCmdDone)      System_printf("   CmdDone\n");
-        if (*events & RF_EventLastCmdDone)  System_printf("   LastCmdDone\n");
-        if (*events & RF_EventRxOk)         System_printf("   RxOk\n");
-        if (*events & RF_EventRxEntryDone)  System_printf("   RxEntryDone\n");
-        if (*events & RF_EventRxBufFull)    System_printf("   RxBufFull\n");
-        if (*events & RF_EventCmdCancelled) System_printf("   CmdCancelled\n");
-        if (*events & RF_EventCmdStopped)   System_printf("   CmdStopped\n");
+        if (*events & RF_EventCmdDone)
+            System_printf("   CmdDone\n");
+        if (*events & RF_EventLastCmdDone)
+            System_printf("   LastCmdDone\n");
+        if (*events & RF_EventRxOk)
+            System_printf("   RxOk\n");
+        if (*events & RF_EventRxEntryDone)
+            System_printf("   RxEntryDone\n");
+        if (*events & RF_EventRxBufFull)
+            System_printf("   RxBufFull\n");
+        if (*events & RF_EventCmdCancelled)
+            System_printf("   CmdCancelled\n");
+        if (*events & RF_EventCmdStopped)
+            System_printf("   CmdStopped\n");
         break;
 
     case Integer:
@@ -115,15 +122,17 @@ void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
         break;
 
     case Buffer:
-        System_printf("<Buffer> %s", (const char*)pEntity);
+        System_printf("<Buffer> %s", (const char *)pEntity);
         break;
 
     case None:
         break;
 
     case SSD1306:
-        if (*integer == 0) System_printf("<SSD1306> Success\n");
-        if (*integer == 1) System_printf("<SSD1306> Error\n");
+        if (*integer == 0)
+            System_printf("<SSD1306> Success\n");
+        if (*integer == 1)
+            System_printf("<SSD1306> Error\n");
         break;
 
     default:
@@ -135,4 +144,3 @@ void Log_print(const char pMsg[], void* pEntity, LogEntity_t entityType)
     return;
 }
 // =============================================================================================================
-
