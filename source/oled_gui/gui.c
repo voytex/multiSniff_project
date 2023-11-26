@@ -21,29 +21,27 @@
 
 // ==============================================================================================================
 
-
-
 // === INTERNAL FUNCTIONS =======================================================================================
 
-#define HORIZ_CHARS_TO_PIX(ch) ((ch*CHARS_COLS_LENGTH) + ch)
+#define HORIZ_CHARS_TO_PIX(ch) ((ch * CHARS_COLS_LENGTH) + ch)
 
-#define VERTI_CHARS_TO_PIX(ch) ((ch*8) - 1)
+#define VERTI_CHARS_TO_PIX(ch) ((ch * 8) - 1)
 
 // ==============================================================================================================
-
-
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
 /*
- * === SSD1306_Init
- * Initializes GPIO, I2C and SSD1306 itself by sending sequence of commands.
- * Also sets the zeroth byte of Lcd Buffer Stream to 0x40 for easier sending.
+ * === GUI_Init
+ * Firstly calls SSD1306_Init() to perform SSD1306 initialization sequence.
+ * Then renders basic GUI structure based on /design/ssd1306_design.xlsx.
+ * Note: Does NOT update the screen (since it does not print any important
+ * data). Just writes to LCD buffer.
  *
  * Parameters:
  *      N/A
  * Returns:
- *      SSD1306_SUCCES, SSD1306_ERROR or I2C_ERROR
+ *      //TODO: return status?
  */
 void GUI_Init(void)
 {
@@ -82,18 +80,17 @@ void GUI_Init(void)
     return;
 }
 
-
 /*
- * === SSD1306_Init
- * Initializes GPIO, I2C and SSD1306 itself by sending sequence of commands.
- * Also sets the zeroth byte of Lcd Buffer Stream to 0x40 for easier sending.
+ * === GUI_ChangeDeviceIp
+ * Changes the `deice IP:` field in the GUI of the OLED.
  *
  * Parameters:
- *      N/A
+ *      deiceIp[in]   - pointer to new IP address
+ *                      in const char* format
  * Returns:
- *      SSD1306_SUCCES, SSD1306_ERROR or I2C_ERROR
+ *      N/A
  */
-void GUI_ChangeDeviceIp(char* deviceIp)
+void GUI_ChangeDeviceIp(char *deviceIp)
 {
     SSD1306_SetPosition(0, 2);
 
@@ -104,18 +101,17 @@ void GUI_ChangeDeviceIp(char* deviceIp)
     return;
 }
 
-
 /*
- * === SSD1306_Init
- * Initializes GPIO, I2C and SSD1306 itself by sending sequence of commands.
- * Also sets the zeroth byte of Lcd Buffer Stream to 0x40 for easier sending.
+ * === GUI_ChangeTargetIp
+ * Changes the `target IP:` field in the GUI of the OLED.
  *
  * Parameters:
- *      N/A
+ *      targetIp[in]  - pointer to new IP address
+ *                      in const char* format
  * Returns:
- *      SSD1306_SUCCES, SSD1306_ERROR or I2C_ERROR
+ *      N/A
  */
-void GUI_ChangeTargetIp(char* targetIp)
+void GUI_ChangeTargetIp(char *targetIp)
 {
     SSD1306_SetPosition(0, 4);
 
@@ -126,16 +122,16 @@ void GUI_ChangeTargetIp(char* targetIp)
     return;
 }
 
-
 /*
- * === SSD1306_Init
- * Initializes GPIO, I2C and SSD1306 itself by sending sequence of commands.
- * Also sets the zeroth byte of Lcd Buffer Stream to 0x40 for easier sending.
+ * === GUI_ChangeProto
+ * Changes the `proto:` field in the GUI of the OLED.
  *
  * Parameters:
- *      N/A
+ *      proto[in]   - unsigned integer representing protocol
+ *                    0 for BLE
+ *                    1 for IEEE
  * Returns:
- *      SSD1306_SUCCES, SSD1306_ERROR or I2C_ERROR
+ *      N/A
  */
 void GUI_ChangeProto(uint8_t proto)
 {
@@ -152,7 +148,7 @@ void GUI_ChangeProto(uint8_t proto)
         break;
 
     default:
-        SSD1306_DrawString("N/A", false);
+        SSD1306_DrawString("Err", false);
         break;
     }
 
@@ -161,16 +157,18 @@ void GUI_ChangeProto(uint8_t proto)
     return;
 }
 
-
 /*
- * === SSD1306_Init
- * Initializes GPIO, I2C and SSD1306 itself by sending sequence of commands.
- * Also sets the zeroth byte of Lcd Buffer Stream to 0x40 for easier sending.
+ * === GUI_ChangeRx
+ * Changes the `RX:` field in the GUI of the OLED.
  *
  * Parameters:
- *      N/A
+ *      rx[in]  - bool value
+ *                true   = `RX:ON`
+ *                false  = `RX:OFF` (Note that when
+ *                RXing is OFF, this text is set to inverted
+ *                color so that it is more visible to user.)
  * Returns:
- *      SSD1306_SUCCES, SSD1306_ERROR or I2C_ERROR
+ *      N/A
  */
 void GUI_ChangeRx(bool rx)
 {
@@ -183,16 +181,14 @@ void GUI_ChangeRx(bool rx)
     return;
 }
 
-
 /*
- * === SSD1306_Init
- * Initializes GPIO, I2C and SSD1306 itself by sending sequence of commands.
- * Also sets the zeroth byte of Lcd Buffer Stream to 0x40 for easier sending.
+ * === GUI_ChangeChannel
+ * Changes the `CH:` field in the GUI of the OLED.
  *
  * Parameters:
- *      N/A
+ *      ch[in]   - unsigned int representing number of the channel
  * Returns:
- *      SSD1306_SUCCES, SSD1306_ERROR or I2C_ERROR
+ *      N/A
  */
 void GUI_ChangeChannel(uint8_t ch)
 {
@@ -200,7 +196,7 @@ void GUI_ChangeChannel(uint8_t ch)
 
     char channel[2];
 
-    //TODO: SSD1306_DrawString(itoa(ch, channel, "10"), false);
+    // TODO: SSD1306_DrawString(itoa(ch, channel, "10"), false);
 
     return;
 }
