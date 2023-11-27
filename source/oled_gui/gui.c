@@ -27,6 +27,22 @@
 
 #define VERTI_CHARS_TO_PIX(ch) ((ch * 8) - 1)
 
+static inline void ito2a(uint8_t i, char* ch)
+{
+    if (( i >= 0 ) && ( i < 100 ))
+    {
+        ch[0] = ( i / 10 ) + 48;
+        ch[1] = ( i % 10 ) + 48;
+    }
+    else
+    {
+        ch[0] = 'o';
+        ch[1] = '0';
+    }
+
+    return;
+}
+
 // ==============================================================================================================
 
 // === PUBLISHED FUNCTIONS ======================================================================================
@@ -194,9 +210,15 @@ void GUI_ChangeChannel(uint8_t ch)
 {
     SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 6);
 
-    char channel[2];
+    char buf[3];
 
-    // TODO: SSD1306_DrawString(itoa(ch, channel, "10"), false);
+    ito2a(ch, buf);
+
+    buf[2] = '\0';
+
+    SSD1306_DrawString(buf, false);
+
+    SSD1306_UpdateScreen();
 
     return;
 }

@@ -214,6 +214,8 @@ void displayTask(UArg a0, UArg a1)
 
     GUI_ChangeRx(false);
 
+    GUI_ChangeChannel(27);
+
 }
 
 
