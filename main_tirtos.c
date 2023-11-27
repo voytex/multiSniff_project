@@ -123,7 +123,7 @@ void testTask(UArg a0, UArg a1)
 
 }
 
-uint8_t send(I2C_Handle i2c, uint8_t data)
+uint8_t _send(I2C_Handle i2c, uint8_t data)
 {
     uint8_t buf[2];
     buf[0] = 0;

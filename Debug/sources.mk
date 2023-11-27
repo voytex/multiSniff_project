@@ -126,6 +126,8 @@ GEN_OPTS__QUOTED :=
 SUBDIRS := \
 . \
 source/driverlib/ssd1306 \
+source/driverlib/w5500 \
+source/ethernet \
 source/log \
 source/oled_gui \
 source/queue \
