@@ -45,13 +45,34 @@ extern "C" {
 extern const uint_least8_t CONFIG_GPIO_LED_0_CONST;
 #define CONFIG_GPIO_LED_0 6
 
+extern const uint_least8_t CONFIG_GPIO_W5500_RESET_CONST;
+#define CONFIG_GPIO_W5500_RESET 25
+
+extern const uint_least8_t CONFIG_GPIO_W5500_CS_CONST;
+#define CONFIG_GPIO_W5500_CS 26
+
+extern const uint_least8_t CONFIG_GPIO_W5500_INT_CONST;
+#define CONFIG_GPIO_W5500_INT 22
+
 /* Owned by CONFIG_I2C as  */
 extern const uint_least8_t CONFIG_GPIO_I2C_SDA_CONST;
-#define CONFIG_GPIO_I2C_SDA 5
+#define CONFIG_GPIO_I2C_SDA 16
 
 /* Owned by CONFIG_I2C as  */
 extern const uint_least8_t CONFIG_GPIO_I2C_SCL_CONST;
-#define CONFIG_GPIO_I2C_SCL 4
+#define CONFIG_GPIO_I2C_SCL 15
+
+/* Owned by CONFIG_SPI_0 as  */
+extern const uint_least8_t CONFIG_GPIO_SPI_0_SCLK_CONST;
+#define CONFIG_GPIO_SPI_0_SCLK 12
+
+/* Owned by CONFIG_SPI_0 as  */
+extern const uint_least8_t CONFIG_GPIO_SPI_0_MISO_CONST;
+#define CONFIG_GPIO_SPI_0_MISO 1
+
+/* Owned by CONFIG_SPI_0 as  */
+extern const uint_least8_t CONFIG_GPIO_SPI_0_MOSI_CONST;
+#define CONFIG_GPIO_SPI_0_MOSI 0
 
 /* The range of pins available on this device */
 extern const uint_least8_t GPIO_pinLowerBound;
@@ -70,8 +91,8 @@ extern const uint_least8_t GPIO_pinUpperBound;
  */
 
 /*
- *  SCL: DIO4
- *  SDA: DIO5
+ *  SCL: DIO15
+ *  SDA: DIO16
  */
 extern const uint_least8_t              CONFIG_I2C_CONST;
 #define CONFIG_I2C                      0
@@ -89,6 +110,20 @@ extern const uint_least8_t              CONFIG_I2C_CONST;
 #define CONFIG_I2C_MAXBITRATE ((I2C_BitRate)I2C_100kHz)
 
 
+
+
+/*
+ *  ======== SPI ========
+ */
+
+/*
+ *  MOSI: DIO0
+ *  MISO: DIO1
+ *  SCLK: DIO12
+ */
+extern const uint_least8_t              CONFIG_SPI_0_CONST;
+#define CONFIG_SPI_0                    0
+#define CONFIG_TI_DRIVERS_SPI_COUNT     1
 
 
 /*

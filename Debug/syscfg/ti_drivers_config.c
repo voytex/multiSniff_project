@@ -18,6 +18,30 @@
 #include "ti_drivers_config.h"
 
 /*
+ *  =============================== DMA ===============================
+ */
+
+#include <ti/drivers/dma/UDMACC26XX.h>
+#include <ti/devices/cc13x2_cc26x2/driverlib/udma.h>
+#include <ti/devices/cc13x2_cc26x2/inc/hw_memmap.h>
+
+UDMACC26XX_Object udmaCC26XXObject;
+
+const UDMACC26XX_HWAttrs udmaCC26XXHWAttrs = {
+    .baseAddr        = UDMA0_BASE,
+    .powerMngrId     = PowerCC26XX_PERIPH_UDMA,
+    .intNum          = INT_DMA_ERR,
+    .intPriority     = (~0)
+};
+
+const UDMACC26XX_Config UDMACC26XX_config[1] = {
+    {
+        .object         = &udmaCC26XXObject,
+        .hwAttrs        = &udmaCC26XXHWAttrs,
+    },
+};
+
+/*
  *  =============================== GPIO ===============================
  */
 
@@ -33,35 +57,38 @@ const uint_least8_t GPIO_pinUpperBound = 30;
  *  Array of Pin configurations
  */
 GPIO_PinConfig gpioPinConfigs[31] = {
-    GPIO_CFG_NO_DIR, /* DIO_0 */
-    GPIO_CFG_NO_DIR, /* DIO_1 */
+    /* Owned by CONFIG_SPI_0 as MOSI */
+    GPIO_CFG_OUTPUT_INTERNAL | GPIO_CFG_OUT_STR_MED | GPIO_CFG_OUT_LOW, /* CONFIG_GPIO_SPI_0_MOSI */
+    /* Owned by CONFIG_SPI_0 as MISO */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_NONE_INTERNAL, /* CONFIG_GPIO_SPI_0_MISO */
     GPIO_CFG_NO_DIR, /* DIO_2 */
     GPIO_CFG_NO_DIR, /* DIO_3 */
-    /* Owned by CONFIG_I2C as SCL */
-    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_UP_INTERNAL, /* CONFIG_GPIO_I2C_SCL */
-    /* Owned by CONFIG_I2C as SDA */
-    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_UP_INTERNAL, /* CONFIG_GPIO_I2C_SDA */
+    GPIO_CFG_NO_DIR, /* DIO_4 */
+    GPIO_CFG_NO_DIR, /* DIO_5 */
     GPIO_CFG_OUTPUT_INTERNAL | GPIO_CFG_OUT_STR_MED | GPIO_CFG_OUT_LOW, /* CONFIG_GPIO_LED_0 */
     GPIO_CFG_NO_DIR, /* DIO_7 */
     GPIO_CFG_NO_DIR, /* DIO_8 */
     GPIO_CFG_NO_DIR, /* DIO_9 */
     GPIO_CFG_NO_DIR, /* DIO_10 */
     GPIO_CFG_NO_DIR, /* DIO_11 */
-    GPIO_CFG_NO_DIR, /* DIO_12 */
+    /* Owned by CONFIG_SPI_0 as SCLK */
+    GPIO_CFG_OUTPUT_INTERNAL | GPIO_CFG_OUT_STR_MED | GPIO_CFG_OUT_LOW, /* CONFIG_GPIO_SPI_0_SCLK */
     GPIO_CFG_NO_DIR, /* DIO_13 */
     GPIO_CFG_NO_DIR, /* DIO_14 */
-    GPIO_CFG_NO_DIR, /* DIO_15 */
-    GPIO_CFG_NO_DIR, /* DIO_16 */
+    /* Owned by CONFIG_I2C as SCL */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_UP_INTERNAL, /* CONFIG_GPIO_I2C_SCL */
+    /* Owned by CONFIG_I2C as SDA */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_UP_INTERNAL, /* CONFIG_GPIO_I2C_SDA */
     GPIO_CFG_NO_DIR, /* DIO_17 */
     GPIO_CFG_NO_DIR, /* DIO_18 */
     GPIO_CFG_NO_DIR, /* DIO_19 */
     GPIO_CFG_NO_DIR, /* DIO_20 */
     GPIO_CFG_NO_DIR, /* DIO_21 */
-    GPIO_CFG_NO_DIR, /* DIO_22 */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_NONE_INTERNAL, /* CONFIG_GPIO_W5500_INT */
     GPIO_CFG_NO_DIR, /* DIO_23 */
     GPIO_CFG_NO_DIR, /* DIO_24 */
-    GPIO_CFG_NO_DIR, /* DIO_25 */
-    GPIO_CFG_NO_DIR, /* DIO_26 */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_NONE_INTERNAL, /* CONFIG_GPIO_W5500_RESET */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_NONE | GPIO_CFG_PULL_NONE_INTERNAL, /* CONFIG_GPIO_W5500_CS */
     GPIO_CFG_NO_DIR, /* DIO_27 */
     GPIO_CFG_NO_DIR, /* DIO_28 */
     GPIO_CFG_NO_DIR, /* DIO_29 */
@@ -84,8 +111,14 @@ GPIO_CallbackFxn gpioCallbackFunctions[31];
 void* gpioUserArgs[31];
 
 const uint_least8_t CONFIG_GPIO_LED_0_CONST = CONFIG_GPIO_LED_0;
+const uint_least8_t CONFIG_GPIO_W5500_RESET_CONST = CONFIG_GPIO_W5500_RESET;
+const uint_least8_t CONFIG_GPIO_W5500_CS_CONST = CONFIG_GPIO_W5500_CS;
+const uint_least8_t CONFIG_GPIO_W5500_INT_CONST = CONFIG_GPIO_W5500_INT;
 const uint_least8_t CONFIG_GPIO_I2C_SDA_CONST = CONFIG_GPIO_I2C_SDA;
 const uint_least8_t CONFIG_GPIO_I2C_SCL_CONST = CONFIG_GPIO_I2C_SCL;
+const uint_least8_t CONFIG_GPIO_SPI_0_SCLK_CONST = CONFIG_GPIO_SPI_0_SCLK;
+const uint_least8_t CONFIG_GPIO_SPI_0_MISO_CONST = CONFIG_GPIO_SPI_0_MISO;
+const uint_least8_t CONFIG_GPIO_SPI_0_MOSI_CONST = CONFIG_GPIO_SPI_0_MOSI;
 
 /*
  *  ======== GPIO_config ========
@@ -189,6 +222,77 @@ const RFCC26XX_HWAttrsV2 RFCC26XX_hwAttrs = {
     .globalEventMask    = 0
 };
 
+
+/*
+ *  =============================== SPI DMA ===============================
+ */
+#include <ti/drivers/SPI.h>
+#include <ti/drivers/spi/SPICC26X2DMA.h>
+#include <ti/drivers/dma/UDMACC26XX.h>
+
+#include <ti/devices/DeviceFamily.h>
+#include DeviceFamily_constructPath(driverlib/ioc.h)
+
+#define CONFIG_SPI_COUNT 1
+
+/*
+ *  ======== spiCC26X2DMAObjects ========
+ */
+SPICC26X2DMA_Object spiCC26X2DMAObjects[CONFIG_SPI_COUNT];
+
+/*
+ * ======== spiCC26X2DMA uDMA Table Entries  ========
+ */
+ALLOCATE_CONTROL_TABLE_ENTRY(dmaSpi0TxControlTableEntry, UDMA_CHAN_SSI0_TX);
+ALLOCATE_CONTROL_TABLE_ENTRY(dmaSpi0RxControlTableEntry, UDMA_CHAN_SSI0_RX);
+ALLOCATE_CONTROL_TABLE_ENTRY(dmaSpi0TxAltControlTableEntry, (UDMA_CHAN_SSI0_TX | UDMA_ALT_SELECT));
+ALLOCATE_CONTROL_TABLE_ENTRY(dmaSpi0RxAltControlTableEntry, (UDMA_CHAN_SSI0_RX | UDMA_ALT_SELECT));
+
+
+/*
+ *  ======== spiCC26X2DMAHWAttrs ========
+ */
+const SPICC26X2DMA_HWAttrs spiCC26X2DMAHWAttrs[CONFIG_SPI_COUNT] = {
+    /* CONFIG_SPI_0 */
+    {
+        .baseAddr = SSI0_BASE,
+        .intNum = INT_SSI0_COMB,
+        .intPriority = (~0),
+        .swiPriority = 0,
+        .powerMngrId = PowerCC26XX_PERIPH_SSI0,
+        .defaultTxBufValue = ~0,
+        .rxChannelBitMask = 1<<UDMA_CHAN_SSI0_RX,
+        .txChannelBitMask = 1<<UDMA_CHAN_SSI0_TX,
+        .dmaTxTableEntryPri = &dmaSpi0TxControlTableEntry,
+        .dmaRxTableEntryPri = &dmaSpi0RxControlTableEntry,
+        .dmaTxTableEntryAlt = &dmaSpi0TxAltControlTableEntry,
+        .dmaRxTableEntryAlt = &dmaSpi0RxAltControlTableEntry,
+        .minDmaTransferSize = 10,
+        .txPinMux   = IOC_PORT_MCU_SSI0_TX,
+        .rxPinMux   = IOC_PORT_MCU_SSI0_RX,
+        .clkPinMux  = IOC_PORT_MCU_SSI0_CLK,
+        .csnPinMux  = IOC_PORT_MCU_SSI0_FSS,
+        .mosiPin = CONFIG_GPIO_SPI_0_MOSI,
+        .misoPin = CONFIG_GPIO_SPI_0_MISO,
+        .clkPin  = CONFIG_GPIO_SPI_0_SCLK,
+        .csnPin  = GPIO_INVALID_INDEX
+    },
+};
+
+/*
+ *  ======== SPI_config ========
+ */
+const SPI_Config SPI_config[CONFIG_SPI_COUNT] = {
+    /* CONFIG_SPI_0 */
+    {
+        .fxnTablePtr = &SPICC26X2DMA_fxnTable,
+        .object = &spiCC26X2DMAObjects[CONFIG_SPI_0],
+        .hwAttrs = &spiCC26X2DMAHWAttrs[CONFIG_SPI_0]
+    },
+};
+
+const uint_least8_t CONFIG_SPI_0_CONST = CONFIG_SPI_0;
+const uint_least8_t SPI_count = CONFIG_SPI_COUNT;
 
 /*
  *  =============================== Temperature ===============================

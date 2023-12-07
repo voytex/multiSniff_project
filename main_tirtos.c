@@ -206,15 +206,15 @@ void displayTask(UArg a0, UArg a1)
 
     GUI_Init();
 
-    GUI_ChangeDeviceIp("192.168.1.1");
+    GUI_ChangeDeviceIp("192.168.ABC");
 
-    GUI_ChangeTargetIp("192.168.1.2");
+    GUI_ChangeTargetIp("192.168.BCD");
 
     GUI_ChangeProto(0);
 
     GUI_ChangeRx(false);
 
-    GUI_ChangeChannel(27);
+    GUI_ChangeChannel(99);
 
 }
 

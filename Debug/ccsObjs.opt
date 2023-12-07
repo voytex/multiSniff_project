@@ -4,6 +4,8 @@
 "./syscfg/ti_drivers_config.o"
 "./syscfg/ti_sysbios_config.o"
 "./source/driverlib/ssd1306/ssd1306.o"
+"./source/driverlib/w5500/SPIfg.o"
+"./source/driverlib/w5500/w5500.o"
 "./source/log/log.o"
 "./source/oled_gui/gui.o"
 "./source/queue/radio_queue.o"

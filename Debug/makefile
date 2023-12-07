@@ -16,6 +16,8 @@ ORDERED_OBJS += \
 "./syscfg/ti_drivers_config.o" \
 "./syscfg/ti_sysbios_config.o" \
 "./source/driverlib/ssd1306/ssd1306.o" \
+"./source/driverlib/w5500/SPIfg.o" \
+"./source/driverlib/w5500/w5500.o" \
 "./source/log/log.o" \
 "./source/oled_gui/gui.o" \
 "./source/queue/radio_queue.o" \
@@ -38,12 +40,14 @@ RMDIR := RMDIR /S/Q
 -include sources.mk
 -include subdir_vars.mk
 -include source/driverlib/ssd1306/subdir_vars.mk
+-include source/driverlib/w5500/subdir_vars.mk
 -include source/log/subdir_vars.mk
 -include source/oled_gui/subdir_vars.mk
 -include source/queue/subdir_vars.mk
 -include source/radio_api/subdir_vars.mk
 -include subdir_rules.mk
 -include source/driverlib/ssd1306/subdir_rules.mk
+-include source/driverlib/w5500/subdir_rules.mk
 -include source/log/subdir_rules.mk
 -include source/oled_gui/subdir_rules.mk
 -include source/queue/subdir_rules.mk
@@ -178,8 +182,8 @@ multiSniff_LP_CC2652RB_tirtos7_ticlang2.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main_tirtos.o" "syscfg\ti_devices_config.o" "syscfg\ti_radio_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_sysbios_config.o" "source\driverlib\ssd1306\ssd1306.o" "source\log\log.o" "source\oled_gui\gui.o" "source\queue\radio_queue.o" "source\radio_api\radio_api.o" 
-	-$(RM) "main_tirtos.d" "syscfg\ti_devices_config.d" "syscfg\ti_radio_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_sysbios_config.d" "source\driverlib\ssd1306\ssd1306.d" "source\log\log.d" "source\oled_gui\gui.d" "source\queue\radio_queue.d" "source\radio_api\radio_api.d" 
+	-$(RM) "main_tirtos.o" "syscfg\ti_devices_config.o" "syscfg\ti_radio_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_sysbios_config.o" "source\driverlib\ssd1306\ssd1306.o" "source\driverlib\w5500\SPIfg.o" "source\driverlib\w5500\w5500.o" "source\log\log.o" "source\oled_gui\gui.o" "source\queue\radio_queue.o" "source\radio_api\radio_api.o" 
+	-$(RM) "main_tirtos.d" "syscfg\ti_devices_config.d" "syscfg\ti_radio_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_sysbios_config.d" "source\driverlib\ssd1306\ssd1306.d" "source\driverlib\w5500\SPIfg.d" "source\driverlib\w5500\w5500.d" "source\log\log.d" "source\oled_gui\gui.d" "source\queue\radio_queue.d" "source\radio_api\radio_api.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '
