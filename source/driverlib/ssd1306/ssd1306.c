@@ -149,7 +149,7 @@ uint8_t SSD1306_Init()
 
     _i2cParams.transferMode = I2C_MODE_BLOCKING;
 
-    _i2c = I2C_open(CONFIG_I2C, &_i2cParams);
+    _i2c = I2C_open(CONFIG_I2C_0, &_i2cParams);
 
     if (_i2c == NULL)
     {

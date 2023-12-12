@@ -11,6 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./dashboard_task.o" \
+"./main.o" \
 "./main_tirtos.o" \
 "./syscfg/ti_devices_config.o" \
 "./syscfg/ti_radio_config.o" \
@@ -36,7 +37,6 @@ ORDERED_OBJS += \
 "./source/log/log.o" \
 "./source/oled_gui/gui.o" \
 "./source/queue/radio_queue.o" \
-"./source/radio_api/radio_api.o" \
 "../cc13x2_cc26x2_tirtos7.cmd" \
 $(GEN_CMDS__FLAG) \
 -Wl,-l"ti/grlib/lib/ticlang/m4f/grlib.a" \
@@ -60,7 +60,6 @@ RMDIR := RMDIR /S/Q
 -include source/log/subdir_vars.mk
 -include source/oled_gui/subdir_vars.mk
 -include source/queue/subdir_vars.mk
--include source/radio_api/subdir_vars.mk
 -include subdir_rules.mk
 -include source/driverlib/ssd1306/subdir_rules.mk
 -include source/driverlib/w5500/subdir_rules.mk
@@ -68,7 +67,6 @@ RMDIR := RMDIR /S/Q
 -include source/log/subdir_rules.mk
 -include source/oled_gui/subdir_rules.mk
 -include source/queue/subdir_rules.mk
--include source/radio_api/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -199,8 +197,8 @@ multiSniff_LP_CC2652RB_tirtos7_ticlang2.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "dashboard_task.o" "main_tirtos.o" "syscfg\ti_devices_config.o" "syscfg\ti_radio_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_sysbios_config.o" "source\driverlib\ssd1306\ssd1306.o" "source\driverlib\w5500\w5500.o" "source\ethernet\ArduinoCompatibility.o" "source\ethernet\Dhcp.o" "source\ethernet\Dns.o" "source\ethernet\Ethernet.o" "source\ethernet\EthernetBonjour.o" "source\ethernet\EthernetClient.o" "source\ethernet\EthernetServer.o" "source\ethernet\EthernetUdp.o" "source\ethernet\EthernetUtil.o" "source\ethernet\IPAddress.o" "source\ethernet\Printfg.o" "source\ethernet\SPIfg.o" "source\ethernet\Serial.o" "source\ethernet\UnitTest.o" "source\ethernet\socket.o" "source\log\log.o" "source\oled_gui\gui.o" "source\queue\radio_queue.o" "source\radio_api\radio_api.o" 
-	-$(RM) "dashboard_task.d" "main_tirtos.d" "syscfg\ti_devices_config.d" "syscfg\ti_radio_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_sysbios_config.d" "source\driverlib\ssd1306\ssd1306.d" "source\driverlib\w5500\w5500.d" "source\ethernet\ArduinoCompatibility.d" "source\ethernet\Dhcp.d" "source\ethernet\Dns.d" "source\ethernet\Ethernet.d" "source\ethernet\EthernetBonjour.d" "source\ethernet\EthernetClient.d" "source\ethernet\EthernetServer.d" "source\ethernet\EthernetUdp.d" "source\ethernet\EthernetUtil.d" "source\ethernet\IPAddress.d" "source\ethernet\Printfg.d" "source\ethernet\SPIfg.d" "source\ethernet\Serial.d" "source\ethernet\UnitTest.d" "source\ethernet\socket.d" "source\log\log.d" "source\oled_gui\gui.d" "source\queue\radio_queue.d" "source\radio_api\radio_api.d" 
+	-$(RM) "dashboard_task.o" "main.o" "main_tirtos.o" "syscfg\ti_devices_config.o" "syscfg\ti_radio_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_sysbios_config.o" "source\driverlib\ssd1306\ssd1306.o" "source\driverlib\w5500\w5500.o" "source\ethernet\ArduinoCompatibility.o" "source\ethernet\Dhcp.o" "source\ethernet\Dns.o" "source\ethernet\Ethernet.o" "source\ethernet\EthernetBonjour.o" "source\ethernet\EthernetClient.o" "source\ethernet\EthernetServer.o" "source\ethernet\EthernetUdp.o" "source\ethernet\EthernetUtil.o" "source\ethernet\IPAddress.o" "source\ethernet\Printfg.o" "source\ethernet\SPIfg.o" "source\ethernet\Serial.o" "source\ethernet\UnitTest.o" "source\ethernet\socket.o" "source\log\log.o" "source\oled_gui\gui.o" "source\queue\radio_queue.o" 
+	-$(RM) "dashboard_task.d" "main.d" "main_tirtos.d" "syscfg\ti_devices_config.d" "syscfg\ti_radio_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_sysbios_config.d" "source\driverlib\ssd1306\ssd1306.d" "source\driverlib\w5500\w5500.d" "source\ethernet\ArduinoCompatibility.d" "source\ethernet\Dhcp.d" "source\ethernet\Dns.d" "source\ethernet\Ethernet.d" "source\ethernet\EthernetBonjour.d" "source\ethernet\EthernetClient.d" "source\ethernet\EthernetServer.d" "source\ethernet\EthernetUdp.d" "source\ethernet\EthernetUtil.d" "source\ethernet\IPAddress.d" "source\ethernet\Printfg.d" "source\ethernet\SPIfg.d" "source\ethernet\Serial.d" "source\ethernet\UnitTest.d" "source\ethernet\socket.d" "source\log\log.d" "source\oled_gui\gui.d" "source\queue\radio_queue.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

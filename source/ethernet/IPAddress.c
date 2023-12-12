@@ -110,7 +110,7 @@ void IPAddress_toString(IPAddress ip, char* strIP) {
 //	        if (j != 0) *(write--) = '.';
 //	    }
 //    }
-	//strIP = write + 2;
-	//strIP += 3;
+//	strIP = write + 2;
+//	strIP += 3;
     sprintf(strIP, "%u.%u.%u.%u\0", ip.bytes[0], ip.bytes[1], ip.bytes[2], ip.bytes[3]);
 }

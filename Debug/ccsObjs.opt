@@ -1,4 +1,5 @@
 "./dashboard_task.o"
+"./main.o"
 "./main_tirtos.o"
 "./syscfg/ti_devices_config.o"
 "./syscfg/ti_radio_config.o"
@@ -24,7 +25,6 @@
 "./source/log/log.o"
 "./source/oled_gui/gui.o"
 "./source/queue/radio_queue.o"
-"./source/radio_api/radio_api.o"
 "../cc13x2_cc26x2_tirtos7.cmd"
 -l"ti/grlib/lib/ticlang/m4f/grlib.a"
 -l"third_party/spiffs/lib/ticlang/m4f/spiffs_cc26xx.a"

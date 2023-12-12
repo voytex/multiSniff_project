@@ -20,7 +20,7 @@
 void W5500_init(void)
 {
     initSS();
-    SPI_begin();
+    //SPI_begin();
     for (int i=0; i<MAX_SOCK_NUM; i++) {
         uint8_t cntl_byte = (0x0C + (i<<5));
 		W5500_write( 0x1E, cntl_byte, 2); //0x1E - Sn_RXBUF_SIZE

@@ -44,10 +44,10 @@ digraph Model
     // mod.$name=/ti/drivers/GPIO
 
     // mod.$name=/ti/drivers/I2C
-    CONFIG_I2C -> ti_drivers_Power
-    CONFIG_I2C -> ti_drivers_Board
-    CONFIG_I2C -> CONFIG_GPIO_I2C_SDA
-    CONFIG_I2C -> CONFIG_GPIO_I2C_SCL
+    CONFIG_I2C_0 -> ti_drivers_Power
+    CONFIG_I2C_0 -> ti_drivers_Board
+    CONFIG_I2C_0 -> CONFIG_GPIO_I2C_0_SDA
+    CONFIG_I2C_0 -> CONFIG_GPIO_I2C_0_SCL
 
     // mod.$name=/ti/drivers/Power
     ti_drivers_Power -> ti_devices_CCFG

@@ -144,16 +144,6 @@ uint8_t _send(I2C_Handle i2c, uint8_t data)
 
 
 
-void EthernetInit()
-{
-    Ethernet_begin_mac(NULL);
-    IPAddress localIp;
-    localIp = Ethernet_localIP();
-    char ip[17];
-    IPAddress_toString(localIp, ip);
-
-    GUI_ChangeDeviceIp(ip);
-}
 
 
 void displayTask(UArg a0, UArg a1)
@@ -242,7 +232,7 @@ void displayTask(UArg a0, UArg a1)
 
 
 
-int main(void)
+int _main(void)
 {
     Task_Params_init(&testParams);
     testParams.stackSize = 2048;

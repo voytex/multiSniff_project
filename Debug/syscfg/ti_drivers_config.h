@@ -42,37 +42,31 @@ extern "C" {
 /*
  *  ======== GPIO ========
  */
-extern const uint_least8_t CONFIG_GPIO_LED_0_CONST;
-#define CONFIG_GPIO_LED_0 6
-
 extern const uint_least8_t CONFIG_GPIO_W5500_RESET_CONST;
 #define CONFIG_GPIO_W5500_RESET 25
 
 extern const uint_least8_t CONFIG_GPIO_W5500_CS_CONST;
-#define CONFIG_GPIO_W5500_CS 26
+#define CONFIG_GPIO_W5500_CS 1
 
-extern const uint_least8_t CONFIG_GPIO_W5500_INT_CONST;
-#define CONFIG_GPIO_W5500_INT 22
+/* Owned by CONFIG_I2C_0 as  */
+extern const uint_least8_t CONFIG_GPIO_I2C_0_SDA_CONST;
+#define CONFIG_GPIO_I2C_0_SDA 16
 
-/* Owned by CONFIG_I2C as  */
-extern const uint_least8_t CONFIG_GPIO_I2C_SDA_CONST;
-#define CONFIG_GPIO_I2C_SDA 16
-
-/* Owned by CONFIG_I2C as  */
-extern const uint_least8_t CONFIG_GPIO_I2C_SCL_CONST;
-#define CONFIG_GPIO_I2C_SCL 15
+/* Owned by CONFIG_I2C_0 as  */
+extern const uint_least8_t CONFIG_GPIO_I2C_0_SCL_CONST;
+#define CONFIG_GPIO_I2C_0_SCL 15
 
 /* Owned by CONFIG_SPI_0 as  */
 extern const uint_least8_t CONFIG_GPIO_SPI_0_SCLK_CONST;
-#define CONFIG_GPIO_SPI_0_SCLK 12
+#define CONFIG_GPIO_SPI_0_SCLK 10
 
 /* Owned by CONFIG_SPI_0 as  */
 extern const uint_least8_t CONFIG_GPIO_SPI_0_MISO_CONST;
-#define CONFIG_GPIO_SPI_0_MISO 1
+#define CONFIG_GPIO_SPI_0_MISO 8
 
 /* Owned by CONFIG_SPI_0 as  */
 extern const uint_least8_t CONFIG_GPIO_SPI_0_MOSI_CONST;
-#define CONFIG_GPIO_SPI_0_MOSI 0
+#define CONFIG_GPIO_SPI_0_MOSI 9
 
 /* The range of pins available on this device */
 extern const uint_least8_t GPIO_pinLowerBound;
@@ -94,20 +88,20 @@ extern const uint_least8_t GPIO_pinUpperBound;
  *  SCL: DIO15
  *  SDA: DIO16
  */
-extern const uint_least8_t              CONFIG_I2C_CONST;
-#define CONFIG_I2C                      0
+extern const uint_least8_t              CONFIG_I2C_0_CONST;
+#define CONFIG_I2C_0                    0
 #define CONFIG_TI_DRIVERS_I2C_COUNT     1
 
 /* ======== I2C Addresses and Speeds ======== */
 #include <ti/drivers/I2C.h>
 
-/* ---- CONFIG_I2C I2C bus components ---- */
+/* ---- CONFIG_I2C_0 I2C bus components ---- */
 
-/* no components connected to CONFIG_I2C */
+/* no components connected to CONFIG_I2C_0 */
 
 /* max speed unspecified, defaulting to 100 Kbps */
-#define CONFIG_I2C_MAXSPEED   (100U) /* Kbps */
-#define CONFIG_I2C_MAXBITRATE ((I2C_BitRate)I2C_100kHz)
+#define CONFIG_I2C_0_MAXSPEED   (100U) /* Kbps */
+#define CONFIG_I2C_0_MAXBITRATE ((I2C_BitRate)I2C_100kHz)
 
 
 
@@ -117,9 +111,10 @@ extern const uint_least8_t              CONFIG_I2C_CONST;
  */
 
 /*
- *  MOSI: DIO0
- *  MISO: DIO1
- *  SCLK: DIO12
+ *  MOSI: DIO9
+ *  MISO: DIO8
+ *  SCLK: DIO10
+ *  LaunchPad SPI Bus
  */
 extern const uint_least8_t              CONFIG_SPI_0_CONST;
 #define CONFIG_SPI_0                    0
