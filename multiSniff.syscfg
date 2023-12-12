@@ -106,9 +106,6 @@ Task.defaultStackSize  = 512;
 Task.idleTaskStackSize = 512;
 Task.numPriorities     = 6;
 
-Error.policy       = "Error_SPIN";
-Error.printDetails = false;
-
 System.abortFxn        = "System_abortSpin";
 System.exitFxn         = "System_exitSpin";
 System.extendedFormats = "%f";

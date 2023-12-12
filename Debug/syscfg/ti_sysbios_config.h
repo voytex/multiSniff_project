@@ -47,9 +47,9 @@ extern "C" {
 /* ensure Error and Assert defines come before dependent modules */
 
 /* ti_sysbios_runtime_Error module definitions */
-#define Error_policy_D Error_SPIN
+#define Error_policy_D Error_UNWIND
 #define Error_raiseHook_D 1
-#define Error_printDetails_D 0
+#define Error_printDetails_D 1
 #define Error_addFileLine_D 1
 #define Error_retainStrings_D 1
 

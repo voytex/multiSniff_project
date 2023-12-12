@@ -59,7 +59,8 @@ HEAPSIZE = 0x4000;  /* Size of heap buffer used by HeapMem */
 /* The starting address of the application.  Normally the interrupt vectors  */
 /* must be located at the beginning of the application.                      */
 #define FLASH_BASE              0x0
-#define FLASH_SIZE              0x58000
+#define FLASH_SIZE              0x50000
+#define STARTUP_VECTORS			0x50000
 #define RAM_BASE                0x20000000
 #define RAM_SIZE                0x14000
 #define GPRAM_BASE              0x11000000
@@ -72,6 +73,9 @@ MEMORY
 {
     /* Application stored in and executes from internal flash */
     FLASH (RX) : origin = FLASH_BASE, length = FLASH_SIZE
+
+    /* MAC Address burned into memory */
+	STV (RW)   : origin = STARTUP_VECTORS, length = 0x10
     /* Application uses internal RAM for data */
     SRAM (RWX) : origin = RAM_BASE, length = RAM_SIZE
     /* Application can use GPRAM region as RAM if cache is disabled in the CCFG
@@ -103,7 +107,7 @@ SECTIONS
     .init_array     :   > FLASH
     .emb_text       :   >> FLASH
     .ccfg           :   > FLASH (HIGH)
-
+    startup_vectors :   > STV, type = NOLOAD
     .vtable         :   > SRAM
     .vtable_ram     :   > SRAM
      vtable_ram     :   > SRAM

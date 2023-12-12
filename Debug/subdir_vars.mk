@@ -12,6 +12,7 @@ SYSCFG_SRCS += \
 ../multiSniff.syscfg 
 
 C_SRCS += \
+../dashboard_task.c \
 ../main_tirtos.c \
 ./syscfg/ti_devices_config.c \
 ./syscfg/ti_radio_config.c \
@@ -28,6 +29,7 @@ GEN_MISC_DIRS += \
 ./syscfg/ 
 
 C_DEPS += \
+./dashboard_task.d \
 ./main_tirtos.d \
 ./syscfg/ti_devices_config.d \
 ./syscfg/ti_radio_config.d \
@@ -35,6 +37,7 @@ C_DEPS += \
 ./syscfg/ti_sysbios_config.d 
 
 OBJS += \
+./dashboard_task.o \
 ./main_tirtos.o \
 ./syscfg/ti_devices_config.o \
 ./syscfg/ti_radio_config.o \
@@ -54,6 +57,7 @@ GEN_MISC_DIRS__QUOTED += \
 "syscfg\" 
 
 OBJS__QUOTED += \
+"dashboard_task.o" \
 "main_tirtos.o" \
 "syscfg\ti_devices_config.o" \
 "syscfg\ti_radio_config.o" \
@@ -70,6 +74,7 @@ GEN_MISC_FILES__QUOTED += \
 "syscfg\ti_sysbios_config.h" 
 
 C_DEPS__QUOTED += \
+"dashboard_task.d" \
 "main_tirtos.d" \
 "syscfg\ti_devices_config.d" \
 "syscfg\ti_radio_config.d" \
@@ -83,6 +88,7 @@ GEN_FILES__QUOTED += \
 "syscfg\ti_sysbios_config.c" 
 
 C_SRCS__QUOTED += \
+"../dashboard_task.c" \
 "../main_tirtos.c" \
 "./syscfg/ti_devices_config.c" \
 "./syscfg/ti_radio_config.c" \
