@@ -106,7 +106,7 @@ void GUI_Init(void)
  * Returns:
  *      N/A
  */
-void GUI_ChangeDeviceIp(char *deviceIp)
+void GUI_ChangeDeviceIp(const char *deviceIp)
 {
     SSD1306_SetPosition(0, 2);
 
@@ -127,7 +127,7 @@ void GUI_ChangeDeviceIp(char *deviceIp)
  * Returns:
  *      N/A
  */
-void GUI_ChangeTargetIp(char *targetIp)
+void GUI_ChangeTargetIp(const char *targetIp)
 {
     SSD1306_SetPosition(0, 4);
 

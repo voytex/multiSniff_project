@@ -84,33 +84,34 @@ int IPAddress_fromString(IPAddress* ip, const char *address)
  * @param strIp HAS TO BE at least 15 bytes long
  * since this func writes from right to left.
  */
-void IPAddress_toString(IPAddress ip, char* strIP) {
-//    char* write = *strIP + 14;
-//    uint8_t offset = 0;
-//	uint8_t i, j;
-//
-//	for (j = 4; j > 0; j--) {
-//	    char c = ip.bytes[j-1];
-//	    if (c < 10) {
-//	        *(write--) = (uint8_t)(c + '0');
-//	        *(write--) = '.';
-//	        offset += 2;
-//	    } else if (c < 100) {
-//	        for (i = 0; i < 2; ++i) {
-//	            *(write--) = (uint8_t)((c % 10) + '0');
-//	            c /= 10;
-//	        }
-//	        offset += 1;
-//	        *(write--) = '.';
-//	    } else {
-//	        for (i = 0; i < 3; ++i) {
-//	            *(write--) = (uint8_t)((c % 10) + '0');
-//	            c /= 10;
-//	        }
-//	        if (j != 0) *(write--) = '.';
-//	    }
-//    }
-//	strIP = write + 2;
-//	strIP += 3;
-    sprintf(strIP, "%u.%u.%u.%u\0", ip.bytes[0], ip.bytes[1], ip.bytes[2], ip.bytes[3]);
+void IPAddress_toString(const IPAddress ip, char* strIP) {
+    char *write = strIP;
+    uint8_t tmp, i;
+    for ( i = 0; i < 4; i++)
+    {
+        tmp = ip.bytes[i];
+        if (tmp >= 100)
+        {
+            *write++ = (tmp / 100) + '0';
+            *write++ = ((tmp % 100) / 10) + '0';
+            *write++ = ((tmp % 100) % 10) + '0';
+        }
+        else if (tmp >= 10)
+        {
+            *write++ = (tmp / 10) + '0';
+            *write++ = (tmp % 10) + '0';
+        }
+        else
+        {
+            *write++ = tmp + '0';
+        }
+
+        if (i < 3)
+        {
+            *write++ = '.';
+        }
+    }
+
+    *write = 0;
+    return;
 }

@@ -114,7 +114,7 @@ void    SSD1306_SetPosition(uint8_t, uint8_t);
 
 uint8_t SSD1306_DrawChar(char, bool);
 
-uint8_t SSD1306_DrawString(char*, bool);
+uint8_t SSD1306_DrawString(const char*, bool);
 
 uint8_t SSD1306_DrawStringInverted(char*);
 

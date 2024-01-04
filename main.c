@@ -35,8 +35,6 @@
 
 #include <source/radio_api/radio_api.h>
 
-#include <source/driverlib/ssd1306/ssd1306.h>
-
 #include <source/oled_gui/gui.h>
 
 #include <source/ethernet/Ethernet.h>
@@ -52,7 +50,7 @@
 
 #define MAC_ADDRESS_STV     (0x50000)
 #define DVC_IP_ADD_STV      (MAC_ADDRESS_STV + 6)
-#define TGT_IP_ADD_STV      ()
+#define TGT_IP_ADD_STV      (DVC_IP_ADD_STV + 4)
 
 // ==============================================================================================================
 
@@ -64,8 +62,10 @@ Task_Handle initTaskHandle;
 void InitTask()
 {
     uint8_t retVal = 0;
-    IPAddress tmpIp;
-    char ipBuf[17] = {0};
+    IPAddress dvcIp;
+    IPAddress tgtIp;
+    char pDvcIpBuf[16] = {0};
+    char pTgtIpBuf[16] = {0};
 
     GUI_Init();
 
@@ -75,17 +75,24 @@ void InitTask()
 
     if ( retVal == 1 )
     {
-        tmpIp = Ethernet_localIP();
+        dvcIp = Ethernet_localIP();
     }
     else
     {
-        IPAddress_Init_str(&tmpIp, (uint8_t*)DVC_IP_ADD_STV);
-        Ethernet_begin_mac_ip((uint8_t*)MAC_ADDRESS_STV, tmpIp);
+        IPAddress_Init_str(&dvcIp, (uint8_t*)DVC_IP_ADD_STV);
+
+        Ethernet_begin_mac_ip((uint8_t*)MAC_ADDRESS_STV, dvcIp);
     }
 
-    IPAddress_toString(tmpIp, ipBuf);
+    IPAddress_Init_str(&tgtIp, (uint8_t*)TGT_IP_ADD_STV);
 
-    GUI_ChangeDeviceIp(ipBuf);
+    IPAddress_toString(dvcIp, pDvcIpBuf);
+
+    IPAddress_toString(tgtIp, pTgtIpBuf);
+
+    GUI_ChangeDeviceIp(pDvcIpBuf);
+
+    GUI_ChangeTargetIp(pTgtIpBuf);
 
     return;
 }

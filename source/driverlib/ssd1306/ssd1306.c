@@ -320,10 +320,12 @@ uint8_t SSD1306_UpdatePosition()
  *
  * Parameters:
  *      character[in]  - ASCII character to be printed
+ *      inverted[in]   - If TRUE, character gets printed
+ *                       black on white
  * Returns:
  *      SSD1306_SUCCESS or SSD1306_ERROR
  */
-uint8_t SSD1306_DrawChar(char character, bool inverted)
+uint8_t SSD1306_DrawChar(const char character, bool inverted)
 {
     uint8_t i = 0;
 
@@ -368,7 +370,7 @@ uint8_t SSD1306_DrawChar(char character, bool inverted)
  * Returns:
  *      SSD1306_SUCCESS or SSD1306_ERROR
  */
-uint8_t SSD1306_DrawString(char *str, bool inverted)
+uint8_t SSD1306_DrawString(const char *str, bool inverted)
 {
     uint8_t i = 0;
 

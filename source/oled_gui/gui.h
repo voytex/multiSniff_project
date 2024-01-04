@@ -10,9 +10,9 @@
 
 void GUI_Init(void);
 
-void GUI_ChangeDeviceIp(char*);
+void GUI_ChangeDeviceIp(const char*);
 
-void GUI_ChangeTargetIp(char*);
+void GUI_ChangeTargetIp(const char*);
 
 void GUI_ChangeProto(uint8_t);
 
