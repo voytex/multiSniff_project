@@ -110,7 +110,13 @@ void GUI_ChangeDeviceIp(const char *deviceIp)
 {
     SSD1306_SetPosition(0, 2);
 
+    SSD1306_DrawString("               ", false);
+
+    SSD1306_SetPosition(0, 2);
+
     SSD1306_DrawString(deviceIp, false);
+
+    SSD1306_DrawLine(0, HORIZ_CHARS_TO_PIX(15), VERTI_CHARS_TO_PIX(3), VERTI_CHARS_TO_PIX(3));
 
     SSD1306_UpdateScreen();
 
@@ -131,7 +137,13 @@ void GUI_ChangeTargetIp(const char *targetIp)
 {
     SSD1306_SetPosition(0, 4);
 
+    SSD1306_DrawString("               ", false);
+
+    SSD1306_SetPosition(0, 4);
+
     SSD1306_DrawString(targetIp, false);
+
+    SSD1306_DrawLine(0, HORIZ_CHARS_TO_PIX(15), VERTI_CHARS_TO_PIX(5), VERTI_CHARS_TO_PIX(5));
 
     SSD1306_UpdateScreen();
 
@@ -151,6 +163,10 @@ void GUI_ChangeTargetIp(const char *targetIp)
  */
 void GUI_ChangeProto(uint8_t proto)
 {
+    SSD1306_SetPosition(0, 6);
+
+    SSD1306_DrawString("    ", false);
+
     SSD1306_SetPosition(0, 6);
 
     switch (proto)
@@ -190,6 +206,10 @@ void GUI_ChangeRx(bool rx)
 {
     SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 5);
 
+    SSD1306_DrawString("   ", false);
+
+    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 5);
+
     SSD1306_DrawString((rx ? "ON" : "OFF"), !rx);
 
     SSD1306_UpdateScreen();
@@ -210,11 +230,15 @@ void GUI_ChangeChannel(uint8_t ch)
 {
     SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 6);
 
+    SSD1306_DrawString("  ", false);
+
     char buf[3];
 
     ito2a(ch, buf);
 
     buf[2] = '\0';
+
+    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 6);
 
     SSD1306_DrawString(buf, false);
 

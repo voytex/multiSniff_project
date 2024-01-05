@@ -94,6 +94,12 @@ void InitTask()
 
     GUI_ChangeTargetIp(pTgtIpBuf);
 
+    GUI_ChangeDeviceIp("10.10.0.1");
+
+    GUI_ChangeRx(false);
+
+    GUI_ChangeRx(true);
+
     return;
 }
 
