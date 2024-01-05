@@ -128,6 +128,7 @@ SUBDIRS := \
 source/driverlib/ssd1306 \
 source/driverlib/w5500 \
 source/ethernet \
+source/html \
 source/log \
 source/oled_gui \
 source/queue \

@@ -22,6 +22,7 @@
 "./source/ethernet/Serial.o"
 "./source/ethernet/UnitTest.o"
 "./source/ethernet/socket.o"
+"./source/html/html.o"
 "./source/log/log.o"
 "./source/oled_gui/gui.o"
 "./source/queue/radio_queue.o"

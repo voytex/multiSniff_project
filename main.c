@@ -43,6 +43,8 @@
 
 #include <source/log/log.h>
 
+#include <source/html/html.h>
+
 // ==============================================================================================================
 
 
@@ -94,11 +96,15 @@ void InitTask()
 
     GUI_ChangeTargetIp(pTgtIpBuf);
 
-    GUI_ChangeDeviceIp("10.10.0.1");
+    //
 
-    GUI_ChangeRx(false);
+    Html_AddKeyValueToBuffer('a', "testuju a");
 
-    GUI_ChangeRx(true);
+    Html_AddKeyValueToBuffer('b', "Beta!");
+
+    Html_AddKeyValueToBuffer('i', "IP: 192.1");
+
+    Html_UpdateHtml();
 
     return;
 }

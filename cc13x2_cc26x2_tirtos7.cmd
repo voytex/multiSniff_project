@@ -62,7 +62,9 @@ HEAPSIZE = 0x4000;  /* Size of heap buffer used by HeapMem */
 #define FLASH_SIZE              0x50000
 #define STARTUP_VECTORS			0x50000
 #define RAM_BASE                0x20000000
-#define RAM_SIZE                0x14000
+#define RAM_SIZE                0x10000
+#define HTML_BASE				0x20010000
+#define HTML_SIZE				0x4000
 #define GPRAM_BASE              0x11000000
 #define GPRAM_SIZE              0x2000
 
@@ -81,6 +83,8 @@ MEMORY
     /* Application can use GPRAM region as RAM if cache is disabled in the CCFG
     (DEFAULT_CCFG_SIZE_AND_DIS_FLAGS.SET_CCFG_SIZE_AND_DIS_FLAGS_DIS_GPRAM = 0) */
     GPRAM (RWX): origin = GPRAM_BASE, length = GPRAM_SIZE
+
+    HTML (RW)  : origin = HTML_BASE, length = HTML_SIZE
 
     /* Explicitly placed off target for the storage of logging data.
      * The data placed here is NOT loaded onto the target device.
