@@ -97,12 +97,15 @@ void InitTask()
     GUI_ChangeTargetIp(pTgtIpBuf);
 
     //
+    Html_Init();
 
     Html_AddKeyValueToBuffer('a', "testuju a");
 
     Html_AddKeyValueToBuffer('b', "Beta!");
 
-    Html_AddKeyValueToBuffer('i', "IP: 192.1");
+    Html_UpdateHtml();
+
+    Html_AddKeyValueToBuffer('a', "IP: 192.1");
 
     Html_UpdateHtml();
 

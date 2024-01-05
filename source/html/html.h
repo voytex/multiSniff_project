@@ -12,6 +12,8 @@ void Html_AddKeyValueToBuffer(char, char*);
 
 void Html_UpdateHtml();
 
+void Html_Init();
+
 
 
 

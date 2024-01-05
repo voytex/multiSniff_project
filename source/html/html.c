@@ -12,6 +12,10 @@
 
 #include <stdint.h>
 
+#include <stdbool.h>
+
+#include <unistd.h>
+
 // ==============================================================================================================
 
 
@@ -23,6 +27,8 @@
 
 #define MAXLEN            (17)
 
+#define ERASE_SEQUENCE    ("                 ")
+
 // ==============================================================================================================
 
 
@@ -31,9 +37,13 @@
 typedef struct ValueBuffer
 {
     char buf[17];
+    char* pos;
+    bool used;
 } ValueBuffer_t;
 
 static ValueBuffer_t valueBuffer[26];
+
+const char eraseSequence[] = ERASE_SEQUENCE;
 
 // ==============================================================================================================
 
@@ -55,6 +65,25 @@ void Html_memcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
     return;
 }
 
+
+void Html_ScanAndRegisterTokens()
+{
+    char* pHtml = (char*)HTML_MEM_START;
+
+    while ( *pHtml != '\0' )
+    {
+        if ( *pHtml == SUBSTITUTE_TOKEN )
+        {
+            valueBuffer[*(pHtml + 1) - 'a'].pos = pHtml;
+        }
+
+        pHtml++;
+    }
+
+    return;
+}
+
+
 // ==============================================================================================================
 
 
@@ -64,27 +93,41 @@ void Html_AddKeyValueToBuffer(char key, char* value)
 {
     Html_memcpy(valueBuffer[key - 'a'].buf, value, MAXLEN);
 
+    valueBuffer[key - 'a'].used = true;
+
     return;
 }
 
 
-void Html_UpdateHtml()
+void Html_Init()
 {
-    char *pHtml = (char*)HTML_MEM_START;
-    char key;
+    uint8_t i;
 
-    while ( *pHtml != '\0' )
+    for (i = 0; i < 26; i++)
     {
-        if ( *pHtml == SUBSTITUTE_TOKEN )
-        {
-            key = *(++pHtml);
-
-            Html_memcpy(pHtml - 1, valueBuffer[key - 'a'].buf, MAXLEN);
-        }
-
-        pHtml++;
+        valueBuffer[i].used = false;
+        valueBuffer[i].pos  = NULL;
     }
 
+    Html_ScanAndRegisterTokens();
+
+    return;
+}
+
+void Html_UpdateHtml()
+{
+    uint8_t i;
+    char *pTmp;
+
+    for ( i = 0; i < 26; i++ )
+    {
+        if ( valueBuffer[i].used )
+        {
+            pTmp = valueBuffer[i].pos;
+            Html_memcpy(pTmp, eraseSequence, MAXLEN);
+            Html_memcpy(pTmp, valueBuffer[i].buf, MAXLEN);
+        }
+    }
     return;
 }
 
