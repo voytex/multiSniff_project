@@ -61,12 +61,12 @@ HEAPSIZE = 0x4000;  /* Size of heap buffer used by HeapMem */
 #define FLASH_BASE              0x0
 #define FLASH_SIZE              0x50000
 #define STARTUP_VECTORS			0x50000
-#define RAM_BASE                0x20000000
-#define RAM_SIZE                0x10000
-#define HTML_BASE				0x20010000
+#define HTML_BASE				0x51000
 #define HTML_SIZE				0x3000
-#define MTU_BASE				0x20013000
-#define MTU_SIZE				0X1000
+#define RAM_BASE                0x20000000
+#define RAM_SIZE                0x12000
+#define MTU_BASE				0x20012000
+#define MTU_SIZE				0X2000
 #define GPRAM_BASE              0x11000000
 #define GPRAM_SIZE              0x2000
 

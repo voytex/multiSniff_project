@@ -21,13 +21,13 @@
 
 // === DEFINES ==================================================================================================
 
-#define HTML_MEM_START    (0x20010000)
+#define HTML_MEM_START    (0x51000)
 
 #define SUBSTITUTE_TOKEN  ('$')
 
 #define MAXLEN            (17)
 
-#define MTU_BUF_MEM_START (0x20013000)
+#define MTU_BUF_MEM_START (0x20012000)
 
 #define MTU_SIZE          (1400)
 
@@ -45,7 +45,7 @@ typedef struct ValueBuffer
  * === valueBuffer
  * This struct is essentially a dictionary. Suppose that in HTML code of the dashboard, we want to 'inject'
  * IP address of the MCU device. Let's add a SUBSTITUE_TOKEN into the HTML followed by some key. Note that
- * the key could be any lowercase letter of the alphabet ('a'..'z'). Let's assign a key of 'd' to device IP
+ * the key could be any lower-case letter of the alphabet ('a'..'z'). Let's assign a key of 'd' to device IP
  * address. The HTML could then look like this: "...<label>$d</label>...". In the next step, add the value
  * to be 'injected' in HTML, into this valueBuffer by calling Html_SetKeyValueInBuffer().
  * ValueBuffer will then look for instance like this:
@@ -67,7 +67,7 @@ static ValueBuffer_t valueBuffer[26];
 // ==============================================================================================================
 
 
-// === INTERNAL FUNCTIONS =======================================================================================¨
+// === INTERNAL FUNCTIONS =======================================================================================
 
 uint8_t Html_strcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
 {
