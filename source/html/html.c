@@ -29,7 +29,7 @@
 
 #define MTU_BUF_MEM_START (0x20013000)
 
-#define MTU_SIZE          (0x1000)
+#define MTU_SIZE          (1400)
 
 // ==============================================================================================================
 
@@ -86,7 +86,7 @@ uint8_t Html_strcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
     return copied;
 }
 
-void Html_strset(const char* pDst, char ch, uint8_t maxlen)
+void Html_strset(const char* pDst, char ch, uint16_t maxlen)
 {
     char* pD = (char*)pDst;
     while ( --maxlen )

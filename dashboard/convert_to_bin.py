@@ -15,6 +15,6 @@ with open(result_file, "wb") as bin_file:
         if c not in ['\n', '\t', '\r']:
             bin_file.write(bytes(c, 'utf-8'))
 
-print(f"Binary file successfully created, size: {len(buffer)}")
+print(f"> Binary file successfully created, size: {len(buffer)}")
 
 

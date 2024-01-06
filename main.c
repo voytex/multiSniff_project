@@ -98,14 +98,12 @@ void InitTask()
 
     //
 
-    Html_SetKeyValueInBuffer('a', "testuju a");
+    Html_SetKeyValueInBuffer('m', "00-00-00-11-22-33");
 
-    Html_SetKeyValueInBuffer('b', "Beta!");
+    Html_SetKeyValueInBuffer('d', pDvcIpBuf);
 
     uint16_t tmp;
     tmp = Html_CopyHtmlToMtuBuffer(0);
-
-    Html_SetKeyValueInBuffer('a', "IP: 19");
 
     Html_CopyHtmlToMtuBuffer(tmp);
 
