@@ -8,13 +8,13 @@
 
 // === INCLUDES =================================================================================================
 
-#include <source/html/html.h>
-
 #include <stdint.h>
 
 #include <stdbool.h>
 
 #include <unistd.h>
+
+#include <source/html/html.h>
 
 // ==============================================================================================================
 
@@ -27,7 +27,9 @@
 
 #define MAXLEN            (17)
 
-#define ERASE_SEQUENCE    ("                 ")
+#define MTU_BUF_MEM_START (0x20013000)
+
+#define MTU_SIZE          (0x1000)
 
 // ==============================================================================================================
 
@@ -37,21 +39,18 @@
 typedef struct ValueBuffer
 {
     char buf[17];
-    char* pos;
-    bool used;
 } ValueBuffer_t;
 
 static ValueBuffer_t valueBuffer[26];
-
-const char eraseSequence[] = ERASE_SEQUENCE;
 
 // ==============================================================================================================
 
 
 // === INTERNAL FUNCTIONS =======================================================================================¨
 
-void Html_memcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
+uint8_t Html_strcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
 {
+    uint8_t copied = 0;
     char* pD = (char*)pDst;
     char* pS = (char*)pSrc;
 
@@ -60,76 +59,71 @@ void Html_memcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
         *pD = *pS;
         pS++;
         pD++;
+        copied++;
     }
 
-    return;
+    return copied;
 }
 
-
-void Html_ScanAndRegisterTokens()
+void Html_strset(const char* pDst, char ch, uint8_t maxlen)
 {
-    char* pHtml = (char*)HTML_MEM_START;
-
-    while ( *pHtml != '\0' )
+    char* pD = (char*)pDst;
+    while ( --maxlen )
     {
-        if ( *pHtml == SUBSTITUTE_TOKEN )
-        {
-            valueBuffer[*(pHtml + 1) - 'a'].pos = pHtml;
-        }
-
-        pHtml++;
+        *pD++ = ch;
     }
 
     return;
 }
-
 
 // ==============================================================================================================
 
 
-// === PUBLISHED FUNCTIONS ======================================================================================¨
+// === PUBLISHED FUNCTIONS ======================================================================================
 
-void Html_AddKeyValueToBuffer(char key, char* value)
+void Html_SetKeyValueInBuffer(char key, char* value)
 {
-    Html_memcpy(valueBuffer[key - 'a'].buf, value, MAXLEN);
+    Html_strset(valueBuffer[key - 'a'].buf, 0, MAXLEN);
 
-    valueBuffer[key - 'a'].used = true;
+    Html_strcpy(valueBuffer[key - 'a'].buf, value, MAXLEN);
 
     return;
 }
 
-
-void Html_Init()
+uint8_t Html_CopyHtmlToMtuBuffer(uint16_t offset)
 {
-    uint8_t i;
+    char *pHtml = (char*)(HTML_MEM_START + offset);
+    char *pMtu  = (char*)MTU_BUF_MEM_START;
+    uint16_t i, tmp;
 
-    for (i = 0; i < 26; i++)
+    for ( i = 0; i < MTU_SIZE - 1; i++ )
     {
-        valueBuffer[i].used = false;
-        valueBuffer[i].pos  = NULL;
-    }
-
-    Html_ScanAndRegisterTokens();
-
-    return;
-}
-
-void Html_UpdateHtml()
-{
-    uint8_t i;
-    char *pTmp;
-
-    for ( i = 0; i < 26; i++ )
-    {
-        if ( valueBuffer[i].used )
+        if ( *pHtml == '\0' )
         {
-            pTmp = valueBuffer[i].pos;
-            Html_memcpy(pTmp, eraseSequence, MAXLEN);
-            Html_memcpy(pTmp, valueBuffer[i].buf, MAXLEN);
+            Html_strset(pMtu, 0, MTU_SIZE - i);
+            return i;
+        }
+
+        if ( *pHtml == SUBSTITUTE_TOKEN )
+        {
+            tmp = Html_strcpy(pMtu, valueBuffer[*(pHtml + 1) - 'a'].buf, MAXLEN);
+            pHtml += 2;
+            pMtu += tmp;
+        }
+        else
+        {
+            *pMtu = *pHtml;
+            pMtu++;
+            pHtml++;
         }
     }
-    return;
+
+    *pMtu = 0;
+
+    return i;
 }
+
+
 
 
 

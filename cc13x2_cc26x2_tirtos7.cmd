@@ -64,7 +64,9 @@ HEAPSIZE = 0x4000;  /* Size of heap buffer used by HeapMem */
 #define RAM_BASE                0x20000000
 #define RAM_SIZE                0x10000
 #define HTML_BASE				0x20010000
-#define HTML_SIZE				0x4000
+#define HTML_SIZE				0x3000
+#define MTU_BASE				0x20013000
+#define MTU_SIZE				0X1000
 #define GPRAM_BASE              0x11000000
 #define GPRAM_SIZE              0x2000
 
@@ -84,7 +86,9 @@ MEMORY
     (DEFAULT_CCFG_SIZE_AND_DIS_FLAGS.SET_CCFG_SIZE_AND_DIS_FLAGS_DIS_GPRAM = 0) */
     GPRAM (RWX): origin = GPRAM_BASE, length = GPRAM_SIZE
 
-    HTML (RW)  : origin = HTML_BASE, length = HTML_SIZE
+    HTML (R)   : origin = HTML_BASE, length = HTML_SIZE
+
+    MTU_BUFFER (RW) : origin = MTU_BASE, length = MTU_SIZE
 
     /* Explicitly placed off target for the storage of logging data.
      * The data placed here is NOT loaded onto the target device.
@@ -112,6 +116,7 @@ SECTIONS
     .emb_text       :   >> FLASH
     .ccfg           :   > FLASH (HIGH)
     startup_vectors :   > STV, type = NOLOAD
+    html            :   > HTML, type = NOLOAD
     .vtable         :   > SRAM
     .vtable_ram     :   > SRAM
      vtable_ram     :   > SRAM

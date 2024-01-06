@@ -5,15 +5,13 @@
  *      Author: vojtechlukas
  */
 
+
 #ifndef SOURCE_HTML_HTML_H_
 #define SOURCE_HTML_HTML_H_
 
-void Html_AddKeyValueToBuffer(char, char*);
+void Html_SetKeyValueInBuffer(char, char*);
 
-void Html_UpdateHtml();
-
-void Html_Init();
-
+uint8_t Html_CopyHtmlToMtuBuffer(uint16_t);
 
 
 
