@@ -11,7 +11,7 @@
 
 void Html_SetKeyValueInBuffer(char, char*);
 
-uint8_t Html_CopyHtmlToMtuBuffer(uint16_t);
+uint16_t Html_CopyHtmlToMtuBuffer(uint16_t);
 
 
 
