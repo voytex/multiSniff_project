@@ -3,6 +3,7 @@ For token-value relations within dashboard and software.
 
 | Token | Type | Value |
 | ----- | ---- | ----- |
+| `$t`  | `char[15]` | IP address of the Target 
 | `$m`  | `char[17]` | MAC address of the Device | 
 | `$d`  | `char[15]` | Device IP address |
 | `$g`  | `char[15]` | Gateway IP address |
@@ -13,4 +14,5 @@ For token-value relations within dashboard and software.
 | `$w`  | `char[17]` | Number of RXNOK BLE frames |
 | `$x`  | `char[17]` | Number of RXOK 802_15_4 frames |
 | `$y`  | `char[17]` | Number of RXNOK 802_15_4 frames |
-| 
+| `$z`  | `char[17]` | Last frame's RSSI |
+

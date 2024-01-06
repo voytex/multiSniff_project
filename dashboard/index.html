@@ -11,10 +11,10 @@
         form {display: table;padding-bottom: 10px;}
         p {display: table-row;}
         label { display: table-cell;padding-right: 10px;}
-        input select { display: table-cell;}
-        input[type="text"]:disabled {background: #4a4a4a;color: #ffffff;font-size: medium;}
-        input[type="text"] {font-size: medium;}
-        input[type="submit"], button {font-size: medium;width: 70px;}
+        input select { display: table-cell; }
+        input[type="text"]:disabled { background: #4a4a4a;color: #ffffff;font-size: medium;}
+        input[type="text"] { font-size: medium; }
+        input[type="submit"], button { font-size: medium; width: 70px; }
     </style>
     </head>
     <body><h1>mSniff Dashboard</h1>
@@ -38,8 +38,9 @@
                 <p><label for="802_15_4">IEEE 802.15.4</label><input type="radio" id="802_15_4" name="pro" value="1"></p>
                 <label for="channel">Channel</label><select id="channel" name="chn"></select>
                 <p> <label for="ip">Target IP address</label>
-                <input type="text" id="ip" name="tgt" value="%s"></p><br><p>
-                <input type="submit" value="Set"></p> </form><br><form><p><label>Status <b id="run_sw"></b></label></p><br><p><button id="run_but" name="run">
+                <input type="text" id="ip" name="tgt" value="$t"></p><br><p>
+                <input type="submit" value="Set"></p> </form><br><form><p><label>Status <b id="run_sw"></b></label></p><br>
+                <p><button id="run_but" name="run">
                 </button></p>
                 <script>
                 const run = $r; 
@@ -82,7 +83,41 @@
                 <p><label for="lastRssi">Last frame's RSSI</label>
                 <input type="text" id="lastRssi" value="$z" disabled></p>
             </form>
-
-</body>
-</head>
+        </section>
+    </body>
+    <script>
+    const ip_regex = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+    document.querySelectorAll('input[id="ip"]').forEach(element => 
+    { 
+        element.setAttribute("pattern", ip_regex);
+    });
+    const dhcp_radios = document.querySelectorAll('input[name="dhcp"]');
+    for (const radio of dhcp_radios) { 
+        radio.addEventListener('change', () => 
+        {
+            document.querySelectorAll('input[tag="sw_dhcp"]').forEach(element => 
+            { 
+                element.disabled = document.getElementById("dhcp").checked;
+            }); 
+        })
+    }
+    const ieeeChannels = Array.from({length: 16}, (x, i)=>i+11);
+    const bleChannels  = Array(37,38,39);
+    const channel_select = document.getElementById("channel");
+    const channel_radios = document.querySelectorAll('input[name="pro"]');
+    for (const radio of channel_radios) { 
+        radio.addEventListener('change', () => 
+        {
+            channel_select.innerHTML = ''; 
+            if (radio.id === "ble" && radio.checked) 
+                bleChannels.forEach((channel) => 
+                    channel_select.innerHTML+='<option value="'+channel+'"> Channel '+channel+'</option'
+                );
+            if (radio.id ==="802_15_4" && radio.checked) 
+                ieeeChannels.forEach((channel) => 
+                    channel_select.innerHTML+='<option value="'+channel+'"> Channel '+channel+'</option'
+                );
+        });
+    }
+    </script>
 </html>
