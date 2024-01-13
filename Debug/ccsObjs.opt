@@ -1,6 +1,6 @@
 "./dashboard_task.o"
+"./init_task.o"
 "./main.o"
-"./main_tirtos.o"
 "./syscfg/ti_devices_config.o"
 "./syscfg/ti_radio_config.o"
 "./syscfg/ti_drivers_config.o"

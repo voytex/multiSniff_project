@@ -9,4 +9,8 @@ var session = server.openSession( "Texas Instruments XDS110 USB Debug Probe/Cort
 var index_path = "C:\\Users\\Administrator\\workspace_v12\\multiSniff_LP_CC2652RB_tirtos7_ticlang2\\dashboard\\index.bin";
 var html_memory_location = 0x51000;
 
+var stv_path = "C:\\Users\\Administrator\\workspace_v12\\multiSniff_LP_CC2652RB_tirtos7_ticlang2\\dashboard\\startup_vectors.bin";
+var stv_memory_location = 0x50000;
+
 session.memory.loadBinaryProgram(index_path, html_memory_location);
+session.memory.loadBinaryProgram(stv_path, stv_memory_location);

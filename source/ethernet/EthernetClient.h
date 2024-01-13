@@ -6,7 +6,7 @@
 #endif
 
 #include "IPAddress.h"
-#include "printfg.h"
+#include "Printfg.h"
 
 #ifdef __cplusplus
 extern "C" {

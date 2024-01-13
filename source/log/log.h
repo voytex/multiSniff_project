@@ -18,6 +18,7 @@ typedef enum LogEntity
     Integer,
     Buffer,
     SSD1306,
+    IpAddress,
     None
 } LogEntity_t;
 

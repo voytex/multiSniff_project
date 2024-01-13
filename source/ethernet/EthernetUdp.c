@@ -26,7 +26,7 @@
  * bjoern@cs.stanford.edu 12/30/2008
  */
 
-#include <source/driverlib/w5500/W5500.h>
+#include <source/driverlib/w5500/w5500.h>
 #include "socket.h"
 #include "Ethernet.h"
 #include "Dns.h"

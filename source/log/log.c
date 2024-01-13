@@ -11,6 +11,8 @@
 
 #include <xdc/runtime/System.h>
 
+#include <source/ethernet/IPAddress.h>
+
 #include <source/log/log.h>
 
 // ==============================================================================================================
@@ -41,6 +43,7 @@ void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType)
     uint16_t *status = (uint16_t *)pEntity + 1;
     uint64_t *events = (uint64_t *)pEntity;
     uint32_t *integer = (uint32_t *)pEntity;
+    IPAddress *pIp = (IPAddress*)pEntity;
 
     if (pMsg != NULL)
     {
@@ -133,6 +136,10 @@ void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType)
             System_printf("<SSD1306> Success\n");
         if (*integer == 1)
             System_printf("<SSD1306> Error\n");
+        break;
+
+    case IpAddress:
+        System_printf("<IPAddress>: %d.%d.%d.%d\n", pIp->bytes[0], pIp->bytes[1], pIp->bytes[2], pIp->bytes[3]);
         break;
 
     default:

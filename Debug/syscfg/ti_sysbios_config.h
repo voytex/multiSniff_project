@@ -49,7 +49,7 @@ extern "C" {
 /* ti_sysbios_runtime_Error module definitions */
 #define Error_policy_D Error_SPIN
 #define Error_raiseHook_D 1
-#define Error_printDetails_D 0
+#define Error_printDetails_D 1
 #define Error_addFileLine_D 1
 #define Error_retainStrings_D 1
 
@@ -159,8 +159,8 @@ extern "C" {
 
 #define Task_allBlockedFunc_D NULL
 #define Task_numPriorities_D 6
-#define Task_defaultStackSize_D 512
-#define Task_idleTaskStackSize_D 512
+#define Task_defaultStackSize_D 1024
+#define Task_idleTaskStackSize_D 1024
 #define Task_idleTaskVitalTaskFlag_D true
 #define Task_initStackFlag_D true
 #define Task_checkStackFlag_D false

@@ -8,7 +8,10 @@
 #ifndef DASHBOARD_TASK_H_
 #define DASHBOARD_TASK_H_
 
-void Dashboard_Main(void);
+void Dashboard_Main(UArg, UArg);
+
+void Dashboard_SendHtml(EthernetClient*);
+
 
 #endif /* DASHBOARD_TASK_H_ */
 void foo(void);

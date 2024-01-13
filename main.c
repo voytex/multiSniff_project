@@ -45,6 +45,10 @@
 
 #include <source/html/html.h>
 
+#include <dashboard_task.h>
+
+#include <init_task.h>
+
 // ==============================================================================================================
 
 
@@ -59,69 +63,34 @@
 
 // === INTERNAL FUNCTIONS =======================================================================================
 
-Task_Params initTaskParams;
-Task_Handle initTaskHandle;
-void InitTask()
-{
-    uint8_t retVal = 0;
-    IPAddress dvcIp;
-    IPAddress tgtIp;
-    char pDvcIpBuf[16] = {0};
-    char pTgtIpBuf[16] = {0};
 
-    GUI_Init();
-
-    SPI_begin();
-
-    retVal = Ethernet_begin_mac((uint8_t*)MAC_ADDRESS_STV);
-
-    if ( retVal == 1 )
-    {
-        dvcIp = Ethernet_localIP();
-    }
-    else
-    {
-        IPAddress_Init_str(&dvcIp, (uint8_t*)DVC_IP_ADD_STV);
-
-        Ethernet_begin_mac_ip((uint8_t*)MAC_ADDRESS_STV, dvcIp);
-    }
-
-    IPAddress_Init_str(&tgtIp, (uint8_t*)TGT_IP_ADD_STV);
-
-    IPAddress_toString(dvcIp, pDvcIpBuf);
-
-    IPAddress_toString(tgtIp, pTgtIpBuf);
-
-    GUI_ChangeDeviceIp(pDvcIpBuf);
-
-    GUI_ChangeTargetIp(pTgtIpBuf);
-
-    //
-
-    Html_SetKeyValueInBuffer('m', "00-00-00-11-22-33");
-
-    Html_SetKeyValueInBuffer('d', pDvcIpBuf);
-
-    uint16_t tmp;
-    tmp = Html_CopyHtmlToMtuBuffer(0);
-
-    Html_CopyHtmlToMtuBuffer(tmp);
-
-
-    return;
-}
 
 // ==============================================================================================================
+Task_Params dashboardTaskParams;
+Task_Params initTaskParams;
+Semaphore_Handle Init_SemaphoreHandle;
+
 
 int main()
 {
     Board_init();
 
-    GPIO_init();
+
+
+    Task_Handle initTaskHandle;
+    Task_Handle dashboardTaskHandle;
+
+    Init_SemaphoreHandle = SemaphoreP_createBinary(0);
 
     Task_Params_init(&initTaskParams);
     initTaskParams.stackSize = 1024;
-    initTaskHandle = Task_create((Task_FuncPtr)InitTask, &initTaskParams, NULL);
+    initTaskParams.priority  = 3;
+    initTaskHandle = Task_create((Task_FuncPtr)Init_Main, &initTaskParams, Error_IGNORE);
+
+    Task_Params_init(&dashboardTaskParams);
+    dashboardTaskParams.stackSize = 1024;
+    dashboardTaskParams.priority  = 2;
+    dashboardTaskHandle = Task_create((Task_FuncPtr)Dashboard_Main, &dashboardTaskParams, Error_IGNORE);
 
     BIOS_start();
 

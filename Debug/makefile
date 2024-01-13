@@ -11,8 +11,8 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./dashboard_task.o" \
+"./init_task.o" \
 "./main.o" \
-"./main_tirtos.o" \
 "./syscfg/ti_devices_config.o" \
 "./syscfg/ti_radio_config.o" \
 "./syscfg/ti_drivers_config.o" \
@@ -186,7 +186,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 multiSniff_LP_CC2652RB_tirtos7_ticlang2.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccs1210/ccs/tools/compiler/ti-cgt-armllvm_2.1.2.LTS/bin/tiarmclang.exe" -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mlittle-endian -mthumb -Oz -DDeviceFamily_CC26X2 -gdwarf-3 -march=armv7e-m -Wl,-m"multiSniff_LP_CC2652RB_tirtos7_ticlang2.map" -Wl,-i"C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source" -Wl,-i"C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages" -Wl,-i"C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/Debug/syscfg" -Wl,-i"C:/ti/ccs1210/ccs/tools/compiler/ti-cgt-armllvm_2.1.2.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="multiSniff_LP_CC2652RB_tirtos7_ticlang2_linkInfo.xml" -Wl,--rom_model -o "multiSniff_LP_CC2652RB_tirtos7_ticlang2.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1210/ccs/tools/compiler/ti-cgt-armllvm_2.1.2.LTS/bin/tiarmclang.exe" -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mlittle-endian -mthumb -O0 -DDeviceFamily_CC26X2 -gdwarf-3 -march=armv7e-m -Wl,-m"multiSniff_LP_CC2652RB_tirtos7_ticlang2.map" -Wl,-i"C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source" -Wl,-i"C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages" -Wl,-i"C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/Debug/syscfg" -Wl,-i"C:/ti/ccs1210/ccs/tools/compiler/ti-cgt-armllvm_2.1.2.LTS/lib" -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--xml_link_info="multiSniff_LP_CC2652RB_tirtos7_ticlang2_linkInfo.xml" -Wl,--rom_model -o "multiSniff_LP_CC2652RB_tirtos7_ticlang2.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
@@ -200,8 +200,8 @@ multiSniff_LP_CC2652RB_tirtos7_ticlang2.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "dashboard_task.o" "main.o" "main_tirtos.o" "syscfg\ti_devices_config.o" "syscfg\ti_radio_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_sysbios_config.o" "source\driverlib\ssd1306\ssd1306.o" "source\driverlib\w5500\w5500.o" "source\ethernet\ArduinoCompatibility.o" "source\ethernet\Dhcp.o" "source\ethernet\Dns.o" "source\ethernet\Ethernet.o" "source\ethernet\EthernetBonjour.o" "source\ethernet\EthernetClient.o" "source\ethernet\EthernetServer.o" "source\ethernet\EthernetUdp.o" "source\ethernet\EthernetUtil.o" "source\ethernet\IPAddress.o" "source\ethernet\Printfg.o" "source\ethernet\SPIfg.o" "source\ethernet\Serial.o" "source\ethernet\UnitTest.o" "source\ethernet\socket.o" "source\html\html.o" "source\log\log.o" "source\oled_gui\gui.o" "source\queue\radio_queue.o" 
-	-$(RM) "dashboard_task.d" "main.d" "main_tirtos.d" "syscfg\ti_devices_config.d" "syscfg\ti_radio_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_sysbios_config.d" "source\driverlib\ssd1306\ssd1306.d" "source\driverlib\w5500\w5500.d" "source\ethernet\ArduinoCompatibility.d" "source\ethernet\Dhcp.d" "source\ethernet\Dns.d" "source\ethernet\Ethernet.d" "source\ethernet\EthernetBonjour.d" "source\ethernet\EthernetClient.d" "source\ethernet\EthernetServer.d" "source\ethernet\EthernetUdp.d" "source\ethernet\EthernetUtil.d" "source\ethernet\IPAddress.d" "source\ethernet\Printfg.d" "source\ethernet\SPIfg.d" "source\ethernet\Serial.d" "source\ethernet\UnitTest.d" "source\ethernet\socket.d" "source\html\html.d" "source\log\log.d" "source\oled_gui\gui.d" "source\queue\radio_queue.d" 
+	-$(RM) "dashboard_task.o" "init_task.o" "main.o" "syscfg\ti_devices_config.o" "syscfg\ti_radio_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_sysbios_config.o" "source\driverlib\ssd1306\ssd1306.o" "source\driverlib\w5500\w5500.o" "source\ethernet\ArduinoCompatibility.o" "source\ethernet\Dhcp.o" "source\ethernet\Dns.o" "source\ethernet\Ethernet.o" "source\ethernet\EthernetBonjour.o" "source\ethernet\EthernetClient.o" "source\ethernet\EthernetServer.o" "source\ethernet\EthernetUdp.o" "source\ethernet\EthernetUtil.o" "source\ethernet\IPAddress.o" "source\ethernet\Printfg.o" "source\ethernet\SPIfg.o" "source\ethernet\Serial.o" "source\ethernet\UnitTest.o" "source\ethernet\socket.o" "source\html\html.o" "source\log\log.o" "source\oled_gui\gui.o" "source\queue\radio_queue.o" 
+	-$(RM) "dashboard_task.d" "init_task.d" "main.d" "syscfg\ti_devices_config.d" "syscfg\ti_radio_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_sysbios_config.d" "source\driverlib\ssd1306\ssd1306.d" "source\driverlib\w5500\w5500.d" "source\ethernet\ArduinoCompatibility.d" "source\ethernet\Dhcp.d" "source\ethernet\Dns.d" "source\ethernet\Ethernet.d" "source\ethernet\EthernetBonjour.d" "source\ethernet\EthernetClient.d" "source\ethernet\EthernetServer.d" "source\ethernet\EthernetUdp.d" "source\ethernet\EthernetUtil.d" "source\ethernet\IPAddress.d" "source\ethernet\Printfg.d" "source\ethernet\SPIfg.d" "source\ethernet\Serial.d" "source\ethernet\UnitTest.d" "source\ethernet\socket.d" "source\html\html.d" "source\log\log.d" "source\oled_gui\gui.d" "source\queue\radio_queue.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

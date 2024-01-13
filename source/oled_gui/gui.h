@@ -5,6 +5,8 @@
  *      Author: vojtechlukas
  */
 
+#include <stdbool.h>
+
 #ifndef SOURCE_OLED_GUI_GUI_H_
 #define SOURCE_OLED_GUI_GUI_H_
 

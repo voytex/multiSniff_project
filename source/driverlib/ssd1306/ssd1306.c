@@ -180,7 +180,7 @@ uint8_t SSD1306_Init()
  */
 uint8_t SSD1306_SendCommand(uint8_t cmd)
 {
-    uint8_t buffer[2];
+    static uint8_t buffer[2];
 
     buffer[0] = 0x0;
 

@@ -47,9 +47,9 @@
 
           spi = SPI_open(CONFIG_SPI_0, &spiParams);
 
-          if (spi == NULL) {
-             while(1);
-          }
+          //if (spi == NULL) {
+          //   while(1);
+          //}
 
 
     }
