@@ -11,8 +11,6 @@
 
 #include <ti/drivers/SPI.h>
 
-#include <source/log/log.h>
-
 #include <source/ethernet/Ethernet.h>
 
 #include <source/ethernet/EthernetServer.h>
@@ -26,6 +24,7 @@
 #include <ti/sysbios/BIOS.h>
 
 #include <dashboard_task.h>
+#include <source/utils/log.h>
 
 
 // ==============================================================================================================

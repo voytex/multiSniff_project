@@ -5,22 +5,22 @@
 SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
-C_SRCS += \
-../source/log/log.c 
-
-C_DEPS += \
-./source/log/log.d 
+ASM_SRCS += \
+../source/restart.asm 
 
 OBJS += \
-./source/log/log.o 
+./source/restart.o 
+
+ASM_DEPS += \
+./source/restart.d 
 
 OBJS__QUOTED += \
-"source\log\log.o" 
+"source\restart.o" 
 
-C_DEPS__QUOTED += \
-"source\log\log.d" 
+ASM_DEPS__QUOTED += \
+"source\restart.d" 
 
-C_SRCS__QUOTED += \
-"../source/log/log.c" 
+ASM_SRCS__QUOTED += \
+"../source/restart.asm" 
 
 

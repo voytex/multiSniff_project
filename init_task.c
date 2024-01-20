@@ -10,8 +10,9 @@
 #include <source/ethernet/Ethernet.h>
 
 #include <source/oled_gui/gui.h>
+#include <source/utils/log.h>
 
-#include <source/log/log.h>
+#include <source/utils/restart.h>
 
 #include <ti/drivers/GPIO.h>
 
@@ -21,11 +22,15 @@
 
 #include <ti/sysbios/knl/Semaphore.h>
 
+
+
+
+
 #define MAC_ADDRESS_STV     (0x50000)
 #define DVC_IP_ADD_STV      (MAC_ADDRESS_STV + 6)
 #define TGT_IP_ADD_STV      (DVC_IP_ADD_STV + 4)
 extern Semaphore_Handle Init_SemaphoreHandle;
-
+extern void _c_int00();
 
 void Init_Main(UArg a0, UArg a1)
 {
@@ -69,6 +74,10 @@ void Init_Main(UArg a0, UArg a1)
     GUI_ChangeTargetIp(pTgtIpBuf);
 
     Semaphore_post(Init_SemaphoreHandle);
+
+    RestartMCU();
+
+
 
     return;
 }

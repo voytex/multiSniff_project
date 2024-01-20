@@ -13,7 +13,7 @@
 
 #include <source/ethernet/IPAddress.h>
 
-#include <source/log/log.h>
+#include <source/utils/log.h>
 
 // ==============================================================================================================
 

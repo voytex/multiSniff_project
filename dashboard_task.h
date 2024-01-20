@@ -14,4 +14,3 @@ void Dashboard_SendHtml(EthernetClient*);
 
 
 #endif /* DASHBOARD_TASK_H_ */
-void foo(void);
