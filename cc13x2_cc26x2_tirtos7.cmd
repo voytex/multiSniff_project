@@ -79,7 +79,7 @@ MEMORY
     FLASH (RX) : origin = FLASH_BASE, length = FLASH_SIZE
 
     /* MAC Address burned into memory */
-	STV (RW)   : origin = STARTUP_VECTORS, length = 0x10
+	STV (RW)   : origin = STARTUP_VECTORS, length = 0x20
     /* Application uses internal RAM for data */
     SRAM (RWX) : origin = RAM_BASE, length = RAM_SIZE
     /* Application can use GPRAM region as RAM if cache is disabled in the CCFG
