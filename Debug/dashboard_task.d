@@ -33,7 +33,8 @@ dashboard_task.o: ../dashboard_task.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/runtime/Types.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/runtime/Types_defs.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/dashboard_task.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/log.h
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/log.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/restart.h
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/SPI.h:
 
@@ -100,3 +101,5 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/dashboard_task.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/log.h:
+
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/restart.h:

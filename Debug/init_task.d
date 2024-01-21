@@ -49,7 +49,8 @@ init_task.o: ../init_task.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Semaphore.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Event.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Event_defs.h \
- C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Semaphore_defs.h
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Semaphore_defs.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/stv.h
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/IPAddress.h:
 
@@ -148,3 +149,5 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Event_defs.h:
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/ti/sysbios/knl/Semaphore_defs.h:
+
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/stv.h:

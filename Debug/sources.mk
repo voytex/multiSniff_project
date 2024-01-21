@@ -131,5 +131,6 @@ source/ethernet \
 source/html \
 source/oled_gui \
 source/queue \
+source/radio_api \
 source/utils \
 

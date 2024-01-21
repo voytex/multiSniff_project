@@ -24,7 +24,10 @@
 #include <ti/sysbios/BIOS.h>
 
 #include <dashboard_task.h>
+
 #include <source/utils/log.h>
+
+#include <source/utils/restart.h>
 
 
 // ==============================================================================================================
@@ -65,6 +68,8 @@ inline bool clientConnected(EthernetClient *client)
 void Dashboard_Main(UArg a0, UArg a1)
 {
     Semaphore_pend(Init_SemaphoreHandle, BIOS_WAIT_FOREVER);
+
+    RestartMCU();
 
     static bool readDestination;
 

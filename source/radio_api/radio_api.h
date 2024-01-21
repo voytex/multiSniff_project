@@ -2,7 +2,7 @@
  * radio_api.h
  *
  *  Created on: 11. 9. 2023
- *      Author: Administrator
+ *      Author: vojtechlukas
  */
 
 #ifndef RADIO_API_H_

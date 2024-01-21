@@ -25,6 +25,7 @@
 "./source/html/html.o"
 "./source/oled_gui/gui.o"
 "./source/queue/radio_queue.o"
+"./source/radio_api/radio_api.o"
 "./source/utils/log.o"
 "./source/utils/restart.o"
 "../cc13x2_cc26x2_tirtos7.cmd"

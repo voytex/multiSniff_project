@@ -60,13 +60,14 @@ HEAPSIZE = 0x4000;  /* Size of heap buffer used by HeapMem */
 /* must be located at the beginning of the application.                      */
 #define FLASH_BASE              0x0
 #define FLASH_SIZE              0x50000
-#define STARTUP_VECTORS			0x50000
+#define STARTUP_VECTORS_R		0x50000
 #define HTML_BASE				0x51000
 #define HTML_SIZE				0x3000
 #define RAM_BASE                0x20000000
 #define RAM_SIZE                0x12000
 #define MTU_BASE				0x20012000
-#define MTU_SIZE				0X2000
+#define MTU_SIZE				0x1500
+#define STARTUP_VECTORS_W		0x20013500
 #define GPRAM_BASE              0x11000000
 #define GPRAM_SIZE              0x2000
 
@@ -78,8 +79,9 @@ MEMORY
     /* Application stored in and executes from internal flash */
     FLASH (RX) : origin = FLASH_BASE, length = FLASH_SIZE
 
-    /* MAC Address burned into memory */
-	STV (RW)   : origin = STARTUP_VECTORS, length = 0x20
+    /* Startup Vectors burned into memory */
+	STV_R (R)  : origin = STARTUP_VECTORS_R, length = 0x20
+	STV_W (W)  : origin = STARTUP_VECTORS_W, length = 0x20
     /* Application uses internal RAM for data */
     SRAM (RWX) : origin = RAM_BASE, length = RAM_SIZE
     /* Application can use GPRAM region as RAM if cache is disabled in the CCFG
@@ -115,7 +117,8 @@ SECTIONS
     .init_array     :   > FLASH
     .emb_text       :   >> FLASH
     .ccfg           :   > FLASH (HIGH)
-    startup_vectors :   > STV, type = NOLOAD
+    startup_vectors_r :   > STV_R, type = NOLOAD
+    startup_vectors_w :   > STV_W
     html            :   > HTML, type = NOLOAD
     .vtable         :   > SRAM
     .vtable_ram     :   > SRAM

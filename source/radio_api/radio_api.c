@@ -13,7 +13,7 @@
 
 #include <source/queue/radio_queue.h>
 
-#include <source/log/log.h>
+#include <source/utils/log.h>
 
 #include <source/radio_api/radio_api.h>
 

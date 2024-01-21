@@ -30,8 +30,10 @@ source/radio_api/radio_api.o: ../source/radio_api/radio_api.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/cpu.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/inc/hw_cpu_scs.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rom.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/I2C.h \
+ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/dpl/HwiP.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/queue/radio_queue.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/log/log.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/log.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/radio_api/radio_api.h
 
 syscfg/ti_radio_config.h:
@@ -92,8 +94,12 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/in
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rom.h:
 
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/I2C.h:
+
+C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/dpl/HwiP.h:
+
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/queue/radio_queue.h:
 
-C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/log/log.h:
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/log.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/radio_api/radio_api.h:
