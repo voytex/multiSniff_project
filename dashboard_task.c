@@ -69,8 +69,6 @@ void Dashboard_Main(UArg a0, UArg a1)
 {
     Semaphore_pend(Init_SemaphoreHandle, BIOS_WAIT_FOREVER);
 
-    RestartMCU();
-
     static bool readDestination;
 
     EthernetServer_begin(&ethernetServer, PORT);

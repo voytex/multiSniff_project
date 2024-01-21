@@ -57,7 +57,7 @@ void Init_Main(UArg a0, UArg a1)
 
     GUI_Init();
 
-    Stv_CopyStvFromFlashIfNotYet();
+    STV_CopyStvFromFlashIfNotYet();
 
     ///////////////////////////
     // Ethernet initialization:
@@ -68,7 +68,7 @@ void Init_Main(UArg a0, UArg a1)
     //
     IPAddress_Init_str(&dvcIp, (uint8_t*)STVW_DEVICE_IP_ADDRESS);
 
-    if ( Stv_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE )
+    if ( STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE )
     {
         GUI_ChangeDeviceIp("DHCP pending...");
 
@@ -76,16 +76,16 @@ void Init_Main(UArg a0, UArg a1)
 
         retVal = Ethernet_begin_mac((uint8_t*)STVR_MAC_ADDRESS);
 
-        if ( retVal != 1)
+        if ( retVal != 1 )
         {
             Log_print("DHCP failed, switching to static", NULL, None);
 
-            Stv_WriteAtAddress(STVW_USING_DHCP, STV_DHCP_FALSE);
+            STV_WriteAtAddress(STVW_USING_DHCP, STV_DHCP_FALSE);
 
             RestartMCU();
         }
     }
-    else if ( Stv_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_FALSE )
+    else if ( STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_FALSE )
     {
         Ethernet_begin_mac_ip((uint8_t*)STVR_MAC_ADDRESS, dvcIp);
     }
@@ -114,7 +114,7 @@ void Init_Main(UArg a0, UArg a1)
     //
     GUI_ChangeRx(false);
 
-    GUI_ChangeProto(Stv_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? 0 : 1);
+    GUI_ChangeProto(STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? 0 : 1);
 
     Semaphore_post(Init_SemaphoreHandle);
 
