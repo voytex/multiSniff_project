@@ -19,21 +19,6 @@
 // ==============================================================================================================
 
 
-// === DEFINES ==================================================================================================
-
-#define HTML_MEM_START    (0x51000)
-
-#define SUBSTITUTE_TOKEN  ('$')
-
-#define MAXLEN            (17)
-
-#define MTU_BUF_MEM_START (0x20012000)
-
-#define MTU_SIZE          (1400)
-
-// ==============================================================================================================
-
-
 // === STATIC VARIABLES =========================================================================================
 
 typedef struct ValueBuffer
@@ -135,24 +120,27 @@ void Html_SetKeyValueInBuffer(char key, char* value)
  *      offset[in]   - used to offset to start of HTML code. Usable
  *                     when splitting HTML code to more messages.
  * Returns:
- *      uint16_t     - number of copied characters
+ *      uint16_t     - number of copied characters (MTU_SIZE
+ *                     when there are more data available; n < MTU_SIZE
+ *                     when no additional data to be copied are available.)
+ *
  */
-uint16_t Html_CopyHtmlToMtuBuffer(uint16_t offset)
+int32_t Html_CopyHtmlToMtuBuffer(uint16_t offset)
 {
     char *pHtml = (char*)(HTML_MEM_START + offset);
     char *pMtu  = (char*)MTU_BUF_MEM_START;
     uint16_t i, tmp;
 
-    for ( i = 0; i < MTU_SIZE - 1; i++ )
+    while ( (uint32_t)pMtu < (MTU_BUF_MEM_START + MTU_SIZE - 1) )
     {
         //
         // Source HTML ended, remove all remaining characters from MTU buffer
         // and cease copying.
         //
-        if ( *pHtml == '\0' )
+        if ( *pHtml == 255 )
         {
-            Html_strset(pMtu, 0, MTU_SIZE - i);
-            return i;
+            *pMtu = 0;
+            return -1;
         }
 
         if ( *pHtml == SUBSTITUTE_TOKEN )
@@ -175,7 +163,7 @@ uint16_t Html_CopyHtmlToMtuBuffer(uint16_t offset)
     //
     *pMtu = 0;
 
-    return i;
+    return ((uint32_t)pHtml - HTML_MEM_START);
 }
 
 

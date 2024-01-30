@@ -28,6 +28,7 @@
 "./source/radio_api/radio_api.o"
 "./source/utils/log.o"
 "./source/utils/restart.o"
+"./source/utils/stv.o"
 "../cc13x2_cc26x2_tirtos7.cmd"
 -l"ti/grlib/lib/ticlang/m4f/grlib.a"
 -l"third_party/spiffs/lib/ticlang/m4f/spiffs_cc26xx.a"

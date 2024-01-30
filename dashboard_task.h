@@ -12,5 +12,7 @@ void Dashboard_Main(UArg, UArg);
 
 void Dashboard_SendHtml(EthernetClient*);
 
+void Dashboard_UpdateDashboardInfo(void);
+
 
 #endif /* DASHBOARD_TASK_H_ */

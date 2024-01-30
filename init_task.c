@@ -27,6 +27,44 @@
 
 #include <source/utils/stv.h>
 
+#include <source/html/html.h>
+
+// ==============================================================================================================
+
+
+// === INCLUDES =================================================================================================
+
+void byte2hex(uint8_t byte, char* pHex)
+{
+    uint8_t nib = (byte & 0xF0) >> 4;
+
+    *pHex++ = nib > 9 ? nib + 'A' : nib + '0';
+
+    nib = (byte & 0xF);
+
+    *pHex = nib > 9 ? nib + 'A' : nib + '0';
+
+    return;
+}
+
+void mac2string(uint8_t* pSrc, char* pDst)
+{
+    uint8_t i;
+    for ( i = 0; i < 6; i++)
+    {
+        byte2hex(*pSrc, pDst);
+
+        pDst += 2;
+        pSrc += 1;
+
+        if ( i <= 5 )
+        {
+            *pDst = '-';
+            pDst++;
+        }
+    }
+}
+
 // ==============================================================================================================
 
 
@@ -46,6 +84,8 @@ void Init_Main(UArg a0, UArg a1)
     IPAddress   tgtIp;
     char        pDvcIpBuf[16] = {0};
     char        pTgtIpBuf[16] = {0};
+    char        pMacStr[17] = {0};
+
 
     ///////////////////////////
     // Driver Initialization:
@@ -112,9 +152,14 @@ void Init_Main(UArg a0, UArg a1)
     ///////////////////////////
     // Other settings:
     //
+    mac2string((uint8_t*)STVR_MAC_ADDRESS, pMacStr);
+
+    Html_SetKeyValueInBuffer('m', pMacStr);
+
     GUI_ChangeRx(false);
 
     GUI_ChangeProto(STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? 0 : 1);
+
 
     Semaphore_post(Init_SemaphoreHandle);
 

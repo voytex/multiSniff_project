@@ -20,27 +20,28 @@
 	<body><h1>mSniff Dashboard</h1>
 		<section> <h2>Network</h2> <form id="netForm"><p> 
 			<label for="dhcp">DHCP</label>
-			<input type="radio" id="dhcp" name="dhcp" value="1" checked></p><p> 
+			<input type="radio" id="dhcp" name="h" value="1"></p><p> 
 			<label for="static">Static</label>
-			<input type="radio" id="static" name="dhcp" value="0"></p><br><p> 
+			<input type="radio" id="static" name="h" value="0"></p><br><p> 
 			<label for="mac_add">MAC address</label> 
-			<input type="text" id="mac" name="mac" value="$m" disabled></p><p> 
+			<input type="text" id="mac" name="m" value="$m" disabled></p><p> 
 			<label for="ip_add"> IP address</label>
-			<input type="text" id="ip" name="tip" tag="sw_dhcp" value="$d" disabled></p><p> 
+			<input type="text" id="ip" name="d" tag="sw_dhcp" value="$d" disabled></p><p> 
 			<label for="gate_add">Gateway IP address</label>
-			<input type="text" id="ip" name="gip" tag="sw_dhcp" value="$g" disabled></p><p> <label for="sub_mask">Subnet mask</label>
-			<input type="text" id="ip" name="msk" tag="sw_dhcp" value="$s" disabled></p><br><p>
+			<input type="text" id="ip" name="g" tag="sw_dhcp" value="$g" disabled></p><p> 
+			<label for="sub_mask">Subnet mask</label>
+			<input type="text" id="ip" name="s" tag="sw_dhcp" value="$s" disabled></p><br><p>
 			<input type="submit" id="sub" value="Refresh"></p> </form>
 			</section>
 		<section> <h2>Remote Target</h2> 
 			<form id="tgtForm" action="/" method="get">
-				<p><label for="ble">Bluetooth LE</label><input id="ble" type="radio" name="pro" value="0"></p>
-				<p><label for="802_15_4">IEEE 802.15.4</label><input type="radio" id="802_15_4" name="pro" value="1"></p>
+				<p><label for="ble">Bluetooth LE</label><input id="ble" type="radio" name="p" value="0"></p>
+				<p><label for="802_15_4">IEEE 802.15.4</label><input type="radio" id="802_15_4" name="p" value="1"></p>
 				<label for="channel">Channel</label><select id="channel" name="chn"></select>
 				<p> <label for="ip">Target IP address</label>
-				<input type="text" id="ip" name="tgt" value="$t"></p><br><p>
+				<input type="text" id="ip" name="t" value="$t"></p><br><p>
 				<input type="submit" value="Set"></p> </form><br><form><p><label>Status <b id="run_sw"></b></label></p><br>
-				<p><button id="run_but" name="run">
+				<p><button id="run_but" name="r">
 				</button></p>
 				<script>
 				const run = $r; 
@@ -91,7 +92,12 @@
 	{ 
 		element.setAttribute("pattern", ip_regex);
 	});
-	const dhcp_radios = document.querySelectorAll('input[name="dhcp"]');
+	const using_dhcp = $h;
+	document.getElementById("dhcp").checked = using_dhcp;
+	document.getElementById("static").checked = !using_dhcp;
+	
+
+	const dhcp_radios = document.querySelectorAll('input[name="h"]');
 	for (const radio of dhcp_radios) { 
 		radio.addEventListener('change', () => 
 		{
@@ -104,18 +110,18 @@
 	const ieeeChannels = Array.from({length: 16}, (x, i)=>i+11);
 	const bleChannels  = Array(37,38,39);
 	const channel_select = document.getElementById("channel");
-	const channel_radios = document.querySelectorAll('input[name="pro"]');
+	const channel_radios = document.querySelectorAll('input[name="p"]');
 	for (const radio of channel_radios) { 
 		radio.addEventListener('change', () => 
 		{
 			channel_select.innerHTML = ''; 
 			if (radio.id === "ble" && radio.checked) 
 				bleChannels.forEach((channel) => 
-					channel_select.innerHTML+='<option value="'+channel+'"> Channel '+channel+'</option'
+					channel_select.innerHTML+='<option value="'+channel+'"> Channel '+channel+'</option>'
 				);
 			if (radio.id ==="802_15_4" && radio.checked) 
 				ieeeChannels.forEach((channel) => 
-					channel_select.innerHTML+='<option value="'+channel+'"> Channel '+channel+'</option'
+					channel_select.innerHTML+='<option value="'+channel+'"> Channel '+channel+'</option>'
 				);
 		});
 	}
