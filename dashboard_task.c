@@ -35,6 +35,8 @@
 
 #include <source/html/html.h>
 
+#include <source/utils/handler_funcs.h>
+
 // ==============================================================================================================
 
 
@@ -51,19 +53,24 @@ extern Semaphore_Handle Init_SemaphoreHandle;
 // ==============================================================================================================
 
 
-// === STATIC VARIABLES =========================================================================================
+// === GLOBAL VARIABLES =========================================================================================
 
 EthernetServer ethernetServer;
+
+extern HttpHandlerFunction_t httpHandlerFunctions[];
 
 // ==============================================================================================================
 
 
 // === INTERNAL FUNCTIONS =======================================================================================
 
-inline bool clientConnected(EthernetClient *client)
-{
-    return ( client->_sock < 8 );
-}
+void SendHtml(EthernetClient*);
+
+void UpdateDashboardInfo(void);
+
+void HandleChanges(char*);
+
+void Change(const char, const char*);
 
 // ==============================================================================================================
 
@@ -106,7 +113,7 @@ void Dashboard_Main(UArg a0, UArg a1)
 
                     if ( c == '\n' && currentLineIsBlank )
                     {
-                        Dashboard_SendHtml(&ethernetClient);
+                        SendHtml(&ethernetClient);
                     }
 
                     if ( c == '\n' )
@@ -130,17 +137,17 @@ void Dashboard_Main(UArg a0, UArg a1)
 }
 
 
-void Dashboard_SendHtml(EthernetClient *client)
+void SendHtml(EthernetClient *pClient)
 {
     int32_t offset = 0;
 
-    Dashboard_UpdateDashboardInfo();
+    UpdateDashboardInfo();
 
     for (;;)
     {
         offset = Html_CopyHtmlToMtuBuffer(offset);
 
-        EthernetClient_print(client, (const char*)MTU_BUF_MEM_START);
+        EthernetClient_print(pClient, (const char*)MTU_BUF_MEM_START);
 
         if (offset == -1)
         {
@@ -148,12 +155,13 @@ void Dashboard_SendHtml(EthernetClient *client)
         }
     }
 
-    EthernetClient_stop(client);
+    EthernetClient_stop(pClient);
 
     return;
 }
 
-void Dashboard_UpdateDashboardInfo(void)
+
+void UpdateDashboardInfo(void)
 {
     char        tempBuf[17] = {0};
     IPAddress   tmpIp;
@@ -230,4 +238,57 @@ void Dashboard_UpdateDashboardInfo(void)
     Html_SetKeyValueInBuffer('z', "-19");
 
     return;
+}
+
+
+void HandleChanges(char* buf)
+{
+
+
+}
+
+
+void Change(const char key, const char* value)
+{
+    IPAddress tmpIp;
+    IPAddress_Init_str(&tmpIp, (uint8_t*)value);
+
+    switch (key)
+    {
+    case 't':
+        STV_WriteStringAtAddress(STVW_TARGET_IP_ADDRESS, (uint8_t*)&tmpIp, 4);
+        break;
+
+    case 'd':
+        STV_WriteStringAtAddress(STVW_DEVICE_IP_ADDRESS, (uint8_t*)&tmpIp, 4);
+        break;
+
+    case 'g':
+        STV_WriteStringAtAddress(STVW_GATEWAY_IP_ADDRESS, (uint8_t*)&tmpIp, 4);
+        break;
+
+    case 's':
+        STV_WriteStringAtAddress(STVW_NETWORK_MASK, (uint8_t*)&tmpIp, 4);
+        break;
+
+    case 'h':
+        // TODO make sure, DHCP changing is working
+        STV_WriteAtAddress(STVW_RF_PROTOCOL, *value);
+        break;
+
+    case 'r':
+        // TODO Is the device sniffing?
+        break;
+
+    case 'p':
+        // TODO Is this alright?
+        STV_WriteAtAddress(STVW_RF_PROTOCOL, *value == '0' ? 0xB5 : *value == '1' ? 0x15 : 0x0);
+        break;
+
+    case 'k':
+        // TODO RX Channel!
+        break;
+
+
+    }
 }

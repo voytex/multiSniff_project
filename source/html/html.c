@@ -21,11 +21,6 @@
 
 // === STATIC VARIABLES =========================================================================================
 
-typedef struct ValueBuffer
-{
-    char buf[MAXLEN];
-} ValueBuffer_t;
-
 /*
  * === valueBuffer
  * This struct is essentially a dictionary. Suppose that in HTML code of the dashboard, we want to 'inject'
@@ -102,9 +97,9 @@ void Html_strset(const char* pDst, char ch, uint16_t maxlen)
  */
 void Html_SetKeyValueInBuffer(char key, char* value)
 {
-    Html_strset(valueBuffer[key - 'a'].buf, 0, MAXLEN);
+    Html_strset(valueBuffer[CHAR_KEY(key)].buf, 0, MAXLEN);
 
-    Html_strcpy(valueBuffer[key - 'a'].buf, value, MAXLEN);
+    Html_strcpy(valueBuffer[CHAR_KEY(key)].buf, value, MAXLEN);
 
     return;
 }
@@ -145,7 +140,7 @@ int32_t Html_CopyHtmlToMtuBuffer(uint16_t offset)
 
         if ( *pHtml == SUBSTITUTE_TOKEN )
         {
-            tmp = Html_strcpy(pMtu, valueBuffer[*(pHtml + 1) - 'a'].buf, MAXLEN);
+            tmp = Html_strcpy(pMtu, valueBuffer[CHAR_KEY(*(pHtml + 1))].buf, MAXLEN);
             pHtml += 2;
             pMtu += tmp;
         }

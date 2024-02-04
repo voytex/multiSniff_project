@@ -29,12 +29,14 @@
 
 #include <source/html/html.h>
 
-// ==============================================================================================================
+#include <source/utils/handler_funcs.h>
+
+// ===============================================================================================================
 
 
-// === INCLUDES =================================================================================================
+// === INTERNAL FUNCTIONS =======================================================================================
 
-void byte2hex(uint8_t byte, char* pHex)
+static inline void byte2hex(uint8_t byte, char* pHex)
 {
     uint8_t nib = (byte & 0xF0) >> 4;
 
@@ -47,7 +49,7 @@ void byte2hex(uint8_t byte, char* pHex)
     return;
 }
 
-void mac2string(uint8_t* pSrc, char* pDst)
+static void mac2string(uint8_t* pSrc, char* pDst)
 {
     uint8_t i;
     for ( i = 0; i < 6; i++)
@@ -80,8 +82,7 @@ extern Semaphore_Handle Init_SemaphoreHandle;
 void Init_Main(UArg a0, UArg a1)
 {
     uint8_t     retVal = 0;
-    IPAddress   dvcIp;
-    IPAddress   tgtIp;
+    IPAddress   dvcIp, tgtIp, gtwIp, dnsIp, msk;
     char        pDvcIpBuf[16] = {0};
     char        pTgtIpBuf[16] = {0};
     char        pMacStr[17] = {0};
@@ -106,7 +107,6 @@ void Init_Main(UArg a0, UArg a1)
     // device is restarted with STV_DHCP flag set to STV_DHCP_FALSE.
     // Device then sets itself static IP address.
     //
-    IPAddress_Init_str(&dvcIp, (uint8_t*)STVW_DEVICE_IP_ADDRESS);
 
     if ( STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE )
     {
@@ -115,6 +115,7 @@ void Init_Main(UArg a0, UArg a1)
         Log_print("Waiting for DHCP...", NULL, None);
 
         retVal = Ethernet_begin_mac((uint8_t*)STVR_MAC_ADDRESS);
+
 
         if ( retVal != 1 )
         {
@@ -127,7 +128,16 @@ void Init_Main(UArg a0, UArg a1)
     }
     else if ( STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_FALSE )
     {
-        Ethernet_begin_mac_ip((uint8_t*)STVR_MAC_ADDRESS, dvcIp);
+        IPAddress_Init_str(&dvcIp, (uint8_t*)STVW_DEVICE_IP_ADDRESS);
+
+        IPAddress_Init_str(&gtwIp, (uint8_t*)STVW_GATEWAY_IP_ADDRESS);
+
+        IPAddress_Init_str(&msk, (uint8_t*)STVW_NETWORK_MASK);
+
+        dnsIp.dword = 0x01010101;
+
+        Ethernet_begin_mac_ip_dns_gateway_subnet((uint8_t*)STVR_MAC_ADDRESS,
+                                                 dvcIp, dnsIp, gtwIp, msk);
     }
 
     dvcIp = Ethernet_localIP();
@@ -159,7 +169,6 @@ void Init_Main(UArg a0, UArg a1)
     GUI_ChangeRx(false);
 
     GUI_ChangeProto(STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? 0 : 1);
-
 
     Semaphore_post(Init_SemaphoreHandle);
 

@@ -45,6 +45,32 @@ inline void STV_WriteAtAddress(uint32_t address, uint8_t value)
 
 
 /*
+ * === STV_WriteStringAtAddress
+ * Writes 8-bit values ('buf') starting at 'base'
+ * continuing for 'len' bytes
+ *
+ * Parameters:
+ *      base[in]     - memory address
+ *      buf[in]      - pointer to the buffer to write
+ *      len[in]      - length of the buffer
+ * Returns:
+ *      N/A
+ */
+inline void STV_WriteStringAtAddress(uint32_t base, uint8_t* buf, uint8_t len)
+{
+    uint8_t i;
+    uint8_t* pDst = (uint8_t*)base;
+
+    for ( i = 0; i < len; i++ )
+    {
+        pDst[i] = buf[i];
+    }
+
+    return;
+}
+
+
+/*
  * === STV_CopyStvFromFlashIfNotYet
  * If RAM region storing STVW values is empty,
  * this functions copies STVs from Flash to RAM.
@@ -56,14 +82,9 @@ inline void STV_WriteAtAddress(uint32_t address, uint8_t value)
  */
 inline void STV_CopyStvFromFlashIfNotYet()
 {
-    uint32_t i;
-
-    if ( STV_ReadFromAddress(STVW_USING_DHCP) == 0x0 )
+    if (( STV_ReadFromAddress(STVW_USING_DHCP) == 0x0 ) && ( STV_ReadFromAddress(STVW_RF_PROTOCOL) == 0x0 ))
     {
-        for ( i = 0; i < 10; i++)
-        {
-            STV_WriteAtAddress(STVW_DEVICE_IP_ADDRESS + i, STV_ReadFromAddress(STVR_DEVICE_IP_ADDRESS + i));
-        }
+        STV_WriteStringAtAddress(STVW_USING_DHCP, (uint8_t*)STVR_USING_DHCP, STV_SIZE - 6);
     }
 
     return;
