@@ -37,7 +37,8 @@ dashboard_task.o: ../dashboard_task.c \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/restart.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/stv.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/html/html.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/handler_funcs.h
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/handler_funcs.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/oled_gui/gui.h
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/SPI.h:
 
@@ -112,3 +113,5 @@ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/sou
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/html/html.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/handler_funcs.h:
+
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/oled_gui/gui.h:

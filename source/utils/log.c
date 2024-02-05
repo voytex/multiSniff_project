@@ -146,6 +146,7 @@ void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType)
         System_printf("Unhandeled Log Event...\n");
         break;
     }
+
 #endif /* LOG_ENABLED */
 
     return;

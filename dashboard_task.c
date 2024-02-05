@@ -9,6 +9,8 @@
 
 #include <stdint.h>
 
+#include <stdbool.h>
+
 #include <ti/drivers/SPI.h>
 
 #include <source/ethernet/Ethernet.h>
@@ -36,6 +38,8 @@
 #include <source/html/html.h>
 
 #include <source/utils/handler_funcs.h>
+
+#include <source/oled_gui/gui.h>
 
 // ==============================================================================================================
 
@@ -71,6 +75,8 @@ void UpdateDashboardInfo(void);
 void HandleChanges(char*);
 
 void Change(const char, const char*);
+
+char* StrTok(char*, const char);
 
 // ==============================================================================================================
 
@@ -113,6 +119,8 @@ void Dashboard_Main(UArg a0, UArg a1)
 
                     if ( c == '\n' && currentLineIsBlank )
                     {
+                        HandleChanges(incomingBuffer);
+
                         SendHtml(&ethernetClient);
                     }
 
@@ -133,6 +141,74 @@ void Dashboard_Main(UArg a0, UArg a1)
         Task_sleep(100);
 
         Ethernet_maintain();
+    }
+}
+
+
+/*
+ * === StrTok
+ *
+ *
+ * Parameters:
+ *      msg[in]                 - message that gets printed before
+ *                                actual diagnostics data
+ *      pEntity[in]             - pointer to entity to be printed
+ *                                (diagnostics data)
+ *      entityType[in]          - type of entity
+ * Returns:
+ *      N/A
+ */
+char* StrTok(char* string, const char token)
+{
+    static char* p;
+    char* lastP = NULL;
+
+    if ( string != NULL )
+    {
+        p = string;
+
+        while ( *p != token )
+        {
+            if ( *p != '\0' )
+            {
+                p++;
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+
+        p++;
+
+        return NULL;
+    }
+    else
+    {
+        if ( *p == '\0' )
+        {
+            return NULL;
+        }
+
+        lastP = p;
+
+        while ( *p != token )
+        {
+            if ( *p != '\0' )
+            {
+                p++;
+            }
+            else
+            {
+                return lastP;
+            }
+        }
+
+        *p = '\0';
+
+        p++;
+
+        return lastP;
     }
 }
 
@@ -243,20 +319,51 @@ void UpdateDashboardInfo(void)
 
 void HandleChanges(char* buf)
 {
+    char* key;
+    char* value;
+    char* p;
 
+    //
+    // Replace 2nd ' ' (space) from
+    // buffer, thus cutting the URL
+    //
+    p = buf;
+    while ( *p != ' ') p++;
+    p++;
+    while ( *p != ' ') p++;
+    *p = '\0';
 
+    StrTok(buf, '?');
+    key = StrTok(NULL, '=');
+    value = StrTok(NULL, '&');
+
+    while ( key != NULL )
+    {
+        Log_print("Key: ", key, Buffer);
+
+        Log_print("Value: ", value, Buffer);
+
+        Change(*key, value);
+
+        key = StrTok(NULL, '=');
+
+        value = StrTok(NULL, '&');
+    }
+
+    return;
 }
 
 
 void Change(const char key, const char* value)
 {
     IPAddress tmpIp;
-    IPAddress_Init_str(&tmpIp, (uint8_t*)value);
+    IPAddress_fromString(&tmpIp, value);
 
     switch (key)
     {
     case 't':
         STV_WriteStringAtAddress(STVW_TARGET_IP_ADDRESS, (uint8_t*)&tmpIp, 4);
+        GUI_ChangeTargetIp(value);
         break;
 
     case 'd':
@@ -278,11 +385,13 @@ void Change(const char key, const char* value)
 
     case 'r':
         // TODO Is the device sniffing?
+        GUI_ChangeRx((bool)(*value - '0'));
         break;
 
     case 'p':
         // TODO Is this alright?
         STV_WriteAtAddress(STVW_RF_PROTOCOL, *value == '0' ? 0xB5 : *value == '1' ? 0x15 : 0x0);
+        GUI_ChangeProto((uint8_t)(*value - '0'));
         break;
 
     case 'k':
