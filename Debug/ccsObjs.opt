@@ -5,6 +5,7 @@
 "./syscfg/ti_radio_config.o"
 "./syscfg/ti_drivers_config.o"
 "./syscfg/ti_sysbios_config.o"
+"./sniffing_task.o"
 "./source/driverlib/ssd1306/ssd1306.o"
 "./source/driverlib/w5500/w5500.o"
 "./source/ethernet/ArduinoCompatibility.o"

@@ -11,11 +11,24 @@
 
 #include "ti_drivers_config.h"
 
+#include <source/utils/stv.h>
+
+#include <source/ethernet/Ethernet.h>
+
+#include <source/ethernet/EthernetUdp.h>
+
 #include <source/queue/radio_queue.h>
 
 #include <source/utils/log.h>
 
 #include <source/radio_api/radio_api.h>
+
+// ==============================================================================================================
+
+
+// === INCLUDES =================================================================================================
+
+#define MAX_PACKET_LEN (2047)
 
 // ==============================================================================================================
 
@@ -81,6 +94,8 @@ RF_Mode* getRFModeByProto(RF_Protocol_t proto)
 
     return NULL;
 }
+
+
 // ==============================================================================================================
 
 
@@ -156,7 +171,7 @@ void Radio_initRXCmd(RF_Protocol_t proto)
     if ( proto == BluetoothLowEnergy )
     {
 
-        RFCMD_bleGenericRX.status                             = 0x0;
+        //RFCMD_bleGenericRX.status                             = 0x0;
         RFCMD_bleGenericRX.pParams->pRxQ                      = RadioQueue_getDQpointer(); //todo: rx queue
         RFCMD_bleGenericRX.pParams->rxConfig.bAutoFlushCrcErr = 1;
         RFCMD_bleGenericRX.pParams->rxConfig.bIncludeLenByte  = 1;
@@ -171,7 +186,7 @@ void Radio_initRXCmd(RF_Protocol_t proto)
     if ( proto == IEEE_802_15_4 )
     {
 
-        RFCMD_ieeeRX.status                                     = 0x0;
+        //RFCMD_ieeeRX.status                                     = 0x0;
         RFCMD_ieeeRX.pRxQ                                       = RadioQueue_getDQpointer(); //todo rx queue
         RFCMD_ieeeRX.rxConfig.bAutoFlushCrc                     = 1;
         RFCMD_ieeeRX.rxConfig.bAutoFlushIgn                     = 0;
@@ -243,6 +258,54 @@ RF_Stat Radio_stopRX(RF_Handle pHandle)
 
     return retVal;
 }
+
+
+/*
+ * === TODO
+ * Stops listening to RF frames.
+ * Main purpose is to shadow TI's API for better readability
+ *
+ * Parameters:
+ *      pHandle[in]             - handle to Radio Core
+ * Returns:
+ *      RF_Stat                 - Enum signaling successful completition
+ */
+RF_Protocol_t Radio_GetCurrentProtocol()
+{
+    if ( STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE )
+    {
+        return BluetoothLowEnergy;
+    }
+
+    if ( STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_IEEE )
+    {
+        return IEEE_802_15_4;
+    }
+
+    return 0;
+}
+
+/*
+ * === TODO
+ * Stops listening to RF frames.
+ * Main purpose is to shadow TI's API for better readability
+ *
+ * Parameters:
+ *      pHandle[in]             - handle to Radio Core
+ * Returns:
+ *      RF_Stat                 - Enum signaling successful completition
+ */
+void Radio_HandleQueueOverflow(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask eventMsk)
+{
+    // TODO increment nRxBufFull
+
+    RadioQueue_reset();
+
+    Radio_beginRX(rfHnd, BluetoothLowEnergy, &Radio_HandleQueueOverflow, RF_EventRxBufFull);
+
+    return;
+}
+
 
 
 

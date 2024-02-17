@@ -74,6 +74,10 @@ static void mac2string(uint8_t* pSrc, char* pDst)
 
 extern Semaphore_Handle Init_SemaphoreHandle;
 
+extern void Main_CreateDashboardTask();
+
+extern void Main_CreateSniffingTask();
+
 // ==============================================================================================================
 
 
@@ -86,7 +90,6 @@ void Init_Main(UArg a0, UArg a1)
     char        pDvcIpBuf[16] = {0};
     char        pTgtIpBuf[16] = {0};
     char        pMacStr[17] = {0};
-
 
     ///////////////////////////
     // Driver Initialization:
@@ -171,6 +174,10 @@ void Init_Main(UArg a0, UArg a1)
     GUI_ChangeProto(STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? 0 : 1);
 
     Semaphore_post(Init_SemaphoreHandle);
+
+    Main_CreateDashboardTask();
+
+    Main_CreateSniffingTask();
 
     return;
 }

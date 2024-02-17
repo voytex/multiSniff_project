@@ -75,6 +75,8 @@ static uint8_t RadioQueue_RXbuffer[RF_QUEUE_DE_BUFFER_SIZE(NUM_DE, MAX_LENGTH, N
 
 static rfc_dataEntryGeneral_t* RadioQueue_ReadEntry;
 
+static inline uint16_t get16bitValue(uint8_t*);
+
 // ==============================================================================================================
 
 

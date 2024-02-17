@@ -46,52 +46,100 @@
 #include <dashboard_task.h>
 
 #include <init_task.h>
+
+#include <sniffing_task.h>
+
 #include <source/utils/log.h>
 
-// ==============================================================================================================
-
-
-// === DEFINES ==================================================================================================
-
-#define MAC_ADDRESS_STV     (0x50000)
-#define DVC_IP_ADD_STV      (MAC_ADDRESS_STV + 6)
-#define TGT_IP_ADD_STV      (DVC_IP_ADD_STV + 4)
 
 // ==============================================================================================================
 
 
-// === INTERNAL FUNCTIONS =======================================================================================
+// === TASK CREATE FUNCTIONS ====================================================================================
 
 
-
-// ==============================================================================================================
-Task_Params dashboardTaskParams;
+/*
+ * === Initialization task
+ */
+Task_Handle initTaskHandle;
 Task_Params initTaskParams;
-Semaphore_Handle Init_SemaphoreHandle;
 
-
-int main()
+void Main_CreateInitTask()
 {
-    Board_init();
-
-
-
-    Task_Handle initTaskHandle;
-    Task_Handle dashboardTaskHandle;
-
-    Init_SemaphoreHandle = SemaphoreP_createBinary(0);
-
     Task_Params_init(&initTaskParams);
     initTaskParams.stackSize = 1024;
     initTaskParams.priority  = 3;
     initTaskHandle = Task_create((Task_FuncPtr)Init_Main, &initTaskParams, Error_IGNORE);
 
+    return;
+}
+
+
+/*
+ * === Dashboard Task
+ */
+Task_Handle dashboardTaskHandle;
+Task_Params dashboardTaskParams;
+
+void Main_CreateDashboardTask()
+{
     Task_Params_init(&dashboardTaskParams);
     dashboardTaskParams.stackSize = 1024;
     dashboardTaskParams.priority  = 2;
     dashboardTaskHandle = Task_create((Task_FuncPtr)Dashboard_Main, &dashboardTaskParams, Error_IGNORE);
 
+    return;
+}
+
+
+/*
+ * === Sniffing Task
+ */
+Task_Handle sniffingTaskHandle;
+Task_Params sniffingTaskParams;
+
+void Main_CreateSniffingTask()
+{
+    Task_Params_init(&sniffingTaskParams);
+    sniffingTaskParams.stackSize = 1024;
+    sniffingTaskParams.priority  = 2;
+    sniffingTaskHandle = Task_create((Task_FuncPtr)Sniffing_Main, &sniffingTaskParams, Error_IGNORE);
+
+    return;
+}
+
+// ==============================================================================================================
+
+
+// === SEMAPHORE STRUCTS ========================================================================================
+
+Semaphore_Handle Init_SemaphoreHandle;
+Semaphore_Params Init_SemaphoreParams;
+Semaphore_Handle Dashboard_SemaphoreHandle;
+Semaphore_Params Dashboard_SemaphoreParams;
+
+// ==============================================================================================================
+
+
+// === PROGRAM ENTRY POINT ======================================================================================´
+
+int main()
+{
+    Board_init();
+
+    Semaphore_Params_init(&Init_SemaphoreParams);
+    Init_SemaphoreParams.mode = 0x1;
+    Init_SemaphoreHandle = Semaphore_create(0, &Init_SemaphoreParams, NULL);
+
+    Semaphore_Params_init(&Dashboard_SemaphoreParams);
+    Dashboard_SemaphoreParams.mode = 0x1;
+    Dashboard_SemaphoreHandle = Semaphore_create(0, &Dashboard_SemaphoreParams, NULL);
+
+    Main_CreateInitTask();
+
     BIOS_start();
 
     return 0;
 }
+
+// ==============================================================================================================´

@@ -48,11 +48,12 @@
 
 #define PORT                (80)
 
-#define INPUT_BUFFER_SIZE   (128)
+#define INPUT_BUFFER_SIZE   (256)
 
 #define READ_BUFFER_SIZE    (32)
 
 extern Semaphore_Handle Init_SemaphoreHandle;
+extern Semaphore_Handle Dashboard_SemaphoreHandle;
 
 // ==============================================================================================================
 
@@ -68,13 +69,13 @@ extern HttpHandlerFunction_t httpHandlerFunctions[];
 
 // === INTERNAL FUNCTIONS =======================================================================================
 
-void SendHtml(EthernetClient*);
+void SendHtmlToClient(EthernetClient*);
 
 void UpdateDashboardInfo(void);
 
-void HandleChanges(char*);
+void HandleRestApi(char*);
 
-void Change(const char, const char*);
+void SetStatusProperty(const char, const char*);
 
 char* StrTok(char*, const char);
 
@@ -85,11 +86,15 @@ char* StrTok(char*, const char);
 
 void Dashboard_Main(UArg a0, UArg a1)
 {
-    Semaphore_pend(Init_SemaphoreHandle, BIOS_WAIT_FOREVER);
+    Semaphore_pend(Dashboard_SemaphoreHandle, BIOS_WAIT_FOREVER);
 
     static bool readDestination;
 
+    unsigned int key;
+
     EthernetServer_begin(&ethernetServer, PORT);
+
+    //Semaphore_post(Dashboard_SemaphoreHandle);
 
     for (;;)
     {
@@ -99,7 +104,6 @@ void Dashboard_Main(UArg a0, UArg a1)
 
         if ( EthernetClient_connected(&ethernetClient) )
         {
-
             char incomingBuffer[INPUT_BUFFER_SIZE];
 
             bool currentLineIsBlank = true;
@@ -119,9 +123,11 @@ void Dashboard_Main(UArg a0, UArg a1)
 
                     if ( c == '\n' && currentLineIsBlank )
                     {
-                        HandleChanges(incomingBuffer);
+                        HandleRestApi(incomingBuffer);
 
-                        SendHtml(&ethernetClient);
+                        SendHtmlToClient(&ethernetClient);
+
+                        break;
                     }
 
                     if ( c == '\n' )
@@ -134,13 +140,12 @@ void Dashboard_Main(UArg a0, UArg a1)
                     }
                 }
 
-                Task_sleep(100);
+
             }
         }
+        Ethernet_maintain();
 
         Task_sleep(100);
-
-        Ethernet_maintain();
     }
 }
 
@@ -213,7 +218,7 @@ char* StrTok(char* string, const char token)
 }
 
 
-void SendHtml(EthernetClient *pClient)
+void SendHtmlToClient(EthernetClient *pClient)
 {
     int32_t offset = 0;
 
@@ -317,7 +322,7 @@ void UpdateDashboardInfo(void)
 }
 
 
-void HandleChanges(char* buf)
+void HandleRestApi(char* buf)
 {
     char* key;
     char* value;
@@ -343,7 +348,7 @@ void HandleChanges(char* buf)
 
         Log_print("Value: ", value, Buffer);
 
-        Change(*key, value);
+        SetStatusProperty(*key, value);
 
         key = StrTok(NULL, '=');
 
@@ -354,7 +359,7 @@ void HandleChanges(char* buf)
 }
 
 
-void Change(const char key, const char* value)
+void SetStatusProperty(const char key, const char* value)
 {
     IPAddress tmpIp;
     IPAddress_fromString(&tmpIp, value);

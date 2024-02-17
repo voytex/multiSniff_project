@@ -18,7 +18,8 @@ C_SRCS += \
 ./syscfg/ti_devices_config.c \
 ./syscfg/ti_radio_config.c \
 ./syscfg/ti_drivers_config.c \
-./syscfg/ti_sysbios_config.c 
+./syscfg/ti_sysbios_config.c \
+../sniffing_task.c 
 
 GEN_FILES += \
 ./syscfg/ti_devices_config.c \
@@ -36,7 +37,8 @@ C_DEPS += \
 ./syscfg/ti_devices_config.d \
 ./syscfg/ti_radio_config.d \
 ./syscfg/ti_drivers_config.d \
-./syscfg/ti_sysbios_config.d 
+./syscfg/ti_sysbios_config.d \
+./sniffing_task.d 
 
 OBJS += \
 ./dashboard_task.o \
@@ -45,7 +47,8 @@ OBJS += \
 ./syscfg/ti_devices_config.o \
 ./syscfg/ti_radio_config.o \
 ./syscfg/ti_drivers_config.o \
-./syscfg/ti_sysbios_config.o 
+./syscfg/ti_sysbios_config.o \
+./sniffing_task.o 
 
 GEN_MISC_FILES += \
 ./syscfg/ti_radio_config.h \
@@ -66,7 +69,8 @@ OBJS__QUOTED += \
 "syscfg\ti_devices_config.o" \
 "syscfg\ti_radio_config.o" \
 "syscfg\ti_drivers_config.o" \
-"syscfg\ti_sysbios_config.o" 
+"syscfg\ti_sysbios_config.o" \
+"sniffing_task.o" 
 
 GEN_MISC_FILES__QUOTED += \
 "syscfg\ti_radio_config.h" \
@@ -84,7 +88,8 @@ C_DEPS__QUOTED += \
 "syscfg\ti_devices_config.d" \
 "syscfg\ti_radio_config.d" \
 "syscfg\ti_drivers_config.d" \
-"syscfg\ti_sysbios_config.d" 
+"syscfg\ti_sysbios_config.d" \
+"sniffing_task.d" 
 
 GEN_FILES__QUOTED += \
 "syscfg\ti_devices_config.c" \
@@ -99,7 +104,8 @@ C_SRCS__QUOTED += \
 "./syscfg/ti_devices_config.c" \
 "./syscfg/ti_radio_config.c" \
 "./syscfg/ti_drivers_config.c" \
-"./syscfg/ti_sysbios_config.c" 
+"./syscfg/ti_sysbios_config.c" \
+"../sniffing_task.c" 
 
 SYSCFG_SRCS__QUOTED += \
 "../multiSniff.syscfg" 

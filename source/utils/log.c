@@ -125,7 +125,7 @@ void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType)
         break;
 
     case Buffer:
-        System_printf("<Buffer> %s", (const char *)pEntity);
+        System_printf("<Buffer> %s\n", (const char *)pEntity);
         break;
 
     case None:

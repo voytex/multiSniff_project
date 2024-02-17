@@ -8,6 +8,8 @@
 #ifndef RADIO_API_H_
 #define RADIO_API_H_
 
+#include <source/ethernet/EthernetUdp.h>
+
 // === ENUM DEFINITIONS =========================================================================================
 
 typedef enum RF_Protocol {
@@ -19,15 +21,19 @@ typedef enum RF_Protocol {
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
-void         Radio_openRadioCore           (RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle* pHandle);
+void          Radio_openRadioCore           (RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle* pHandle);
 
-RF_EventMask Radio_setFrequencySynthesizer (RF_Handle pHandle,  RF_Protocol_t proto);
+RF_EventMask  Radio_setFrequencySynthesizer (RF_Handle pHandle,  RF_Protocol_t proto);
 
-void         Radio_initRXCmd               (RF_Protocol_t proto);
+void          Radio_initRXCmd               (RF_Protocol_t proto);
 
-RF_CmdHandle Radio_beginRX                 (RF_Handle pHandle, RF_Protocol_t proto, void* callbackFunction, RF_EventMask events);
+RF_CmdHandle  Radio_beginRX                 (RF_Handle pHandle, RF_Protocol_t proto, void* callbackFunction, RF_EventMask events);
 
-RF_Stat      Radio_stopRX                  (RF_Handle pHandle);
+RF_Stat       Radio_stopRX                  (RF_Handle pHandle);
+
+RF_Protocol_t Radio_GetCurrentProtocol      (void);
+
+void          Radio_HandleQueueOverflow     (RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask eventMsk);
 
 // ==============================================================================================================
 

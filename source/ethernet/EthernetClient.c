@@ -1,6 +1,6 @@
 #include <source/driverlib/w5500/w5500.h>
 #include "socket.h"
-
+#include <time.h>
 
 //extern "C" {
   #include "string.h"

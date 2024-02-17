@@ -56,7 +56,7 @@
 
 #include "ti_radio_config.h"
 
-#include <source/log/log.h>
+#include <source/utils/log.h>
 
 #include <ti/drivers/GPIO.h>
 
@@ -224,19 +224,16 @@ void displayTask(UArg a0, UArg a1)
     GUI_ChangeChannel(27);
 
 
-
-    foo();
-
 }
 
 
 
 
-int _main(void)
+int main(void)
 {
     Task_Params_init(&testParams);
     testParams.stackSize = 2048;
-    testHandle = Task_create((Task_FuncPtr)displayTask, &testParams, NULL);
+    testHandle = Task_create((Task_FuncPtr)testTask, &testParams, NULL);
 
     BIOS_start();
 

@@ -386,7 +386,7 @@ int sendUDP(SOCKET s)
 {
   W5500_execCmdSn(s, Sock_SEND);
   //<mycode>
-  if (!(W5500_readSnIR(s) & SnIR_SEND_OK)) return 0;
+  //if (!(W5500_readSnIR(s) & SnIR_SEND_OK)) return 0;
   //</mycode>
 
   /* +2008.01 bj */

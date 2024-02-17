@@ -59,7 +59,7 @@ main_tirtos.o: ../main_tirtos.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/dpl/ClockP.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/utils/List.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_prop_cmd.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/log/log.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/log.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/GPIO.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/gpio/GPIOCC26XX.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/inc/hw_ioc.h \
@@ -71,17 +71,17 @@ main_tirtos.o: ../main_tirtos.c \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/gpio.h \
  C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/inc/hw_gpio.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/radio_api/radio_api.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetUdp.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/Printfg.h \
+ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/IPAddress.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/driverlib/ssd1306/ssd1306.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/oled_gui/gui.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/Ethernet.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/driverlib/w5500/w5500.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/SPIfg.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/IPAddress.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetClient.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/Printfg.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetServer.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/Dhcp.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetUdp.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/dashboard_task.h
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/kernel/tirtos7/packages/xdc/std.h:
@@ -200,7 +200,7 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/utils/List.h:
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/driverlib/rf_prop_cmd.h:
 
-C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/log/log.h:
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/log.h:
 
 C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/drivers/GPIO.h:
 
@@ -224,6 +224,12 @@ C:/ti/simplelink_cc13xx_cc26xx_sdk_6_30_01_03/source/ti/devices/cc13x2_cc26x2/in
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/radio_api/radio_api.h:
 
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetUdp.h:
+
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/Printfg.h:
+
+C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/IPAddress.h:
+
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/driverlib/ssd1306/ssd1306.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/oled_gui/gui.h:
@@ -234,16 +240,10 @@ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/sou
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/SPIfg.h:
 
-C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/IPAddress.h:
-
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetClient.h:
-
-C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/Printfg.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetServer.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/Dhcp.h:
-
-C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/ethernet/EthernetUdp.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/dashboard_task.h:
