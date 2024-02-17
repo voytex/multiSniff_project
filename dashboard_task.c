@@ -248,15 +248,6 @@ void UpdateDashboardInfo(void)
     IPAddress   tmpIp;
 
     ///////////////////////////
-    // Update Device IP address
-    //
-    tmpIp = Ethernet_localIP();
-
-    IPAddress_toString(tmpIp, tempBuf);
-
-    Html_SetKeyValueInBuffer('d', tempBuf);
-
-    ///////////////////////////
     // Update Target IP address
     //
     IPAddress_Init_str(&tmpIp, (uint8_t*)STVW_TARGET_IP_ADDRESS);
@@ -264,6 +255,15 @@ void UpdateDashboardInfo(void)
     IPAddress_toString(tmpIp, tempBuf);
 
     Html_SetKeyValueInBuffer('t', tempBuf);
+
+    ///////////////////////////
+    // Update Device IP address
+    //
+    tmpIp = Ethernet_localIP();
+
+    IPAddress_toString(tmpIp, tempBuf);
+
+    Html_SetKeyValueInBuffer('d', tempBuf);
 
     ///////////////////////////
     // Update Gateway IP address
@@ -282,6 +282,13 @@ void UpdateDashboardInfo(void)
     IPAddress_toString(tmpIp, tempBuf);
 
     Html_SetKeyValueInBuffer('s', tempBuf);
+
+    ///////////////////////////
+    // Update Network Mask
+    //
+    tempBuf[0] = STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE ? '1' : '0';
+    tempBuf[1] = '\0';
+    Html_SetKeyValueInBuffer('h', tempBuf);
 
     ///////////////////////////
     // Update 'sniffing' status
