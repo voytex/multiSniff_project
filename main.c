@@ -115,7 +115,7 @@ void Main_CreateSniffingTask()
 
 Semaphore_Handle Init_SemaphoreHandle;
 Semaphore_Params Init_SemaphoreParams;
-Semaphore_Handle Dashboard_SemaphoreHandle;
+Semaphore_Handle Dashboard_SemaphoreHandle; // <== TODO rename?
 Semaphore_Params Dashboard_SemaphoreParams;
 
 // ==============================================================================================================

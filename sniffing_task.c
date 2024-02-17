@@ -37,7 +37,7 @@
 
 extern Semaphore_Handle Dashboard_SemaphoreHandle;
 
-void HandleIncomingRfPacket(IPAddress, RF_Protocol_t, const uint8_t[]);
+void HandleIncomingRfPacket(uint8_t*, IPAddress, RF_Protocol_t, const uint8_t[]);
 
 EthernetUDP   ethernetUdp;
 
@@ -62,7 +62,7 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     EthernetUDP_begin_init(&ethernetUdp);
 
-    i = EthernetUDP_begin(&ethernetUdp, 2014);
+    EthernetUDP_begin(&ethernetUdp, 2014);
 
     Semaphore_post(Dashboard_SemaphoreHandle);
 
@@ -78,15 +78,9 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     for (;;)
     {
-//        EthernetUDP_beginPacket_ip(&ethernetUdp, *targetIp, 222);
-//
-//        EthernetUDP_println(&ethernetUdp, "lorem ipsum");
-//
-//        EthernetUDP_endPacket(&ethernetUdp);
+        HandleIncomingRfPacket(packetBuffer, *targetIp, currProto, accessAddress);
 
-        HandleIncomingRfPacket(*targetIp, currProto, accessAddress);
-
-        Task_sleep(100);
+        Task_sleep(1);
     }
 }
 
@@ -101,13 +95,13 @@ void Sniffing_Main(UArg a0, UArg a1)
  * Returns:
  *      RF_Stat                 - Enum signaling successful completition
  */
-void HandleIncomingRfPacket(IPAddress targetIp, RF_Protocol_t proto, const uint8_t accessAddr[])
+void HandleIncomingRfPacket(uint8_t* buffer, IPAddress targetIp, RF_Protocol_t proto, const uint8_t accessAddr[])
 {
-    uint8_t localBuf[2047];
+    //uint8_t buf[2047];
 
     uint8_t ret = 0;
 
-    uint16_t packetLen = RadioQueue_takePacket(localBuf, 2047);
+    uint16_t packetLen = RadioQueue_takePacket(buffer, 2047);
 
     if (packetLen)
     {
@@ -120,7 +114,7 @@ void HandleIncomingRfPacket(IPAddress targetIp, RF_Protocol_t proto, const uint8
             EthernetUDP_write(&ethernetUdp, (uint8_t*)accessAddr, 4);
         }
 
-        EthernetUDP_write(&ethernetUdp, (uint8_t*)localBuf, packetLen);
+        EthernetUDP_write(&ethernetUdp, (uint8_t*)buffer, packetLen);
 
         ret = EthernetUDP_endPacket(&ethernetUdp);
     }

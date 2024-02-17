@@ -94,8 +94,6 @@ void Dashboard_Main(UArg a0, UArg a1)
 
     EthernetServer_begin(&ethernetServer, PORT);
 
-    //Semaphore_post(Dashboard_SemaphoreHandle);
-
     for (;;)
     {
         readDestination = false;
@@ -287,7 +285,9 @@ void UpdateDashboardInfo(void)
     // Update Network Mask
     //
     tempBuf[0] = STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE ? '1' : '0';
+
     tempBuf[1] = '\0';
+
     Html_SetKeyValueInBuffer('h', tempBuf);
 
     ///////////////////////////
@@ -388,11 +388,12 @@ void SetStatusProperty(const char key, const char* value)
 
     case 's':
         STV_WriteStringAtAddress(STVW_NETWORK_MASK, (uint8_t*)&tmpIp, 4);
+        RestartMCU(); // <== not working
         break;
 
     case 'h':
         // TODO make sure, DHCP changing is working
-        STV_WriteAtAddress(STVW_RF_PROTOCOL, *value);
+        STV_WriteAtAddress(STVW_USING_DHCP, *value == '1' ? 0x59 : 0x4E);
         break;
 
     case 'r':

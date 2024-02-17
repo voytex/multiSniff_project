@@ -1,7 +1,7 @@
 ******************************************************************************
             TI ARM Clang Linker PC v2.1.2                      
 ******************************************************************************
->> Linked Sat Feb 17 17:02:50 2024
+>> Linked Sat Feb 17 17:36:13 2024
 
 OUTPUT FILE NAME:   <multiSniff_LP_CC2652RB_tirtos7_ticlang2.out>
 ENTRY POINT SYMBOL: "ResetISR"  address: 0000e92b
@@ -273,95 +273,96 @@ section   page    origin      length       input sections
                   0000535e    000000fe     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_Instance_init)
                   0000545c    000000fc     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hwiCpe0Active)
                   00005558    000000fc     libclang_rt.builtins.a : muldf3.S.obj (.text)
-                  00005654    000000f4     driverlib.lib : sys_ctrl.o (.text.NOROM_SysCtrlStandby)
-                  00005748    000000f4     dashboard_task.o (.text.StrTok)
-                  0000583c    000000f2     radio_queue.o (.text.RadioQueue_create)
-                  0000592e    00000002     --HOLE-- [fill = 0]
-                  00005930    000000ee     dashboard_task.o (.text.SetStatusProperty)
-                  00005a1e    000000ee     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_startI)
-                  00005b0c    000000e8     drivers_cc26x2.a : I2CCC26XX.c.obj (.text.I2CCC26XX_hwiFxn)
-                  00005bf4    000000e8     socket.o (.text.send)
-                  00005cdc    000000e4     driverlib.lib : setup.o (.text.NOROM_SetupTrimDevice)
-                  00005dc0    000000e4     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_initNVIC)
-                  00005ea4    000000da     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_freeUnprotected)
-                  00005f7e    00000002     --HOLE-- [fill = 0]
-                  00005f80    000000d8     drivers_cc26x2.a : SPICC26X2DMA.c.obj (.text.SPICC26X2DMA_control)
-                  00006058    000000d0                      : PowerCC26X2.c.obj (.text.configureXOSCHF)
-                  00006128    000000ce     radio_api.o (.text.Radio_initRXCmd)
-                  000061f6    00000002     --HOLE-- [fill = 0]
-                  000061f8    000000cc     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_postCmd)
-                  000062c4    000000ca                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_updatePaConfiguration)
-                  0000638e    000000c8     IPAddress.o (.text.IPAddress_fromString)
-                  00006456    000000c4     driverlib.lib : setup.o (.text.TrimAfterColdResetWakeupFromShutDown)
-                  0000651a    000000c0     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_walkQueueDynamic)
-                  000065da    000000c0     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_restoreHwi)
-                  0000669a    000000c0     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_formatNum)
-                  0000675a    000000be     gui.o (.text.GUI_Init)
-                  00006818    000000bc     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_swiHw)
-                  000068d4    000000bc     sniffing_task.o (.text.Sniffing_Main)
-                  00006990    000000bc     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_postInit)
-                  00006a4c    000000b8     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_Instance_init)
-                  00006b04    000000b6     driverlib.lib : osc.o (.text.NOROM_OSC_HPOSCInitializeFrequencyOffsetParameters)
-                  00006bba    000000b4                   : osc.o (.text.NOROM_OSCHF_AttemptToSwitchToXosc)
-                  00006c6e    00000002     --HOLE-- [fill = 0]
-                  00006c70    000000b4     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_releaseDependency)
-                  00006d24    000000b4     socket.o (.text.socket)
-                  00006dd8    000000b2     html.o (.text.Html_CopyHtmlToMtuBuffer)
-                  00006e8a    000000b0     dashboard_task.o (.text.HandleRestApi)
-                  00006f3a    00000002     --HOLE-- [fill = 0]
-                  00006f3c    000000b0     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_setDependency)
-                  00006fec    000000b0     libclang_rt.builtins.a : udivmoddi4.S.obj (.text)
-                  0000709c    000000ac     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_pendCmd)
-                  00007148    000000a8     drivers_cc26x2.a : TemperatureCC26X2.c.obj (.text.temperatureHwiFxn)
-                  000071f0    000000a6     socket.o (.text.recv)
-                  00007296    00000002     --HOLE-- [fill = 0]
-                  00007298    000000a4     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_initRadioSetup)
-                  0000733c    000000a2     ti_sysbios_config.o (.text.ti_sysbios_knl_TaskSupport_start)
-                  000073de    000000a0     drivers_cc26x2.a : I2CCC26XX.c.obj (.text.I2CCC26XX_swiFxn)
-                  0000747e    00000002     --HOLE-- [fill = 0]
-                  00007480    000000a0     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_calculateDispatchTime)
-                  00007520    0000009a     Ethernet.o (.text.Ethernet_begin_mac)
-                  000075ba    0000009a     ssd1306.o (.text.SSD1306_Init)
-                  00007654    0000009a     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_schedule)
-                  000076ee    00000098     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_defaultSubmitPolicy)
-                  00007786    00000098     ti_sysbios_config.o (.text.ti_sysbios_hal_Seconds_getTime)
-                  0000781e    00000096     EthernetUdp.o (.text.EthernetUDP_begin)
-                  000078b4    00000096     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_verifyGap)
-                  0000794a    00000094     Ethernet.o (.text.Ethernet_maintain)
-                  000079de    00000094     sniffing_task.o (.text.HandleIncomingRfPacket)
-                  00007a72    00000002     --HOLE-- [fill = 0]
-                  00007a74    00000094     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hposcRfCompensateFxn)
-                  00007b08    00000094                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_ratRestartChannels)
-                  00007b9c    00000094     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_Instance_init)
-                  00007c30    00000090     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_sleep)
-                  00007cc0    0000008e     ssd1306.o (.text.SSD1306_DrawPixel)
-                  00007d4e    0000008e     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_excHandlerMin)
-                  00007ddc    0000008e     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_runLoop)
-                  00007e6a    00000002     --HOLE-- [fill = 0]
-                  00007e6c    0000008c     drivers_cc26x2.a : GPIOCC26XX.c.obj (.text.GPIO_setConfig)
-                  00007ef8    0000008c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_construct2)
-                  00007f84    0000008a     EthernetClient.o (.text.EthernetClient_stop)
-                  0000800e    0000008a     EthernetServer.o (.text.EthernetServer_accept)
-                  00008098    0000008a     EthernetServer.o (.text.EthernetServer_available)
-                  00008122    0000008a     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_post)
-                  000081ac    00000088     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdDispatchTime)
-                  00008234    00000088                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_discardPendCmd)
-                  000082bc    00000088     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_postInit)
-                  00008344    00000086     ti_sysbios_config.o (.text.ti_sysbios_runtime_Memory_alloc)
-                  000083ca    00000084     EthernetUdp.o (.text.EthernetUDP_parsePacket)
-                  0000844e    00000082     EthernetClient.o (.text.EthernetClient_connected)
-                  000084d0    00000082     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_getStackInfo)
-                  00008552    00000080     driverlib.lib : sys_ctrl.o (.text.NOROM_SysCtrlSetRechargeBeforePowerDown)
-                  000085d2    0000007e     ti_drivers_config.o (.text.Board_sendExtFlashByte)
-                  00008650    0000007e     driverlib.lib : chipinfo.o (.text.NOROM_ChipInfo_GetChipType)
-                  000086ce    0000007e     ssd1306.o (.text.SSD1306_UpdatePosition)
-                  0000874c    0000007c     ti_sysbios_config.o (.text.SwiP_construct)
-                  000087c8    0000007c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_periodicStub)
-                  00008844    0000007c     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_schedule)
-                  000088c0    0000007a     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_dispatchC)
-                  0000893a    0000007a     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_init)
-                  000089b4    00000078     driverlib.lib : osc.o (.text.NOROM_OSCHF_SwitchToRcOscTurnOffXosc)
-                  00008a2c    00000078                   : osc.o (.text.NOROM_OSC_CapArrayAdjustWorkaround_Boot)
+                  00005654    000000fa     dashboard_task.o (.text.SetStatusProperty)
+                  0000574e    00000002     --HOLE-- [fill = 0]
+                  00005750    000000f4     driverlib.lib : sys_ctrl.o (.text.NOROM_SysCtrlStandby)
+                  00005844    000000f4     dashboard_task.o (.text.StrTok)
+                  00005938    000000f2     radio_queue.o (.text.RadioQueue_create)
+                  00005a2a    000000ee     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_startI)
+                  00005b18    000000e8     drivers_cc26x2.a : I2CCC26XX.c.obj (.text.I2CCC26XX_hwiFxn)
+                  00005c00    000000e8     socket.o (.text.send)
+                  00005ce8    000000e4     driverlib.lib : setup.o (.text.NOROM_SetupTrimDevice)
+                  00005dcc    000000e4     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_initNVIC)
+                  00005eb0    000000da     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_freeUnprotected)
+                  00005f8a    00000002     --HOLE-- [fill = 0]
+                  00005f8c    000000d8     drivers_cc26x2.a : SPICC26X2DMA.c.obj (.text.SPICC26X2DMA_control)
+                  00006064    000000d0                      : PowerCC26X2.c.obj (.text.configureXOSCHF)
+                  00006134    000000ce     radio_api.o (.text.Radio_initRXCmd)
+                  00006202    00000002     --HOLE-- [fill = 0]
+                  00006204    000000cc     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_postCmd)
+                  000062d0    000000ca                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_updatePaConfiguration)
+                  0000639a    000000c8     IPAddress.o (.text.IPAddress_fromString)
+                  00006462    000000c4     driverlib.lib : setup.o (.text.TrimAfterColdResetWakeupFromShutDown)
+                  00006526    000000c0     ti_sysbios_config.o (.text.ti_sysbios_knl_Clock_walkQueueDynamic)
+                  000065e6    000000c0     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_restoreHwi)
+                  000066a6    000000c0     ti_sysbios_config.o (.text.ti_sysbios_runtime_System_formatNum)
+                  00006766    000000be     gui.o (.text.GUI_Init)
+                  00006824    000000bc     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_swiHw)
+                  000068e0    000000bc     sniffing_task.o (.text.Sniffing_Main)
+                  0000699c    000000bc     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_postInit)
+                  00006a58    000000b8     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_Instance_init)
+                  00006b10    000000b6     driverlib.lib : osc.o (.text.NOROM_OSC_HPOSCInitializeFrequencyOffsetParameters)
+                  00006bc6    000000b4                   : osc.o (.text.NOROM_OSCHF_AttemptToSwitchToXosc)
+                  00006c7a    00000002     --HOLE-- [fill = 0]
+                  00006c7c    000000b4     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_releaseDependency)
+                  00006d30    000000b4     socket.o (.text.socket)
+                  00006de4    000000b2     html.o (.text.Html_CopyHtmlToMtuBuffer)
+                  00006e96    000000b0     dashboard_task.o (.text.HandleRestApi)
+                  00006f46    00000002     --HOLE-- [fill = 0]
+                  00006f48    000000b0     drivers_cc26x2.a : PowerCC26X2.c.obj (.text.Power_setDependency)
+                  00006ff8    000000b0     libclang_rt.builtins.a : udivmoddi4.S.obj (.text)
+                  000070a8    000000ac     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_pendCmd)
+                  00007154    000000a8     drivers_cc26x2.a : TemperatureCC26X2.c.obj (.text.temperatureHwiFxn)
+                  000071fc    000000a6     socket.o (.text.recv)
+                  000072a2    00000002     --HOLE-- [fill = 0]
+                  000072a4    000000a4     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_initRadioSetup)
+                  00007348    000000a2     ti_sysbios_config.o (.text.ti_sysbios_knl_TaskSupport_start)
+                  000073ea    000000a0     drivers_cc26x2.a : I2CCC26XX.c.obj (.text.I2CCC26XX_swiFxn)
+                  0000748a    00000002     --HOLE-- [fill = 0]
+                  0000748c    000000a0     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_calculateDispatchTime)
+                  0000752c    0000009a     Ethernet.o (.text.Ethernet_begin_mac)
+                  000075c6    0000009a     ssd1306.o (.text.SSD1306_Init)
+                  00007660    0000009a     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_schedule)
+                  000076fa    00000098     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_defaultSubmitPolicy)
+                  00007792    00000098     ti_sysbios_config.o (.text.ti_sysbios_hal_Seconds_getTime)
+                  0000782a    00000096     EthernetUdp.o (.text.EthernetUDP_begin)
+                  000078c0    00000096     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_verifyGap)
+                  00007956    00000094     Ethernet.o (.text.Ethernet_maintain)
+                  000079ea    00000002     --HOLE-- [fill = 0]
+                  000079ec    00000094     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_hposcRfCompensateFxn)
+                  00007a80    00000094                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_ratRestartChannels)
+                  00007b14    00000094     ti_sysbios_config.o (.text.ti_sysbios_heaps_HeapMem_Instance_init)
+                  00007ba8    00000090     ti_sysbios_config.o (.text.ti_sysbios_knl_Task_sleep)
+                  00007c38    0000008e     ssd1306.o (.text.SSD1306_DrawPixel)
+                  00007cc6    0000008e     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_excHandlerMin)
+                  00007d54    0000008e     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_runLoop)
+                  00007de2    00000002     --HOLE-- [fill = 0]
+                  00007de4    0000008c     drivers_cc26x2.a : GPIOCC26XX.c.obj (.text.GPIO_setConfig)
+                  00007e70    0000008c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_construct2)
+                  00007efc    0000008a     EthernetClient.o (.text.EthernetClient_stop)
+                  00007f86    0000008a     EthernetServer.o (.text.EthernetServer_accept)
+                  00008010    0000008a     EthernetServer.o (.text.EthernetServer_available)
+                  0000809a    0000008a     ti_sysbios_config.o (.text.ti_sysbios_knl_Semaphore_post)
+                  00008124    00000088     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_cmdDispatchTime)
+                  000081ac    00000088                           : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_discardPendCmd)
+                  00008234    00000088     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_postInit)
+                  000082bc    00000086     sniffing_task.o (.text.HandleIncomingRfPacket)
+                  00008342    00000086     ti_sysbios_config.o (.text.ti_sysbios_runtime_Memory_alloc)
+                  000083c8    00000084     EthernetUdp.o (.text.EthernetUDP_parsePacket)
+                  0000844c    00000082     EthernetClient.o (.text.EthernetClient_connected)
+                  000084ce    00000082     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_getStackInfo)
+                  00008550    00000080     driverlib.lib : sys_ctrl.o (.text.NOROM_SysCtrlSetRechargeBeforePowerDown)
+                  000085d0    0000007e     ti_drivers_config.o (.text.Board_sendExtFlashByte)
+                  0000864e    0000007e     driverlib.lib : chipinfo.o (.text.NOROM_ChipInfo_GetChipType)
+                  000086cc    0000007e     ssd1306.o (.text.SSD1306_UpdatePosition)
+                  0000874a    0000007c     ti_sysbios_config.o (.text.SwiP_construct)
+                  000087c6    0000007c     ti_sysbios_config.o (.text.ti_sysbios_family_arm_cc26xx_Timer_periodicStub)
+                  00008842    0000007c     ti_sysbios_config.o (.text.ti_sysbios_knl_Swi_schedule)
+                  000088be    0000007a     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_dispatchC)
+                  00008938    0000007a     ti_sysbios_config.o (.text.ti_sysbios_knl_Idle_init)
+                  000089b2    00000078     driverlib.lib : osc.o (.text.NOROM_OSCHF_SwitchToRcOscTurnOffXosc)
+                  00008a2a    00000078                   : osc.o (.text.NOROM_OSC_CapArrayAdjustWorkaround_Boot)
+                  00008aa2    00000002     --HOLE-- [fill = 0]
                   00008aa4    00000078     rf_multiMode_cc26x2.a : RFCC26X2_multiMode.c.cc26x2.ticlang.o (.text.RF_ratFreeChannel)
                   00008b1c    00000078     drivers_cc26x2.a : SPICC26X2DMA.c.obj (.text.SPICC26X2DMA_close)
                   00008b94    00000078     ti_sysbios_config.o (.text.ti_sysbios_family_arm_m3_Hwi_disableInterrupt)
@@ -1028,12 +1029,12 @@ MODULE SUMMARY
        Module                                          code    ro data   rw data
        ------                                          ----    -------   -------
     .\
-       dashboard_task.o                                1242    28        7      
+       dashboard_task.o                                1254    28        7      
        init_task.o                                     620     93        0      
        main.o                                          298     0         152    
-       sniffing_task.o                                 336     0         16     
+       sniffing_task.o                                 322     0         16     
     +--+-----------------------------------------------+-------+---------+---------+
-       Total:                                          2496    121       175    
+       Total:                                          2494    121       175    
                                                                                 
     .\source\driverlib\ssd1306\
        ssd1306.o                                       1430    512       1049   
@@ -1186,7 +1187,7 @@ MODULE SUMMARY
        Stack:                                          0       0         1536   
        Linker Generated:                               0       569       0      
     +--+-----------------------------------------------+-------+---------+---------+
-       Grand Total:                                    59720   6965      16407  
+       Grand Total:                                    59718   6965      16407  
 
 
 LINKER GENERATED COPY TABLES
@@ -1232,7 +1233,7 @@ address   name
 0000a9c3  BIOS_startFunc                                                     
 0000c86d  Board_init                                                         
 00001427  Board_initHook                                                     
-000085d3  Board_sendExtFlashByte                                             
+000085d1  Board_sendExtFlashByte                                             
 000091ef  Board_shutDownExtFlash                                             
 0000c2b3  Board_wakeUpExtFlash                                               
 0000e8eb  Boot_trimDevice                                                    
@@ -1265,25 +1266,25 @@ address   name
 20000754  EthernetClientPrintMethods                                         
 0000cff3  EthernetClient_available                                           
 0000da89  EthernetClient_begin                                               
-0000844f  EthernetClient_connected                                           
+0000844d  EthernetClient_connected                                           
 0000daa5  EthernetClient_print                                               
 0000c903  EthernetClient_read                                                
 00009915  EthernetClient_readBytesUntil                                      
 0000cb75  EthernetClient_status                                              
-00007f85  EthernetClient_stop                                                
+00007efd  EthernetClient_stop                                                
 0000b17d  EthernetClient_timedRead                                           
 0000ba39  EthernetClient_write                                               
-0000800f  EthernetServer_accept                                              
-00008099  EthernetServer_available                                           
+00007f87  EthernetServer_accept                                              
+00008011  EthernetServer_available                                           
 0000902f  EthernetServer_begin                                               
 20000758  EthernetUDPPrintMethods                                            
 0000e711  EthernetUDP_available                                              
-0000781f  EthernetUDP_begin                                                  
+0000782b  EthernetUDP_begin                                                  
 0000cba3  EthernetUDP_beginPacket_ip                                         
 0000e61b  EthernetUDP_begin_init                                             
 0000e1e5  EthernetUDP_endPacket                                              
 0000dac1  EthernetUDP_flush                                                  
-000083cb  EthernetUDP_parsePacket                                            
+000083c9  EthernetUDP_parsePacket                                            
 0000e71d  EthernetUDP_rawIPAddress                                           
 0000ba7b  EthernetUDP_read                                                   
 00009483  EthernetUDP_read_buf                                               
@@ -1291,11 +1292,11 @@ address   name
 0000c2eb  EthernetUDP_stop                                                   
 0000c89f  EthernetUDP_write                                                  
 0000d777  EthernetUDP_write_byte                                             
-00007521  Ethernet_begin_mac                                                 
+0000752d  Ethernet_begin_mac                                                 
 0000bb41  Ethernet_begin_mac_ip_dns_gateway_subnet                           
 0000e31d  Ethernet_gatewayIP                                                 
 0000e32d  Ethernet_localIP                                                   
-0000794b  Ethernet_maintain                                                  
+00007957  Ethernet_maintain                                                  
 2000069c  Ethernet_server_port                                               
 0000e33d  Ethernet_subnetMask                                                
 0001018c  GPIO_config                                                        
@@ -1308,7 +1309,7 @@ address   name
 0000e0b9  GPIO_read                                                          
 0000bf35  GPIO_resetConfig                                                   
 0000dadd  GPIO_setCallback                                                   
-00007e6d  GPIO_setConfig                                                     
+00007de5  GPIO_setConfig                                                     
 0000c935  GPIO_setInterruptConfig                                            
 0000daf9  GPIO_setMux                                                        
 0000e0cd  GPIO_setUserArg                                                    
@@ -1317,12 +1318,12 @@ address   name
 00008d75  GUI_ChangeProto                                                    
 0000a6bf  GUI_ChangeRx                                                       
 0000b709  GUI_ChangeTargetIp                                                 
-0000675b  GUI_Init                                                           
+00006767  GUI_Init                                                           
 00004000  HEAPSIZE                                                           
 0000aa19  HOSTwrite                                                          
-000079df  HandleIncomingRfPacket                                             
-00006e8b  HandleRestApi                                                      
-00006dd9  Html_CopyHtmlToMtuBuffer                                           
+000082bd  HandleIncomingRfPacket                                             
+00006e97  HandleRestApi                                                      
+00006de5  Html_CopyHtmlToMtuBuffer                                           
 0000b1c5  Html_SetKeyValueInBuffer                                           
 000095c9  Html_strcpy                                                        
 0000c62f  Html_strset                                                        
@@ -1349,7 +1350,7 @@ address   name
 0000e1f7  I2C_transfer                                                       
 0000445d  I2C_transferTimeout                                                
 0000cecd  IPAddress_Init_str                                                 
-0000638f  IPAddress_fromString                                               
+0000639b  IPAddress_fromString                                               
 00003e5d  IPAddress_toString                                                 
 UNDEFED   ITM_flush                                                          
 UNDEFED   ITM_restore                                                        
@@ -1370,13 +1371,13 @@ UNDEFED   ITM_restore
 0000e741  NOROM_CPUcpsid                                                     
 0000e74d  NOROM_CPUcpsie                                                     
 0000e90b  NOROM_CPUdelay                                                     
-00008651  NOROM_ChipInfo_GetChipType                                         
+0000864f  NOROM_ChipInfo_GetChipType                                         
 0000ab69  NOROM_ChipInfo_GetHwRevision                                       
-00006bbb  NOROM_OSCHF_AttemptToSwitchToXosc                                  
-000089b5  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                               
+00006bc7  NOROM_OSCHF_AttemptToSwitchToXosc                                  
+000089b3  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                               
 0000cef7  NOROM_OSCHF_TurnOnXosc                                             
-00008a2d  NOROM_OSC_CapArrayAdjustWorkaround_Boot                            
-00006b05  NOROM_OSC_HPOSCInitializeFrequencyOffsetParameters                 
+00008a2b  NOROM_OSC_CapArrayAdjustWorkaround_Boot                            
+00006b11  NOROM_OSC_HPOSCInitializeFrequencyOffsetParameters                 
 0000ae3b  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                          
 0000b74d  NOROM_PRCMPowerDomainsAllOff                                       
 0000b791  NOROM_PRCMPowerDomainsAllOn                                        
@@ -1388,10 +1389,10 @@ UNDEFED   ITM_restore
 0000d7b9  NOROM_RFCOverrideSearch                                            
 0000e991  NOROM_RFCOverrideUpdate                                            
 0000b255  NOROM_RFCSynthPowerDown                                            
-00005cdd  NOROM_SetupTrimDevice                                              
+00005ce9  NOROM_SetupTrimDevice                                              
 0000bf71  NOROM_SysCtrlIdle                                                  
-00008553  NOROM_SysCtrlSetRechargeBeforePowerDown                            
-00005655  NOROM_SysCtrlStandby                                               
+00008551  NOROM_SysCtrlSetRechargeBeforePowerDown                            
+00005751  NOROM_SysCtrlStandby                                               
 0000cbd1  NOROM_ThisLibraryIsFor_CC13x2_CC26x2_HwRev20AndLater_HaltIfViolated
 0000bc41  PowerCC26X2_RCOSC_clockFunc                                        
 000030bd  PowerCC26X2_auxISR                                                 
@@ -1441,9 +1442,9 @@ UNDEFED   ITM_restore
 000048e9  Power_init                                                         
 0000d49d  Power_registerNotify                                               
 0000c665  Power_releaseConstraint                                            
-00006c71  Power_releaseDependency                                            
+00006c7d  Power_releaseDependency                                            
 0000c965  Power_setConstraint                                                
-00006f3d  Power_setDependency                                                
+00006f49  Power_setDependency                                                
 000036c9  Power_sleep                                                        
 0000d859  Power_unregisterNotify                                             
 000101ac  RFCC26XX_hwAttrs                                                   
@@ -1459,16 +1460,16 @@ UNDEFED   ITM_restore
 20000644  RFCMD_ieeeRadioSetup                                               
 0000e7a1  RF_Params_init                                                     
 0000e9a5  RF_defaultExecutionPolicy                                          
-000076ef  RF_defaultSubmitPolicy                                             
+000076fb  RF_defaultSubmitPolicy                                             
 0000ac61  RF_enableHPOSCTemperatureCompensation                              
 0000ab15  RF_getCurrentTime                                                  
 000019d1  RF_open                                                            
-0000709d  RF_pendCmd                                                         
-000061f9  RF_postCmd                                                         
+000070a9  RF_pendCmd                                                         
+00006205  RF_postCmd                                                         
 0000c699  RF_powerConstraintRelease                                          
 0000db85  RF_powerConstraintSet                                              
 0000d271  RF_runCmd                                                          
-0000583d  RadioQueue_create                                                  
+00005939  RadioQueue_create                                                  
 0000e87d  RadioQueue_getDQpointer                                            
 0000deed  RadioQueue_hasPacket                                               
 0000cf21  RadioQueue_init                                                    
@@ -1478,13 +1479,13 @@ UNDEFED   ITM_restore
 0000b2e5  Radio_GetCurrentProtocol                                           
 0000c9c5  Radio_HandleQueueOverflow                                          
 0000a185  Radio_beginRX                                                      
-00006129  Radio_initRXCmd                                                    
+00006135  Radio_initRXCmd                                                    
 0000bfe9  Radio_openRadioCore                                                
 0000abbb  Radio_setFrequencySynthesizer                                      
 0000e92b  ResetISR                                                           
 0000b9f4  RestartMCU                                                         
 00008b1d  SPICC26X2DMA_close                                                 
-00005f81  SPICC26X2DMA_control                                               
+00005f8d  SPICC26X2DMA_control                                               
 000100ec  SPICC26X2DMA_fxnTable                                              
 0000e887  SPICC26X2DMA_init                                                  
 000033e1  SPICC26X2DMA_open                                                  
@@ -1501,13 +1502,13 @@ UNDEFED   ITM_restore
 0000e985  SPI_transfer                                                       
 00004d35  SSD1306_DrawChar                                                   
 00002d8b  SSD1306_DrawLine                                                   
-00007cc1  SSD1306_DrawPixel                                                  
+00007c39  SSD1306_DrawPixel                                                  
 00009c3d  SSD1306_DrawString                                                 
-000075bb  SSD1306_Init                                                       
+000075c7  SSD1306_Init                                                       
 00010074  SSD1306_InitSequence                                               
 0000b32d  SSD1306_SendCommand                                                
 0000d551  SSD1306_SetPosition                                                
-000086cf  SSD1306_UpdatePosition                                             
+000086cd  SSD1306_UpdatePosition                                             
 0000babd  SSD1306_UpdateScreen                                               
 0000c205  STV_CopyStvFromFlashIfNotYet                                       
 0000e7b9  STV_ReadFromAddress                                                
@@ -1518,11 +1519,11 @@ UNDEFED   ITM_restore
 0000c5c3  SemaphoreP_pend                                                    
 0000e47d  SemaphoreP_post                                                    
 0000be01  SendHtmlToClient                                                   
-00005931  SetStatusProperty                                                  
-000068d5  Sniffing_Main                                                      
-00005749  StrTok                                                             
+00005655  SetStatusProperty                                                  
+000068e1  Sniffing_Main                                                      
+00005845  StrTok                                                             
 0000d999  SwiP_Params_init                                                   
-0000874d  SwiP_construct                                                     
+0000874b  SwiP_construct                                                     
 0000e48d  SwiP_destruct                                                      
 0000e49d  SwiP_disable                                                       
 0000e4ad  SwiP_getTrigger                                                    
@@ -1660,7 +1661,7 @@ UNDEFED   __mpu_init
 20000000  __stop___llvm_prf_bits                                             
 20000000  __stop___llvm_prf_cnts                                             
 000026d9  __subdf3                                                           
-00006fed  __udivmoddi4                                                       
+00006ff9  __udivmoddi4                                                       
 0000e145  _args_main                                                         
 0000c839  _c_int00                                                           
 20008ca8  _counter                                                           
@@ -1706,18 +1707,18 @@ ffffffff  binit
 20008c60  parmbuf                                                            
 0000de49  print                                                              
 0000e98b  random                                                             
-000071f1  recv                                                               
+000071fd  recv                                                               
 0000e7dd  resetSS                                                            
 0000ff9c  resourceDB                                                         
 0000c4ad  rf_patch_cpe_bt5                                                   
 0000b405  rf_patch_cpe_ieee_802_15_4                                         
-00005bf5  send                                                               
+00005c01  send                                                               
 0000c23f  sendData                                                           
 0000d669  sendUDP                                                            
 0000e7e9  setSS                                                              
 20008c98  sniffingTaskHandle                                                 
 20008b48  sniffingTaskParams                                                 
-00006d25  socket                                                             
+00006d31  socket                                                             
 20008c9c  spi                                                                
 0000fff0  spiCC26X2DMAHWAttrs                                                
 2000856c  spiCC26X2DMAObjects                                                
@@ -1731,7 +1732,7 @@ ffffffff  binit
 0000de61  ti_sysbios_family_arm_cc26xx_Timer_getCount64                      
 0000a7c1  ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick                  
 0000c79d  ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks                     
-000087c9  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
+000087c7  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
 0000d8f9  ti_sysbios_family_arm_cc26xx_Timer_postInit                        
 0000ad01  ti_sysbios_family_arm_cc26xx_Timer_setNextTick                     
 0000e55d  ti_sysbios_family_arm_cc26xx_Timer_setPeriod                       
@@ -1746,11 +1747,11 @@ ffffffff  binit
 0000dc2d  ti_sysbios_family_arm_m3_Hwi_Params_init                           
 0000c279  ti_sysbios_family_arm_m3_Hwi_clearInterrupt                        
 0000a509  ti_sysbios_family_arm_m3_Hwi_construct                             
-00007ef9  ti_sysbios_family_arm_m3_Hwi_construct2                            
+00007e71  ti_sysbios_family_arm_m3_Hwi_construct2                            
 0000e209  ti_sysbios_family_arm_m3_Hwi_destruct                              
 00008b95  ti_sysbios_family_arm_m3_Hwi_disableInterrupt                      
 000047cd  ti_sysbios_family_arm_m3_Hwi_dispatch                              
-000088c1  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
+000088bf  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
 2000866c  ti_sysbios_family_arm_m3_Hwi_dispatchTable                         
 0000e21b  ti_sysbios_family_arm_m3_Hwi_doSwiRestore                          
 0000e22d  ti_sysbios_family_arm_m3_Hwi_doTaskRestore                         
@@ -1758,18 +1759,18 @@ ffffffff  binit
 00002301  ti_sysbios_family_arm_m3_Hwi_excFillContext                        
 0000d919  ti_sysbios_family_arm_m3_Hwi_excHandler                            
 0000d0e5  ti_sysbios_family_arm_m3_Hwi_excHandlerAsm                         
-00007d4f  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
+00007cc7  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
 0000d2bd  ti_sysbios_family_arm_m3_Hwi_getHandle                             
-000084d1  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
+000084cf  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
 0000b44d  ti_sysbios_family_arm_m3_Hwi_init                                  
-00005dc1  ti_sysbios_family_arm_m3_Hwi_initNVIC                              
+00005dcd  ti_sysbios_family_arm_m3_Hwi_initNVIC                              
 0000cc5b  ti_sysbios_family_arm_m3_Hwi_initStack                             
 0000a561  ti_sysbios_family_arm_m3_Hwi_initStacks                            
 000048a4  ti_sysbios_family_arm_m3_Hwi_interruptsAreDisabledButShouldNotBe   
 000048a9  ti_sysbios_family_arm_m3_Hwi_pendSV                                
 0000cab5  ti_sysbios_family_arm_m3_Hwi_plug                                  
 0000d939  ti_sysbios_family_arm_m3_Hwi_post                                  
-000082bd  ti_sysbios_family_arm_m3_Hwi_postInit                              
+00008235  ti_sysbios_family_arm_m3_Hwi_postInit                              
 20000000  ti_sysbios_family_arm_m3_Hwi_ramVectors                            
 00000000  ti_sysbios_family_arm_m3_Hwi_resetVectors                          
 000048cc  ti_sysbios_family_arm_m3_Hwi_return                                
@@ -1786,15 +1787,15 @@ ffffffff  binit
 0000bd41  ti_sysbios_gates_GateMutex_enter                                   
 0000d68b  ti_sysbios_gates_GateMutex_leave                                   
 20008c04  ti_sysbios_hal_Seconds_Module_state                                
-00007787  ti_sysbios_hal_Seconds_getTime                                     
-00007b9d  ti_sysbios_heaps_HeapMem_Instance_init                             
+00007793  ti_sysbios_hal_Seconds_getTime                                     
+00007b15  ti_sysbios_heaps_HeapMem_Instance_init                             
 20000740  ti_sysbios_heaps_HeapMem_Module_state                              
 0000e23f  ti_sysbios_heaps_HeapMem_Params_init                               
 0000a23d  ti_sysbios_heaps_HeapMem_alloc                                     
 00003aa7  ti_sysbios_heaps_HeapMem_allocUnprotected                          
 0000a5b9  ti_sysbios_heaps_HeapMem_construct                                 
 0000cae5  ti_sysbios_heaps_HeapMem_free                                      
-00005ea5  ti_sysbios_heaps_HeapMem_freeUnprotected                           
+00005eb1  ti_sysbios_heaps_HeapMem_freeUnprotected                           
 20008ad8  ti_sysbios_heaps_HeapMem_gate                                      
 00008f49  ti_sysbios_heaps_HeapMem_getStats                                  
 0000e251  ti_sysbios_heaps_HeapMem_init                                      
@@ -1820,15 +1821,15 @@ ffffffff  binit
 0000d6f1  ti_sysbios_knl_Clock_scheduleNextTick                              
 0000e59d  ti_sysbios_knl_Clock_setTimeout                                    
 0000dc65  ti_sysbios_knl_Clock_start                                         
-00005a1f  ti_sysbios_knl_Clock_startI                                        
+00005a2b  ti_sysbios_knl_Clock_startI                                        
 0000e6b5  ti_sysbios_knl_Clock_stop                                          
 0000e275  ti_sysbios_knl_Clock_tick                                          
 0001022d  ti_sysbios_knl_Clock_tickMode                                      
 00010224  ti_sysbios_knl_Clock_tickPeriod                                    
-0000651b  ti_sysbios_knl_Clock_walkQueueDynamic                              
+00006527  ti_sysbios_knl_Clock_walkQueueDynamic                              
 00003d21  ti_sysbios_knl_Clock_workFuncDynamic                               
 00010208  ti_sysbios_knl_Idle_funcList                                       
-0000893b  ti_sysbios_knl_Idle_init                                           
+00008939  ti_sysbios_knl_Idle_init                                           
 20000779  ti_sysbios_knl_Idle_initDone                                       
 0000e5ad  ti_sysbios_knl_Idle_loop                                           
 0000cb45  ti_sysbios_knl_Idle_run                                            
@@ -1855,9 +1856,9 @@ ffffffff  binit
 0000d735  ti_sysbios_knl_Semaphore_destruct                                  
 00004b19  ti_sysbios_knl_Semaphore_pend                                      
 0000bd81  ti_sysbios_knl_Semaphore_pendTimeout                               
-00008123  ti_sysbios_knl_Semaphore_post                                      
+0000809b  ti_sysbios_knl_Semaphore_post                                      
 0000e181  ti_sysbios_knl_Swi_Instance_finalize                               
-00006a4d  ti_sysbios_knl_Swi_Instance_init                                   
+00006a59  ti_sysbios_knl_Swi_Instance_init                                   
 2000058c  ti_sysbios_knl_Swi_Module_state                                    
 0000dc9d  ti_sysbios_knl_Swi_Params_init                                     
 0000b523  ti_sysbios_knl_Swi_construct                                       
@@ -1873,17 +1874,17 @@ ffffffff  binit
 0000e831  ti_sysbios_knl_Swi_postInit                                        
 20008a24  ti_sysbios_knl_Swi_readyQs                                         
 0000aded  ti_sysbios_knl_Swi_restore                                         
-000065db  ti_sysbios_knl_Swi_restoreHwi                                      
+000065e7  ti_sysbios_knl_Swi_restoreHwi                                      
 00008c0d  ti_sysbios_knl_Swi_run                                             
-00007ddd  ti_sysbios_knl_Swi_runLoop                                         
-00008845  ti_sysbios_knl_Swi_schedule                                        
+00007d55  ti_sysbios_knl_Swi_runLoop                                         
+00008843  ti_sysbios_knl_Swi_schedule                                        
 0000e83d  ti_sysbios_knl_Swi_self                                            
 0000e8c3  ti_sysbios_knl_Swi_startup                                         
 00002a3d  ti_sysbios_knl_TaskSupport_buildTaskStack                          
 0000e9b5  ti_sysbios_knl_TaskSupport_getStackAlignment                       
 0000dea9  ti_sysbios_knl_TaskSupport_glue                                    
 000047cb  ti_sysbios_knl_TaskSupport_init                                    
-0000733d  ti_sysbios_knl_TaskSupport_start                                   
+00007349  ti_sysbios_knl_TaskSupport_start                                   
 0000d185  ti_sysbios_knl_TaskSupport_swap                                    
 0000d190  ti_sysbios_knl_TaskSupport_swapReturn                              
 00004e3f  ti_sysbios_knl_Task_Instance_finalize                              
@@ -1903,14 +1904,14 @@ ffffffff  binit
 0000bdc1  ti_sysbios_knl_Task_exit                                           
 0000a299  ti_sysbios_knl_Task_init                                           
 0001022f  ti_sysbios_knl_Task_initStackFlag                                  
-00006991  ti_sysbios_knl_Task_postInit                                       
+0000699d  ti_sysbios_knl_Task_postInit                                       
 0000b569  ti_sysbios_knl_Task_processVitalTaskFlag                           
 20008a54  ti_sysbios_knl_Task_readyQs                                        
 0000b96d  ti_sysbios_knl_Task_restore                                        
 0000c151  ti_sysbios_knl_Task_restoreHwi                                     
-00007655  ti_sysbios_knl_Task_schedule                                       
+00007661  ti_sysbios_knl_Task_schedule                                       
 0000e849  ti_sysbios_knl_Task_self                                           
-00007c31  ti_sysbios_knl_Task_sleep                                          
+00007ba9  ti_sysbios_knl_Task_sleep                                          
 0000d1ad  ti_sysbios_knl_Task_sleepTimeout                                   
 00008cfd  ti_sysbios_knl_Task_startup                                        
 0000da4d  ti_sysbios_knl_Task_unblock                                        
@@ -1919,7 +1920,7 @@ ffffffff  binit
 20000708  ti_sysbios_runtime_Error_ignore                                    
 0000b133  ti_sysbios_runtime_Error_print                                     
 0000a0cb  ti_sysbios_runtime_Error_raiseX                                    
-00008345  ti_sysbios_runtime_Memory_alloc                                    
+00008343  ti_sysbios_runtime_Memory_alloc                                    
 20000770  ti_sysbios_runtime_Memory_defaultHeapInstance                      
 0000cea1  ti_sysbios_runtime_Memory_free                                     
 0000e9b9  ti_sysbios_runtime_Memory_getMaxDefaultTypeAlign                   
@@ -1940,7 +1941,7 @@ ffffffff  binit
 00000041  ti_sysbios_runtime_System_doPrint                                  
 0000e08f  ti_sysbios_runtime_System_exit                                     
 0000e965  ti_sysbios_runtime_System_exitSpin                                 
-0000669b  ti_sysbios_runtime_System_formatNum                                
+000066a7  ti_sysbios_runtime_System_formatNum                                
 0000d1d5  ti_sysbios_runtime_System_init                                     
 0000d1fd  ti_sysbios_runtime_System_printf                                   
 00002101  ti_sysbios_runtime_System_printfExtend                             
@@ -2017,72 +2018,72 @@ address   name
 0000535f  ti_sysbios_family_arm_m3_Hwi_Instance_init                         
 00005559  __aeabi_dmul                                                       
 00005559  __muldf3                                                           
-00005655  NOROM_SysCtrlStandby                                               
-00005749  StrTok                                                             
-0000583d  RadioQueue_create                                                  
-00005931  SetStatusProperty                                                  
-00005a1f  ti_sysbios_knl_Clock_startI                                        
-00005bf5  send                                                               
-00005cdd  NOROM_SetupTrimDevice                                              
-00005dc1  ti_sysbios_family_arm_m3_Hwi_initNVIC                              
-00005ea5  ti_sysbios_heaps_HeapMem_freeUnprotected                           
-00005f81  SPICC26X2DMA_control                                               
-00006129  Radio_initRXCmd                                                    
-000061f9  RF_postCmd                                                         
-0000638f  IPAddress_fromString                                               
-0000651b  ti_sysbios_knl_Clock_walkQueueDynamic                              
-000065db  ti_sysbios_knl_Swi_restoreHwi                                      
-0000669b  ti_sysbios_runtime_System_formatNum                                
-0000675b  GUI_Init                                                           
-000068d5  Sniffing_Main                                                      
-00006991  ti_sysbios_knl_Task_postInit                                       
-00006a4d  ti_sysbios_knl_Swi_Instance_init                                   
-00006b05  NOROM_OSC_HPOSCInitializeFrequencyOffsetParameters                 
-00006bbb  NOROM_OSCHF_AttemptToSwitchToXosc                                  
-00006c71  Power_releaseDependency                                            
-00006d25  socket                                                             
-00006dd9  Html_CopyHtmlToMtuBuffer                                           
-00006e8b  HandleRestApi                                                      
-00006f3d  Power_setDependency                                                
-00006fed  __udivmoddi4                                                       
-0000709d  RF_pendCmd                                                         
-000071f1  recv                                                               
-0000733d  ti_sysbios_knl_TaskSupport_start                                   
-00007521  Ethernet_begin_mac                                                 
-000075bb  SSD1306_Init                                                       
-00007655  ti_sysbios_knl_Task_schedule                                       
-000076ef  RF_defaultSubmitPolicy                                             
-00007787  ti_sysbios_hal_Seconds_getTime                                     
-0000781f  EthernetUDP_begin                                                  
-0000794b  Ethernet_maintain                                                  
-000079df  HandleIncomingRfPacket                                             
-00007b9d  ti_sysbios_heaps_HeapMem_Instance_init                             
-00007c31  ti_sysbios_knl_Task_sleep                                          
-00007cc1  SSD1306_DrawPixel                                                  
-00007d4f  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
-00007ddd  ti_sysbios_knl_Swi_runLoop                                         
-00007e6d  GPIO_setConfig                                                     
-00007ef9  ti_sysbios_family_arm_m3_Hwi_construct2                            
-00007f85  EthernetClient_stop                                                
-0000800f  EthernetServer_accept                                              
-00008099  EthernetServer_available                                           
-00008123  ti_sysbios_knl_Semaphore_post                                      
-000082bd  ti_sysbios_family_arm_m3_Hwi_postInit                              
-00008345  ti_sysbios_runtime_Memory_alloc                                    
-000083cb  EthernetUDP_parsePacket                                            
-0000844f  EthernetClient_connected                                           
-000084d1  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
-00008553  NOROM_SysCtrlSetRechargeBeforePowerDown                            
-000085d3  Board_sendExtFlashByte                                             
-00008651  NOROM_ChipInfo_GetChipType                                         
-000086cf  SSD1306_UpdatePosition                                             
-0000874d  SwiP_construct                                                     
-000087c9  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
-00008845  ti_sysbios_knl_Swi_schedule                                        
-000088c1  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
-0000893b  ti_sysbios_knl_Idle_init                                           
-000089b5  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                               
-00008a2d  NOROM_OSC_CapArrayAdjustWorkaround_Boot                            
+00005655  SetStatusProperty                                                  
+00005751  NOROM_SysCtrlStandby                                               
+00005845  StrTok                                                             
+00005939  RadioQueue_create                                                  
+00005a2b  ti_sysbios_knl_Clock_startI                                        
+00005c01  send                                                               
+00005ce9  NOROM_SetupTrimDevice                                              
+00005dcd  ti_sysbios_family_arm_m3_Hwi_initNVIC                              
+00005eb1  ti_sysbios_heaps_HeapMem_freeUnprotected                           
+00005f8d  SPICC26X2DMA_control                                               
+00006135  Radio_initRXCmd                                                    
+00006205  RF_postCmd                                                         
+0000639b  IPAddress_fromString                                               
+00006527  ti_sysbios_knl_Clock_walkQueueDynamic                              
+000065e7  ti_sysbios_knl_Swi_restoreHwi                                      
+000066a7  ti_sysbios_runtime_System_formatNum                                
+00006767  GUI_Init                                                           
+000068e1  Sniffing_Main                                                      
+0000699d  ti_sysbios_knl_Task_postInit                                       
+00006a59  ti_sysbios_knl_Swi_Instance_init                                   
+00006b11  NOROM_OSC_HPOSCInitializeFrequencyOffsetParameters                 
+00006bc7  NOROM_OSCHF_AttemptToSwitchToXosc                                  
+00006c7d  Power_releaseDependency                                            
+00006d31  socket                                                             
+00006de5  Html_CopyHtmlToMtuBuffer                                           
+00006e97  HandleRestApi                                                      
+00006f49  Power_setDependency                                                
+00006ff9  __udivmoddi4                                                       
+000070a9  RF_pendCmd                                                         
+000071fd  recv                                                               
+00007349  ti_sysbios_knl_TaskSupport_start                                   
+0000752d  Ethernet_begin_mac                                                 
+000075c7  SSD1306_Init                                                       
+00007661  ti_sysbios_knl_Task_schedule                                       
+000076fb  RF_defaultSubmitPolicy                                             
+00007793  ti_sysbios_hal_Seconds_getTime                                     
+0000782b  EthernetUDP_begin                                                  
+00007957  Ethernet_maintain                                                  
+00007b15  ti_sysbios_heaps_HeapMem_Instance_init                             
+00007ba9  ti_sysbios_knl_Task_sleep                                          
+00007c39  SSD1306_DrawPixel                                                  
+00007cc7  ti_sysbios_family_arm_m3_Hwi_excHandlerMin                         
+00007d55  ti_sysbios_knl_Swi_runLoop                                         
+00007de5  GPIO_setConfig                                                     
+00007e71  ti_sysbios_family_arm_m3_Hwi_construct2                            
+00007efd  EthernetClient_stop                                                
+00007f87  EthernetServer_accept                                              
+00008011  EthernetServer_available                                           
+0000809b  ti_sysbios_knl_Semaphore_post                                      
+00008235  ti_sysbios_family_arm_m3_Hwi_postInit                              
+000082bd  HandleIncomingRfPacket                                             
+00008343  ti_sysbios_runtime_Memory_alloc                                    
+000083c9  EthernetUDP_parsePacket                                            
+0000844d  EthernetClient_connected                                           
+000084cf  ti_sysbios_family_arm_m3_Hwi_getStackInfo                          
+00008551  NOROM_SysCtrlSetRechargeBeforePowerDown                            
+000085d1  Board_sendExtFlashByte                                             
+0000864f  NOROM_ChipInfo_GetChipType                                         
+000086cd  SSD1306_UpdatePosition                                             
+0000874b  SwiP_construct                                                     
+000087c7  ti_sysbios_family_arm_cc26xx_Timer_periodicStub                    
+00008843  ti_sysbios_knl_Swi_schedule                                        
+000088bf  ti_sysbios_family_arm_m3_Hwi_dispatchC                             
+00008939  ti_sysbios_knl_Idle_init                                           
+000089b3  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                               
+00008a2b  NOROM_OSC_CapArrayAdjustWorkaround_Boot                            
 00008b1d  SPICC26X2DMA_close                                                 
 00008b95  ti_sysbios_family_arm_m3_Hwi_disableInterrupt                      
 00008c0d  ti_sysbios_knl_Swi_run                                             
