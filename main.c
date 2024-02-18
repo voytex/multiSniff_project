@@ -84,7 +84,7 @@ Task_Params dashboardTaskParams;
 void Main_CreateDashboardTask()
 {
     Task_Params_init(&dashboardTaskParams);
-    dashboardTaskParams.stackSize = 1024;
+    dashboardTaskParams.stackSize = 2048;
     dashboardTaskParams.priority  = 2;
     dashboardTaskHandle = Task_create((Task_FuncPtr)Dashboard_Main, &dashboardTaskParams, Error_IGNORE);
 

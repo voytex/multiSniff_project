@@ -10,6 +10,8 @@
 
 #include <source/ethernet/EthernetUdp.h>
 
+#include "ti_radio_config.h"
+
 // === ENUM DEFINITIONS =========================================================================================
 
 typedef enum RF_Protocol {
@@ -25,7 +27,7 @@ void          Radio_openRadioCore           (RF_Params* pParams, RF_Object* pObj
 
 RF_EventMask  Radio_setFrequencySynthesizer (RF_Handle pHandle,  RF_Protocol_t proto);
 
-void          Radio_initRXCmd               (RF_Protocol_t proto);
+void          Radio_initRXCmd               (rfc_bleGenericRxOutput_t*, rfc_ieeeRxOutput_t*);
 
 RF_CmdHandle  Radio_beginRX                 (RF_Handle pHandle, RF_Protocol_t proto, void* callbackFunction, RF_EventMask events);
 

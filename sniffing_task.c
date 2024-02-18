@@ -41,6 +41,10 @@ void HandleIncomingRfPacket(uint8_t*, IPAddress, RF_Protocol_t, const uint8_t[])
 
 EthernetUDP   ethernetUdp;
 
+rfc_bleGenericRxOutput_t bleStats;
+
+rfc_ieeeRxOutput_t ieeeStats;
+
 // === MAIN TASK FUNCTION =======================================================================================
 
 void Sniffing_Main(UArg a0, UArg a1)
@@ -56,19 +60,21 @@ void Sniffing_Main(UArg a0, UArg a1)
     IPAddress*    targetIp = (IPAddress*)STVW_TARGET_IP_ADDRESS;
 
 
+
+
     RadioQueue_init();
 
     RadioQueue_reset();
 
     EthernetUDP_begin_init(&ethernetUdp);
 
-    EthernetUDP_begin(&ethernetUdp, 2014);
+    EthernetUDP_begin(&ethernetUdp, 2014, 3);
 
     Semaphore_post(Dashboard_SemaphoreHandle);
 
     currProto = Radio_GetCurrentProtocol();
 
-    Radio_initRXCmd(currProto);
+    Radio_initRXCmd(&bleStats, &ieeeStats);
 
     Radio_openRadioCore(&rfParams, &rfObj, currProto, &rfHnd);
 

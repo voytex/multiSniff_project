@@ -50,7 +50,7 @@ int DHCP_request_DHCP_lease(DHCP* dhcp){
 	dhcp->_dhcpInitialTransactionId = dhcp->_dhcpTransactionId;
 
 	EthernetUDP_stop(&dhcp->_dhcpUdpSocket);
-    if (EthernetUDP_begin(&dhcp->_dhcpUdpSocket, DHCP_CLIENT_PORT) == 0)
+    if (EthernetUDP_begin(&dhcp->_dhcpUdpSocket, DHCP_CLIENT_PORT, 0) == 0)
     {
       // Couldn't get a socket
       return 0;

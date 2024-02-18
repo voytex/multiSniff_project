@@ -9,7 +9,11 @@
 
 #include <stdint.h>
 
+#include <source/radio_api/radio_api.h>
+
 #include <stdbool.h>
+
+#include <string.h>
 
 #include <ti/drivers/SPI.h>
 
@@ -40,6 +44,8 @@
 #include <source/utils/handler_funcs.h>
 
 #include <source/oled_gui/gui.h>
+
+#include "ti_radio_config.h"
 
 // ==============================================================================================================
 
@@ -244,6 +250,8 @@ void UpdateDashboardInfo(void)
 {
     char        tempBuf[17] = {0};
     IPAddress   tmpIp;
+    extern rfc_bleGenericRxOutput_t bleStats;
+    extern rfc_ieeeRxOutput_t ieeeStats;
 
     ///////////////////////////
     // Update Target IP address
@@ -303,27 +311,39 @@ void UpdateDashboardInfo(void)
     ///////////////////////////
     //  Update RXOK BLE Frames
     // TODO
-    Html_SetKeyValueInBuffer('v', "42");
+    sprintf(tempBuf, "%d", bleStats.nRxOk);
+    Html_SetKeyValueInBuffer('v', tempBuf);
 
     ///////////////////////////
     // Update RXNOK BLE Frames
     // TODO
-    Html_SetKeyValueInBuffer('w', "42");
+    sprintf(tempBuf, "%d", bleStats.nRxNok);
+    Html_SetKeyValueInBuffer('w', tempBuf);
 
     ///////////////////////////
     // Update RXOK 802_15_4 Frames
     // TODO
-    Html_SetKeyValueInBuffer('x', "69");
+    sprintf(tempBuf, "%d", ieeeStats.nRxData + ieeeStats.nRxBeacon + ieeeStats.nRxMacCmd);
+    Html_SetKeyValueInBuffer('x', tempBuf);
 
     ///////////////////////////
     // Update RXNOK 802_15_4 Frames
     // TODO
-    Html_SetKeyValueInBuffer('y', "69");
+    sprintf(tempBuf, "%d", ieeeStats.nRxNok);
+    Html_SetKeyValueInBuffer('y', tempBuf);
 
     ///////////////////////////
     // Update Last Frame's RSSI
-    // TODO
-    Html_SetKeyValueInBuffer('z', "-19");
+    //
+    if ( Radio_GetCurrentProtocol() == BluetoothLowEnergy )
+    {
+        sprintf(tempBuf, "%d", bleStats.lastRssi);
+    }
+    else
+    {
+        sprintf(tempBuf, "%d", ieeeStats.lastRssi);
+    }
+    Html_SetKeyValueInBuffer('z', tempBuf);
 
     return;
 }

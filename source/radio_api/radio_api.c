@@ -166,39 +166,31 @@ RF_EventMask Radio_setFrequencySynthesizer(RF_Handle pHandle,  RF_Protocol_t pro
  * Returns:
  *      N/A
  */
-void Radio_initRXCmd(RF_Protocol_t proto)
+void Radio_initRXCmd(rfc_bleGenericRxOutput_t* bleStats, rfc_ieeeRxOutput_t* ieeeStats)
 {
-    if ( proto == BluetoothLowEnergy )
-    {
+    //RFCMD_bleGenericRX.status                             = 0x0;
+    RFCMD_bleGenericRX.pParams->pRxQ                      = RadioQueue_getDQpointer(); //todo: rx queue
+    RFCMD_bleGenericRX.pParams->rxConfig.bAutoFlushCrcErr = 1;
+    RFCMD_bleGenericRX.pParams->rxConfig.bIncludeLenByte  = 1;
+    RFCMD_bleGenericRX.pParams->rxConfig.bIncludeCrc      = 1;
+    RFCMD_bleGenericRX.pParams->rxConfig.bAppendRssi      = 0;
+    RFCMD_bleGenericRX.pParams->rxConfig.bAppendStatus    = 0;
+    RFCMD_bleGenericRX.whitening.init                     = 0x65;
+    RFCMD_bleGenericRX.pOutput                            = bleStats; //todo: stats
+    RFCMD_bleGenericRX.channel                            = 0x66; //todo: initial channel
 
-        //RFCMD_bleGenericRX.status                             = 0x0;
-        RFCMD_bleGenericRX.pParams->pRxQ                      = RadioQueue_getDQpointer(); //todo: rx queue
-        RFCMD_bleGenericRX.pParams->rxConfig.bAutoFlushCrcErr = 1;
-        RFCMD_bleGenericRX.pParams->rxConfig.bIncludeLenByte  = 1;
-        RFCMD_bleGenericRX.pParams->rxConfig.bIncludeCrc      = 1;
-        RFCMD_bleGenericRX.pParams->rxConfig.bAppendRssi      = 0;
-        RFCMD_bleGenericRX.pParams->rxConfig.bAppendStatus    = 0;
-        RFCMD_bleGenericRX.whitening.init                     = 0x65;
-        RFCMD_bleGenericRX.pOutput                            = NULL; //todo: stats
-        RFCMD_bleGenericRX.channel                            = 0x66; //todo: initial channel?
-    }
-
-    if ( proto == IEEE_802_15_4 )
-    {
-
-        //RFCMD_ieeeRX.status                                     = 0x0;
-        RFCMD_ieeeRX.pRxQ                                       = RadioQueue_getDQpointer(); //todo rx queue
-        RFCMD_ieeeRX.rxConfig.bAutoFlushCrc                     = 1;
-        RFCMD_ieeeRX.rxConfig.bAutoFlushIgn                     = 0;
-        RFCMD_ieeeRX.rxConfig.bIncludePhyHdr                    = 0;
-        RFCMD_ieeeRX.rxConfig.bIncludeCrc                       = 1;
-        RFCMD_ieeeRX.rxConfig.bAppendRssi                       = 0;
-        RFCMD_ieeeRX.rxConfig.bAppendCorrCrc                    = 0;
-        RFCMD_ieeeRX.rxConfig.bAppendSrcInd                     = 0;
-        RFCMD_ieeeRX.rxConfig.bAppendTimestamp                  = 0;
-        RFCMD_ieeeRX.pOutput                                    = NULL; //todo: stats¨
-        RFCMD_ieeeRX.channel                                    = 0;
-    }
+    //RFCMD_ieeeRX.status                                     = 0x0;
+    RFCMD_ieeeRX.pRxQ                                       = RadioQueue_getDQpointer();
+    RFCMD_ieeeRX.rxConfig.bAutoFlushCrc                     = 1;
+    RFCMD_ieeeRX.rxConfig.bAutoFlushIgn                     = 0;
+    RFCMD_ieeeRX.rxConfig.bIncludePhyHdr                    = 0;
+    RFCMD_ieeeRX.rxConfig.bIncludeCrc                       = 1;
+    RFCMD_ieeeRX.rxConfig.bAppendRssi                       = 0;
+    RFCMD_ieeeRX.rxConfig.bAppendCorrCrc                    = 0;
+    RFCMD_ieeeRX.rxConfig.bAppendSrcInd                     = 0;
+    RFCMD_ieeeRX.rxConfig.bAppendTimestamp                  = 0;
+    RFCMD_ieeeRX.pOutput                                    = ieeeStats;
+    RFCMD_ieeeRX.channel                                    = 0;
 
     return;
 }
