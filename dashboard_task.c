@@ -300,8 +300,12 @@ void UpdateDashboardInfo(void)
 
     ///////////////////////////
     // Update 'sniffing' status
-    // TODO
-    Html_SetKeyValueInBuffer('r', "1");
+    //
+    tempBuf[0] = STV_ReadFromAddress(STVW_RUNNING_STATUS) == 0x52 ? '1' : '0';
+
+    tempBuf[1] = '\0';
+
+    Html_SetKeyValueInBuffer('r', tempBuf);
 
     ///////////////////////////
     // Update Current Protocol
@@ -417,13 +421,15 @@ void SetStatusProperty(const char key, const char* value)
         break;
 
     case 'r':
-        // TODO Is the device sniffing?
+        STV_WriteAtAddress(STVW_RUNNING_STATUS, *value == '1' ? 0x52 : 0x00);
         GUI_ChangeRx((bool)(*value - '0'));
         break;
 
     case 'p':
         // TODO Is this alright?
         STV_WriteAtAddress(STVW_RF_PROTOCOL, *value == '0' ? 0xB5 : *value == '1' ? 0x15 : 0x0);
+        extern RF_CmdHandle rfHnd;
+        Radio_stopRX(rfHnd);
         GUI_ChangeProto((uint8_t)(*value - '0'));
         break;
 

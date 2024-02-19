@@ -49,13 +49,15 @@ void STV_CopyStvFromFlashIfNotYet();
 
 #define STVR_NETWORK_MASK        (0x5000F)
 
-#define STVR_TARGET_IP_ADDRESS   (0x5000A)
+#define STVR_TARGET_IP_ADDRESS   (0x50010)
 
-#define STVR_RF_PROTOCOL         (0x5000F)
+#define STVR_RF_PROTOCOL         (0x50014)
 
 #define STV_RF_PROTO_BLE         (0xB5)
 
 #define STV_RF_PROTO_IEEE        (0x15)
+
+#define STVR_RUNNING_STATUS      (0x50015)
 
 #define STVW_USING_DHCP          (0x20013500)
 
@@ -69,7 +71,9 @@ void STV_CopyStvFromFlashIfNotYet();
 
 #define STVW_RF_PROTOCOL         (0x20013511)
 
-#define STV_SIZE                 (24)
+#define STVW_RUNNING_STATUS      (0x20013512)
+
+#define STV_SIZE                 (25)
 
 // ==============================================================================================================
 

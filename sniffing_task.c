@@ -45,21 +45,20 @@ rfc_bleGenericRxOutput_t bleStats;
 
 rfc_ieeeRxOutput_t ieeeStats;
 
+RF_Handle     rfHnd;
+
 // === MAIN TASK FUNCTION =======================================================================================
 
 void Sniffing_Main(UArg a0, UArg a1)
 {
     RF_Object     rfObj;
-    RF_Handle     rfHnd;
     RF_Params     rfParams;
     RF_CmdHandle  rfCmdHnd;
     RF_Protocol_t currProto;
     uint8_t       packetBuffer[2047];
-    uint16_t      i;
     const uint8_t accessAddress[] = {0xD6, 0xBE, 0x89, 0x8E};
     IPAddress*    targetIp = (IPAddress*)STVW_TARGET_IP_ADDRESS;
-
-
+    uint8_t*      bSniffing = (uint8_t*)STVW_RUNNING_STATUS;
 
 
     RadioQueue_init();
@@ -84,7 +83,10 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     for (;;)
     {
-        HandleIncomingRfPacket(packetBuffer, *targetIp, currProto, accessAddress);
+        if (*bSniffing)
+        {
+            HandleIncomingRfPacket(packetBuffer, *targetIp, currProto, accessAddress);
+        }
 
         Task_sleep(1);
     }
