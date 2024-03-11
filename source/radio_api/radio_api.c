@@ -140,11 +140,11 @@ void Radio_openRadioCore(RF_Params* pParams, RF_Object* pObj, RF_Protocol_t prot
  *      RF_EventMask - Event mask signaling status of the command
  *
  */
-RF_EventMask Radio_setFrequencySynthesizer(RF_Handle pHandle,  RF_Protocol_t proto)
+RF_EventMask Radio_setFrequencySynthesizer(RF_Handle *pHandle,  RF_Protocol_t proto)
 {
     RF_Op* pFsCmd = getFSCmdByProto(proto);
 
-    RF_EventMask retVal = RF_runCmd(pHandle, pFsCmd, RF_PriorityNormal, NULL, 0);
+    RF_EventMask retVal = RF_postCmd(*pHandle, pFsCmd, RF_PriorityNormal, NULL, 0);
 
     Log_print("SetFrequencySynthesizer: ", &retVal, RfEvent);
 

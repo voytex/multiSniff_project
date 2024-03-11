@@ -25,7 +25,7 @@ typedef enum RF_Protocol {
 
 void          Radio_openRadioCore           (RF_Params* pParams, RF_Object* pObj, RF_Protocol_t proto, RF_Handle* pHandle);
 
-RF_EventMask  Radio_setFrequencySynthesizer (RF_Handle pHandle,  RF_Protocol_t proto);
+RF_EventMask  Radio_setFrequencySynthesizer (RF_Handle *pHandle,  RF_Protocol_t proto);
 
 void          Radio_initRXCmd               (rfc_bleGenericRxOutput_t*, rfc_ieeeRxOutput_t*);
 

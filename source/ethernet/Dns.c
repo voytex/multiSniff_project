@@ -2,7 +2,7 @@
 // (c) Copyright 2009-2010 MCQN Ltd.
 // Released under Apache License, version 2.0
 
-#include <source/driverlib/w5500/W5500.h>
+#include <source/driverlib/w5500/w5500.h>
 #include "EthernetUdp.h"
 #include "util.h"
 

@@ -222,6 +222,8 @@ __GP_REGISTER_N(SHAR, 0x0009, 6); // Source MAC address
 __GP_REGISTER_N(SIPR, 0x000F, 4); // Source IP address
 __GP_REGISTER8(IR, 0x0015);    // Interrupt
 __GP_REGISTER8(IMR, 0x0016);    // Interrupt Mask
+__GP_REGISTER8(SIR, 0x0017);    // Socket Interrupt Register
+__GP_REGISTER8(SIMR, 0x0018);   // Socket Interrupt Mask Register
 __GP_REGISTER16(RTR, 0x0019);    // Timeout address
 __GP_REGISTER8(RCR, 0x001B);    // Retry count
 __GP_REGISTER_N(UIPR, 0x0028, 4); // Unreachable IP address in UDP mode
@@ -247,3 +249,4 @@ __SOCKET_REGISTER16(SnTX_WR, 0x0024)        // TX Write Pointer
 __SOCKET_REGISTER16(SnRX_RSR, 0x0026)        // RX Free Size
 __SOCKET_REGISTER16(SnRX_RD, 0x0028)        // RX Read Pointer
 __SOCKET_REGISTER16(SnRX_WR, 0x002A)        // RX Write Pointer (supported?)
+__SOCKET_REGISTER8(SnIMR, 0x002C)           // Interrupt Mask Register

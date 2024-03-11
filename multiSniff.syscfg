@@ -12,6 +12,7 @@ const custom    = scripting.addModule("/ti/devices/radioconfig/custom");
 const GPIO      = scripting.addModule("/ti/drivers/GPIO");
 const GPIO1     = GPIO.addInstance();
 const GPIO2     = GPIO.addInstance();
+const GPIO8     = GPIO.addInstance();
 const I2C       = scripting.addModule("/ti/drivers/I2C", {}, false);
 const I2C1      = I2C.addInstance();
 const Power     = scripting.addModule("/ti/drivers/Power");
@@ -64,6 +65,11 @@ GPIO1.gpioPin.$assign = "boosterpack.23";
 GPIO2.$name           = "CONFIG_GPIO_W5500_CS";
 GPIO2.mode            = "Output";
 GPIO2.gpioPin.$assign = "boosterpack.24";
+
+GPIO8.$name            = "CONFIG_GPIO_W5500_INT";
+GPIO8.interruptTrigger = "Falling Edge";
+GPIO8.callbackFunction = "HandleInterrupt";
+GPIO8.gpioPin.$assign  = "boosterpack.10";
 
 I2C1.$name              = "CONFIG_I2C_0";
 I2C1.i2c.sdaPin.$assign = "boosterpack.32";

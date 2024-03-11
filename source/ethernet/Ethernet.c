@@ -134,3 +134,32 @@ IPAddress Ethernet_dnsServerIP()
 {
   return Ethernet._dnsServerAddress;
 }
+
+void Ethernet_SetConnectInterruptForAllSockets()
+{
+    uint8_t reg = 0xFF;
+    uint8_t act = 1;      // <= what action it reacts to. 1 = CON
+    uint8_t i;
+
+    // Enable Interrupt in SIMR register for all sockets(page  37)
+    W5500_writeSIMR(reg);
+
+    // Enable Interrupt in Sn_IMR register (page 56)
+    for ( i = 0; i < 8; i++ )
+    {
+        W5500_writeSnIMR(i, act);
+    }
+}
+
+void Ethernet_ClearConnectInterruptForAllSockets()
+{
+    uint8_t i, tmp;
+    for ( i = 0; i < 8; i++ )
+    {
+        while(W5500_readSnIR(i))
+            W5500_writeSnIR(i, 0);
+    }
+
+    while(W5500_readSIR())
+        W5500_writeSIR(0);
+}

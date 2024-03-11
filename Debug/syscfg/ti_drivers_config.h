@@ -48,6 +48,9 @@ extern const uint_least8_t CONFIG_GPIO_W5500_RESET_CONST;
 extern const uint_least8_t CONFIG_GPIO_W5500_CS_CONST;
 #define CONFIG_GPIO_W5500_CS 26
 
+extern const uint_least8_t CONFIG_GPIO_W5500_INT_CONST;
+#define CONFIG_GPIO_W5500_INT 5
+
 /* Owned by CONFIG_I2C_0 as  */
 extern const uint_least8_t CONFIG_GPIO_I2C_0_SDA_CONST;
 #define CONFIG_GPIO_I2C_0_SDA 16

@@ -31,6 +31,8 @@
 
 #include <source/radio_api/radio_api.h>
 
+#include <source/utils/restart.h>
+
 #include <sniffing_task.h>
 
 //===============================================================================================================
@@ -45,8 +47,6 @@ rfc_bleGenericRxOutput_t bleStats;
 
 rfc_ieeeRxOutput_t ieeeStats;
 
-RF_Handle     rfHnd;
-
 // === MAIN TASK FUNCTION =======================================================================================
 
 void Sniffing_Main(UArg a0, UArg a1)
@@ -55,10 +55,12 @@ void Sniffing_Main(UArg a0, UArg a1)
     RF_Params     rfParams;
     RF_CmdHandle  rfCmdHnd;
     RF_Protocol_t currProto;
+    RF_Handle     rfHnd;
     uint8_t       packetBuffer[2047];
     const uint8_t accessAddress[] = {0xD6, 0xBE, 0x89, 0x8E};
     IPAddress*    targetIp = (IPAddress*)STVW_TARGET_IP_ADDRESS;
     uint8_t*      bSniffing = (uint8_t*)STVW_RUNNING_STATUS;
+    uint8_t*      bChange = (uint8_t*)STVW_SIGNAL_RF_CHANGE;
 
 
     RadioQueue_init();
@@ -69,7 +71,7 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     EthernetUDP_begin(&ethernetUdp, 2014, 3);
 
-    Semaphore_post(Dashboard_SemaphoreHandle);
+    //Semaphore_post(Dashboard_SemaphoreHandle);
 
     currProto = Radio_GetCurrentProtocol();
 
@@ -77,18 +79,27 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     Radio_openRadioCore(&rfParams, &rfObj, currProto, &rfHnd);
 
-    Radio_setFrequencySynthesizer(rfHnd, currProto);
+    Radio_setFrequencySynthesizer(&rfHnd, currProto);
 
     Radio_beginRX(rfHnd, currProto, &Radio_HandleQueueOverflow, RF_EventRxBufFull);
 
     for (;;)
     {
+
         if (*bSniffing)
         {
             HandleIncomingRfPacket(packetBuffer, *targetIp, currProto, accessAddress);
         }
 
-        Task_sleep(1);
+        if (*bChange)
+        {
+            *bChange = 0x0;
+
+            Radio_stopRX(rfHnd);
+
+            RestartMCU();
+        }
+        Task_yield();
     }
 }
 

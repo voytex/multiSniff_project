@@ -49,6 +49,8 @@ extern "C" {
 	IPAddress Ethernet_subnetMask();
 	IPAddress Ethernet_gatewayIP();
 	IPAddress Ethernet_dnsServerIP();
+	void Ethernet_SetConnectInterruptForAllSockets();
+	void Ethernet_ClearConnectInterruptForAllSockets();
 
 #ifdef __cplusplus
 }

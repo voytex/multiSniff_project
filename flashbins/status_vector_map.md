@@ -9,3 +9,4 @@
 | Target IP address  | 0x50010 | 0x2001350D | 4  | e.g. `C0 A8 05 02` |
 | RF Protocol        | 0x50014 | 0x20013511 | 1  | `0xB5` = Bluetooth LE / `0x15` = IEEE 802.15.4 | 
 | Running status     | 0x50015 | 0x20013512 | 1  | `0x52` = **R**unning / `0x00`= St**o**pped
+| Signal RF change   | `N/A`   | 0x20013513 | 1  | `0x00`= No change | `0xFF` = Change requested |

@@ -17,6 +17,8 @@
 
 #include <ti/drivers/SPI.h>
 
+#include <ti/drivers/GPIO.h>
+
 #include <source/ethernet/Ethernet.h>
 
 #include <source/ethernet/EthernetServer.h>
@@ -45,7 +47,11 @@
 
 #include <source/oled_gui/gui.h>
 
+#include <ti/sysbios/family/arm/m3/Hwi.h>
+
 #include "ti_radio_config.h"
+
+#include "ti_drivers_config.h"
 
 // ==============================================================================================================
 
@@ -67,8 +73,6 @@ extern Semaphore_Handle Dashboard_SemaphoreHandle;
 // === GLOBAL VARIABLES =========================================================================================
 
 EthernetServer ethernetServer;
-
-extern HttpHandlerFunction_t httpHandlerFunctions[];
 
 // ==============================================================================================================
 
@@ -92,64 +96,66 @@ char* StrTok(char*, const char);
 
 void Dashboard_Main(UArg a0, UArg a1)
 {
-    Semaphore_pend(Dashboard_SemaphoreHandle, BIOS_WAIT_FOREVER);
-
     static bool readDestination;
+
+    char incomingBuffer[INPUT_BUFFER_SIZE];
 
     unsigned int key;
 
     EthernetServer_begin(&ethernetServer, PORT);
 
+    Ethernet_SetConnectInterruptForAllSockets();
+
+    GPIO_enableInt(CONFIG_GPIO_W5500_INT_CONST);
+
     for (;;)
     {
-        readDestination = false;
+        Semaphore_pend(Dashboard_SemaphoreHandle, BIOS_WAIT_FOREVER);
 
         EthernetClient ethernetClient = EthernetServer_available(&ethernetServer);
 
-        if ( EthernetClient_connected(&ethernetClient) )
+        readDestination = false;
+
+        bool currentLineIsBlank = true;
+
+        while ( EthernetClient_connected(&ethernetClient) )
         {
-            char incomingBuffer[INPUT_BUFFER_SIZE];
-
-            bool currentLineIsBlank = true;
-
-            while ( EthernetClient_connected(&ethernetClient) )
+            if ( EthernetClient_available(&ethernetClient) )
             {
-                if ( EthernetClient_available(&ethernetClient) )
+                if ( !readDestination )
                 {
-                    if ( !readDestination )
-                    {
-                        EthernetClient_readBytesUntil(&ethernetClient, '\n', incomingBuffer, INPUT_BUFFER_SIZE);
+                    EthernetClient_readBytesUntil(&ethernetClient, '\n', incomingBuffer, INPUT_BUFFER_SIZE);
 
-                        readDestination = true;
-                    }
-
-                    uint8_t c = EthernetClient_read(&ethernetClient);
-
-                    if ( c == '\n' && currentLineIsBlank )
-                    {
-                        HandleRestApi(incomingBuffer);
-
-                        SendHtmlToClient(&ethernetClient);
-
-                        break;
-                    }
-
-                    if ( c == '\n' )
-                    {
-                        currentLineIsBlank = true;
-                    }
-                    else if ( c != '\r' )
-                    {
-                        currentLineIsBlank = false;
-                    }
+                    readDestination = true;
                 }
 
+                uint8_t c = EthernetClient_read(&ethernetClient);
 
+                if ( c == '\n' && currentLineIsBlank )
+                {
+                    HandleRestApi(incomingBuffer);
+
+                    SendHtmlToClient(&ethernetClient);
+
+                    EthernetServer_begin(&ethernetServer, PORT);
+
+                    break;
+                }
+
+                if ( c == '\n' )
+                {
+                    currentLineIsBlank = true;
+                }
+                else if ( c != '\r' )
+                {
+                    currentLineIsBlank = false;
+                }
             }
-        }
-        Ethernet_maintain();
 
-        Task_sleep(100);
+
+        }
+
+        Ethernet_maintain();
     }
 }
 
@@ -428,9 +434,8 @@ void SetStatusProperty(const char key, const char* value)
     case 'p':
         // TODO Is this alright?
         STV_WriteAtAddress(STVW_RF_PROTOCOL, *value == '0' ? 0xB5 : *value == '1' ? 0x15 : 0x0);
-        extern RF_CmdHandle rfHnd;
-        Radio_stopRX(rfHnd);
         GUI_ChangeProto((uint8_t)(*value - '0'));
+        STV_WriteAtAddress(STVW_SIGNAL_RF_CHANGE, 0xFF);
         break;
 
     case 'k':
@@ -439,4 +444,16 @@ void SetStatusProperty(const char key, const char* value)
 
 
     }
+}
+
+
+void HandleInterrupt(void)
+{
+    //uint16_t hwi = Hwi_disable();
+    //uint16_t key = Task_disable();
+    Ethernet_ClearConnectInterruptForAllSockets();
+    Semaphore_post(Dashboard_SemaphoreHandle);
+    //Task_restore(key);
+    //Hwi_restore(hwi);
+    return;
 }

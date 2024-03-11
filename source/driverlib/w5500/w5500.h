@@ -198,6 +198,8 @@ typedef enum SockCMD {
    __GP_REGISTER_N_PROTO(SIPR); // Source IP address
    __GP_REGISTER8_PROTO(IR);    // Interrupt
    __GP_REGISTER8_PROTO(IMR);    // Interrupt Mask
+   __GP_REGISTER8_PROTO(SIR);    // Socket Interrupt Register
+   __GP_REGISTER8_PROTO(SIMR);   // Scoket Interrupt Mask Register
    __GP_REGISTER16_PROTO(RTR);    // Timeout address
    __GP_REGISTER8_PROTO(RCR);    // Retry count
    __GP_REGISTER_N_PROTO(UIPR); // Unreachable IP address in UDP mode
@@ -272,6 +274,7 @@ typedef enum SockCMD {
 	 __SOCKET_REGISTER16_PROTO(SnRX_RSR)        // RX Free Size
 	 __SOCKET_REGISTER16_PROTO(SnRX_RD)        // RX Read Pointer
 	 __SOCKET_REGISTER16_PROTO(SnRX_WR)        // RX Write Pointer (supported?)
+	 __SOCKET_REGISTER8_PROTO(SnIMR)           // Socket IMR
 
 
 #define  W5500_RST 7 // Reset BIT

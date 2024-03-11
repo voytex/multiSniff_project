@@ -73,6 +73,8 @@ void STV_CopyStvFromFlashIfNotYet();
 
 #define STVW_RUNNING_STATUS      (0x20013512)
 
+#define STVW_SIGNAL_RF_CHANGE    (0x20013513)
+
 #define STV_SIZE                 (25)
 
 // ==============================================================================================================

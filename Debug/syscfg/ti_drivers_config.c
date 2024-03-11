@@ -52,6 +52,14 @@ const UDMACC26XX_Config UDMACC26XX_config[1] = {
 const uint_least8_t GPIO_pinLowerBound = 0;
 const uint_least8_t GPIO_pinUpperBound = 30;
 
+/* Extern definitions for user callback functions */
+extern void HandleInterrupt(uint_least8_t index);
+
+/* Called to configure any callbacks defined by sysconfig */
+static void configureCallbacks(void) {
+    GPIO_setCallback(CONFIG_GPIO_W5500_INT, HandleInterrupt);
+}
+
 /*
  *  ======== gpioPinConfigs ========
  *  Array of Pin configurations
@@ -62,7 +70,7 @@ GPIO_PinConfig gpioPinConfigs[31] = {
     GPIO_CFG_NO_DIR, /* DIO_2 */
     GPIO_CFG_NO_DIR, /* DIO_3 */
     GPIO_CFG_NO_DIR, /* DIO_4 */
-    GPIO_CFG_NO_DIR, /* DIO_5 */
+    GPIO_CFG_INPUT_INTERNAL | GPIO_CFG_IN_INT_FALLING | GPIO_CFG_PULL_NONE_INTERNAL, /* CONFIG_GPIO_W5500_INT */
     GPIO_CFG_NO_DIR, /* DIO_6 */
     GPIO_CFG_NO_DIR, /* DIO_7 */
     /* Owned by CONFIG_SPI_0 as MISO */
@@ -112,6 +120,7 @@ void* gpioUserArgs[31];
 
 const uint_least8_t CONFIG_GPIO_W5500_RESET_CONST = CONFIG_GPIO_W5500_RESET;
 const uint_least8_t CONFIG_GPIO_W5500_CS_CONST = CONFIG_GPIO_W5500_CS;
+const uint_least8_t CONFIG_GPIO_W5500_INT_CONST = CONFIG_GPIO_W5500_INT;
 const uint_least8_t CONFIG_GPIO_I2C_0_SDA_CONST = CONFIG_GPIO_I2C_0_SDA;
 const uint_least8_t CONFIG_GPIO_I2C_0_SCL_CONST = CONFIG_GPIO_I2C_0_SCL;
 const uint_least8_t CONFIG_GPIO_SPI_0_SCLK_CONST = CONFIG_GPIO_SPI_0_SCLK;
@@ -432,6 +441,7 @@ void Board_init(void)
     /* ==== /ti/drivers/GPIO initialization ==== */
     /* Setup GPIO module and default-initialise pins */
     GPIO_init();
+    configureCallbacks();
 
     /* ==== /ti/drivers/RF initialization ==== */
     /* Enable compensation of HF clock source for RF due to CCFG setting. */

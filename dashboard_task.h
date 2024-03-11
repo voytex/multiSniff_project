@@ -12,4 +12,6 @@
 
 void Dashboard_Main(UArg, UArg);
 
+void HandleInterrupt();
+
 #endif /* DASHBOARD_TASK_H_ */

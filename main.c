@@ -84,8 +84,8 @@ Task_Params dashboardTaskParams;
 void Main_CreateDashboardTask()
 {
     Task_Params_init(&dashboardTaskParams);
-    dashboardTaskParams.stackSize = 2048;
-    dashboardTaskParams.priority  = 2;
+    dashboardTaskParams.stackSize = 4096;
+    dashboardTaskParams.priority  = 3;
     dashboardTaskHandle = Task_create((Task_FuncPtr)Dashboard_Main, &dashboardTaskParams, Error_IGNORE);
 
     return;
@@ -101,8 +101,8 @@ Task_Params sniffingTaskParams;
 void Main_CreateSniffingTask()
 {
     Task_Params_init(&sniffingTaskParams);
-    sniffingTaskParams.stackSize = 1024;
-    sniffingTaskParams.priority  = 2;
+    sniffingTaskParams.stackSize = 1028;
+    sniffingTaskParams.priority  = 3;
     sniffingTaskHandle = Task_create((Task_FuncPtr)Sniffing_Main, &sniffingTaskParams, Error_IGNORE);
 
     return;
@@ -128,11 +128,11 @@ int main()
     Board_init();
 
     Semaphore_Params_init(&Init_SemaphoreParams);
-    Init_SemaphoreParams.mode = 0x1;
+    Init_SemaphoreParams.mode = Semaphore_Mode_BINARY;
     Init_SemaphoreHandle = Semaphore_create(0, &Init_SemaphoreParams, NULL);
 
     Semaphore_Params_init(&Dashboard_SemaphoreParams);
-    Dashboard_SemaphoreParams.mode = 0x1;
+    Dashboard_SemaphoreParams.mode = Semaphore_Mode_BINARY;
     Dashboard_SemaphoreHandle = Semaphore_create(0, &Dashboard_SemaphoreParams, NULL);
 
     Main_CreateInitTask();

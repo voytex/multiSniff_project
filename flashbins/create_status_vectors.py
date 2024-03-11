@@ -1,5 +1,5 @@
 STV_MAC_ADDRESS = bytearray([0x00, 0x00, 0x00, 0x11, 0x22, 0x33])
-STV_USING_DHCP = bytearray([0x59])
+STV_USING_DHCP = bytearray([0x4E])
 STV_DEVICE_IP_ADDRESS = bytearray([192, 168, 5, 11])
 STV_GATEWAY_IP_ADDRESS = bytearray([192, 168, 5, 1])
 STV_NETWORK_MASK = bytearray([255, 255, 255, 0])
