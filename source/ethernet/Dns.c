@@ -138,7 +138,7 @@ int DNSClient_getHostByName(DNSClient* dns, const char* aHostname, IPAddress* aR
 	}
 
 	// Find a socket to use
-    if (EthernetUDP_begin(&dns->iUdp,1024+(millis() & 0xF), 0) == 1)
+    if (EthernetUDP_begin(&dns->iUdp,1024+(millis() & 0xF)) == 1)
     {
 
 		// Try up to three times

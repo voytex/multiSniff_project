@@ -29,21 +29,28 @@
 
 #include <source/ethernet/EthernetUdp.h>
 
-#include <source/radio_api/radio_api.h>
-
 #include <source/utils/restart.h>
 
 #include <sniffing_task.h>
 
+#include <source/radio_proc/radio_proc.h>
+
+#include <source/utils/log.h>
+//#include <source/radio_api/radio_api.h_bak>
+
 //===============================================================================================================
+
+extern uint32_t nRxBufFull;
 
 extern Semaphore_Handle Dashboard_SemaphoreHandle;
 
 void HandleIncomingRfPacket(uint8_t*, IPAddress, RF_Protocol_t, const uint8_t[]);
 
+
+
 EthernetUDP   ethernetUdp;
 
-rfc_bleGenericRxOutput_t bleStats;
+extern rfc_bleGenericRxOutput_t bleStats;
 
 rfc_ieeeRxOutput_t ieeeStats;
 
@@ -51,7 +58,52 @@ rfc_ieeeRxOutput_t ieeeStats;
 
 void Sniffing_Main(UArg a0, UArg a1)
 {
-    RF_Object     rfObj;
+    const uint8_t accessAddress[] = {0xD6, 0xBE, 0x89, 0x8E};
+
+    RadioQueue_init();
+
+    RadioQueue_reset();
+
+    EthernetUDP_begin_init(&ethernetUdp);
+
+    EthernetUDP_begin(&ethernetUdp, 2014);
+
+    Radio_SetUpAndBeginRx(BluetoothLowEnergy, 0x66);
+
+    for (;;)
+    {
+        if ( RadioQueue_hasPacket() )
+        {
+            uint8_t buffer[2047];
+
+            uint16_t packetLen = RadioQueue_takePacket(buffer, 2047);
+
+            IPAddress* targetIp = (IPAddress*)STVW_TARGET_IP_ADDRESS;
+
+            EthernetUDP_beginPacket_ip(&ethernetUdp, *targetIp, 2014);
+
+            EthernetUDP_write_byte(&ethernetUdp, 0);
+
+            if ( Radio_GetCurrentProtocol() == BluetoothLowEnergy )
+            {
+                EthernetUDP_write(&ethernetUdp, (uint8_t*)accessAddress, 4);
+            }
+
+            EthernetUDP_write(&ethernetUdp, (uint8_t*)buffer, packetLen);
+
+            EthernetUDP_endPacket(&ethernetUdp);
+        }
+
+        Log_print("Begin RX", &RFCMD_bleGenericRX, CmdStatus);
+
+        Log_print("nRxBufFull", &nRxBufFull, Integer);
+
+        Log_print("nRxOk", &bleStats.nRxNok, Integer);
+
+        Task_sleep(10);
+    }
+
+    /*RF_Object     rfObj;
     RF_Params     rfParams;
     RF_CmdHandle  rfCmdHnd;
     RF_Protocol_t currProto;
@@ -70,8 +122,6 @@ void Sniffing_Main(UArg a0, UArg a1)
     EthernetUDP_begin_init(&ethernetUdp);
 
     EthernetUDP_begin(&ethernetUdp, 2014, 3);
-
-    //Semaphore_post(Dashboard_SemaphoreHandle);
 
     currProto = Radio_GetCurrentProtocol();
 
@@ -99,8 +149,9 @@ void Sniffing_Main(UArg a0, UArg a1)
 
             RestartMCU();
         }
-        Task_yield();
-    }
+
+        Task_sleep(100);
+    }*/
 }
 
 

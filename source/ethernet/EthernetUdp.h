@@ -58,7 +58,7 @@ typedef struct EthernetUDP_ {
 
   void EthernetUDP_begin_init(EthernetUDP* eth);
 
-  uint8_t EthernetUDP_begin(EthernetUDP* eth, uint16_t, SOCKET);	// initialize, start listening on specified port. Returns 1 if successful, 0 if there are no sockets available to use
+  uint8_t EthernetUDP_begin(EthernetUDP* eth, uint16_t);	// initialize, start listening on specified port. Returns 1 if successful, 0 if there are no sockets available to use
   void EthernetUDP_stop(EthernetUDP* eth);  // Finish with the UDP socket
 
   // Sending UDP packets

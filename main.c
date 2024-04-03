@@ -33,8 +33,6 @@
 
 #include <ti/drivers/I2C.h>
 
-#include <source/radio_api/radio_api.h>
-
 #include <source/oled_gui/gui.h>
 
 #include <source/ethernet/Ethernet.h>
@@ -48,6 +46,7 @@
 #include <init_task.h>
 
 #include <sniffing_task.h>
+#include <source/radio_api/radio_api.h_bak>
 
 #include <source/utils/log.h>
 
@@ -101,7 +100,7 @@ Task_Params sniffingTaskParams;
 void Main_CreateSniffingTask()
 {
     Task_Params_init(&sniffingTaskParams);
-    sniffingTaskParams.stackSize = 1028;
+    sniffingTaskParams.stackSize = 4096;
     sniffingTaskParams.priority  = 3;
     sniffingTaskHandle = Task_create((Task_FuncPtr)Sniffing_Main, &sniffingTaskParams, Error_IGNORE);
 
@@ -121,7 +120,7 @@ Semaphore_Params Dashboard_SemaphoreParams;
 // ==============================================================================================================
 
 
-// === PROGRAM ENTRY POINT ======================================================================================´
+// === PROGRAM ENTRY POINT ======================================================================================
 
 int main()
 {
@@ -142,4 +141,4 @@ int main()
     return 0;
 }
 
-// ==============================================================================================================´
+// ==============================================================================================================

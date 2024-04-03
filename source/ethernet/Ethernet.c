@@ -156,10 +156,9 @@ void Ethernet_ClearConnectInterruptForAllSockets()
     uint8_t i, tmp;
     for ( i = 0; i < 8; i++ )
     {
-        while(W5500_readSnIR(i))
-            W5500_writeSnIR(i, 0);
+        W5500_writeSnIR(i, 0xFF);
     }
 
-    while(W5500_readSIR())
-        W5500_writeSIR(0);
+    W5500_writeSIR(0xFF);
+
 }

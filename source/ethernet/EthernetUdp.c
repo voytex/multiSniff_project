@@ -36,11 +36,11 @@ void EthernetUDP_begin_init(EthernetUDP* eth) {
 }
 
 /* Start EthernetUDP socket, listening at local port PORT */
-uint8_t EthernetUDP_begin(EthernetUDP* eth, uint16_t port, SOCKET pref_s) {
+uint8_t EthernetUDP_begin(EthernetUDP* eth, uint16_t port) {
   if (eth->_sock != MAX_SOCK_NUM)
     return 0;
 
-  for (int i = pref_s; i < MAX_SOCK_NUM; i++) {
+  for (int i = 0; i < MAX_SOCK_NUM; i++) {
     uint8_t s = W5500_readSnSR(i);
     if (s == SnSR_CLOSED || s == SnSR_FIN_WAIT) {
       eth->_sock = i;

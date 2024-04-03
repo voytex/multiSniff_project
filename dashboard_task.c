@@ -9,8 +9,6 @@
 
 #include <stdint.h>
 
-#include <source/radio_api/radio_api.h>
-
 #include <stdbool.h>
 
 #include <string.h>
@@ -47,6 +45,8 @@
 
 #include <source/oled_gui/gui.h>
 
+#include <source/radio_proc/radio_proc.h>
+
 #include <ti/sysbios/family/arm/m3/Hwi.h>
 
 #include "ti_radio_config.h"
@@ -65,6 +65,7 @@
 #define READ_BUFFER_SIZE    (32)
 
 extern Semaphore_Handle Init_SemaphoreHandle;
+
 extern Semaphore_Handle Dashboard_SemaphoreHandle;
 
 // ==============================================================================================================
@@ -100,17 +101,15 @@ void Dashboard_Main(UArg a0, UArg a1)
 
     char incomingBuffer[INPUT_BUFFER_SIZE];
 
-    unsigned int key;
-
     EthernetServer_begin(&ethernetServer, PORT);
 
-    Ethernet_SetConnectInterruptForAllSockets();
+    //Ethernet_SetConnectInterruptForAllSockets();
 
-    GPIO_enableInt(CONFIG_GPIO_W5500_INT_CONST);
+    //GPIO_enableInt(CONFIG_GPIO_W5500_INT_CONST);
 
     for (;;)
     {
-        Semaphore_pend(Dashboard_SemaphoreHandle, BIOS_WAIT_FOREVER);
+        //Semaphore_pend(Dashboard_SemaphoreHandle, BIOS_WAIT_FOREVER);
 
         EthernetClient ethernetClient = EthernetServer_available(&ethernetServer);
 
@@ -137,8 +136,6 @@ void Dashboard_Main(UArg a0, UArg a1)
 
                     SendHtmlToClient(&ethernetClient);
 
-                    EthernetServer_begin(&ethernetServer, PORT);
-
                     break;
                 }
 
@@ -151,11 +148,12 @@ void Dashboard_Main(UArg a0, UArg a1)
                     currentLineIsBlank = false;
                 }
             }
-
-
+            Task_sleep(100);
         }
 
         Ethernet_maintain();
+
+        Task_sleep(100);
     }
 }
 
@@ -429,6 +427,15 @@ void SetStatusProperty(const char key, const char* value)
     case 'r':
         STV_WriteAtAddress(STVW_RUNNING_STATUS, *value == '1' ? 0x52 : 0x00);
         GUI_ChangeRx((bool)(*value - '0'));
+        if ( *value == '0' )
+        {
+            Radio_StopRx();
+        }
+
+        if ( *value == '1' )
+        {
+            Radio_SetUpAndBeginRx(BluetoothLowEnergy, 0x66);
+        }
         break;
 
     case 'p':
@@ -449,11 +456,12 @@ void SetStatusProperty(const char key, const char* value)
 
 void HandleInterrupt(void)
 {
-    //uint16_t hwi = Hwi_disable();
-    //uint16_t key = Task_disable();
+    uint16_t hwi = Hwi_disable();
+    uint16_t tsk = Task_disable();
     Ethernet_ClearConnectInterruptForAllSockets();
     Semaphore_post(Dashboard_SemaphoreHandle);
-    //Task_restore(key);
-    //Hwi_restore(hwi);
+    Task_restore(tsk);
+    Hwi_restore(hwi);
+    Hwi_enable();
     return;
 }

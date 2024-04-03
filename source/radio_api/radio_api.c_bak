@@ -26,7 +26,7 @@
 // ==============================================================================================================
 
 
-// === INCLUDES =================================================================================================
+// === DEFINES ==================================================================================================
 
 #define MAX_PACKET_LEN (2047)
 
@@ -293,7 +293,7 @@ void Radio_HandleQueueOverflow(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventM
 
     RadioQueue_reset();
 
-    Radio_beginRX(rfHnd, BluetoothLowEnergy, &Radio_HandleQueueOverflow, RF_EventRxBufFull);
+    Radio_beginRX(rfHnd, BluetoothLowEnergy, &Radio_HandleQueueOverflow, RF_Event);
 
     return;
 }
