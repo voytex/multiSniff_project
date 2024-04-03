@@ -53,11 +53,13 @@ void STV_CopyStvFromFlashIfNotYet();
 
 #define STVR_RF_PROTOCOL         (0x50014)
 
+#define STVR_RF_CHANNEL          (0x50015)
+
 #define STV_RF_PROTO_BLE         (0xB5)
 
 #define STV_RF_PROTO_IEEE        (0x15)
 
-#define STVR_RUNNING_STATUS      (0x50015)
+#define STVR_RUNNING_STATUS      (0x50016)
 
 #define STVW_USING_DHCP          (0x20013500)
 
@@ -71,11 +73,13 @@ void STV_CopyStvFromFlashIfNotYet();
 
 #define STVW_RF_PROTOCOL         (0x20013511)
 
-#define STVW_RUNNING_STATUS      (0x20013512)
+#define STVW_RF_CHANNEL          (0x20013512)
 
-#define STVW_SIGNAL_RF_CHANGE    (0x20013513)
+#define STVW_RUNNING_STATUS      (0x20013513)
 
-#define STV_SIZE                 (25)
+#define STVW_SIGNAL_RF_CHANGE    (0x20013514)
+
+#define STV_SIZE                 (26)
 
 // ==============================================================================================================
 
