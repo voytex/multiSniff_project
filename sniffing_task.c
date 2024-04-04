@@ -94,11 +94,7 @@ void Sniffing_Main(UArg a0, UArg a1)
             EthernetUDP_endPacket(&ethernetUdp);
         }
 
-        Log_print("Begin RX", &RFCMD_bleGenericRX, CmdStatus);
-
-        Log_print("nRxBufFull", &nRxBufFull, Integer);
-
-        Log_print("nRxOk", &bleStats.nRxNok, Integer);
+        Log_print("RX CMD", &RFCMD_bleGenericRX, CmdStatus);
 
         Task_sleep(10);
     }

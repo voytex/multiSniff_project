@@ -157,5 +157,13 @@ RF_Protocol_t Radio_GetCurrentProtocol()
 
 void Radio_StopRx()
 {
-    RF_flushCmd(rfHandle, rfCmdHandle, RF_CMDHANDLE_FLUSH_ALL);
+    RF_flushCmd(rfHandle, RF_CMDHANDLE_FLUSH_ALL, 0);
+
+    RF_ratDisableChannel(rfHandle, RF_RatChannel0);
+    RF_ratDisableChannel(rfHandle, RF_RatChannel1);
+    RF_ratDisableChannel(rfHandle, RF_RatChannel2);
+
+    RF_close(rfHandle);
+
+    RadioQueue_reset();
 }

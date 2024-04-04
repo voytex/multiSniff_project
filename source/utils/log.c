@@ -90,6 +90,9 @@ void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType)
         case 0x405:
             System_printf("DONE_ABORT - Aborted by CMD_ABORT\n");
             break;
+        case 0x1407:
+            System_printf("BLE_DONE_ABORT - Aborted by FLUSHCMD\n");
+            break;
         case 0x1408:
             System_printf("BLE_DONE_STOPPED - Operation stopped after STOP cmd\n");
             break;

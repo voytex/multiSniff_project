@@ -416,7 +416,7 @@ void SetStatusProperty(const char key, const char* value)
 
     case 's':
         STV_WriteStringAtAddress(STVW_NETWORK_MASK, (uint8_t*)&tmpIp, 4);
-        RestartMCU(); // <== not working
+        //RestartMCU(); // <== not working
         break;
 
     case 'h':
@@ -440,13 +440,14 @@ void SetStatusProperty(const char key, const char* value)
 
     case 'p':
         // TODO Is this alright?
-        STV_WriteAtAddress(STVW_RF_PROTOCOL, *value == '0' ? 0xB5 : *value == '1' ? 0x15 : 0x0);
-        GUI_ChangeProto((uint8_t)(*value - '0'));
-        STV_WriteAtAddress(STVW_SIGNAL_RF_CHANGE, 0xFF);
+        //STV_WriteAtAddress(STVW_RF_PROTOCOL, *value == '0' ? 0xB5 : *value == '1' ? 0x15 : 0x0);
+        //GUI_ChangeProto((uint8_t)(*value - '0'));
+        //STV_WriteAtAddress(STVW_SIGNAL_RF_CHANGE, 0xFF);
         break;
 
     case 'k':
         // TODO RX Channel!
+        // processing to address different channel frequencies
         break;
 
 
