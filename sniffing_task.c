@@ -82,7 +82,7 @@ void Sniffing_Main(UArg a0, UArg a1)
 
             EthernetUDP_beginPacket_ip(&ethernetUdp, *targetIp, 2014);
 
-            EthernetUDP_write_byte(&ethernetUdp, 0);
+            EthernetUDP_write_byte(&ethernetUdp, (uint8_t)Radio_GetCurrentProtocol());
 
             if ( Radio_GetCurrentProtocol() == BluetoothLowEnergy )
             {

@@ -103,9 +103,15 @@ void initCmdObjects(uint8_t channel)
     RFCMD_ieeeRX.rxConfig.bAppendSrcInd                   = 0;
     RFCMD_ieeeRX.rxConfig.bAppendTimestamp                = 0;
     RFCMD_ieeeRX.pOutput                                  = &ieeeStats;
-    RFCMD_ieeeRX.channel                                  = channel;
 
-    //RFCMD_ieeeFrequencySynthesizer.frequency
+
+    if (channel >= 11 && channel <= 26)
+    {
+        RFCMD_ieeeFrequencySynthesizer.frequency = 2405 + 5 * (channel - 11);
+        RFCMD_ieeeFrequencySynthesizer.fractFreq = 0;
+        RFCMD_ieeeRX.channel = channel;
+    }
+
 
     return;
 }
@@ -169,6 +175,11 @@ void Radio_HandlerFunc(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask even
 RF_Protocol_t Radio_GetCurrentProtocol()
 {
     return CurrentRfProtocol;
+}
+
+void Radio_SetCurrentProtocol(RF_Protocol_t proto)
+{
+    CurrentRfProtocol = proto;
 }
 
 void Radio_StopRx()

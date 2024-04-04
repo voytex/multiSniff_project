@@ -30,6 +30,8 @@ void Radio_HandlerFunc(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask even
 
 RF_Protocol_t Radio_GetCurrentProtocol();
 
+void Radio_SetCurrentProtocol(RF_Protocol_t proto);
+
 void Radio_StopRx(void);
 
 

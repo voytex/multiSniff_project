@@ -450,12 +450,14 @@ void SetStatusProperty(const char key, const char* value)
     case 'p':
         if (*value == '0')
         {
+            Radio_SetCurrentProtocol(BluetoothLowEnergy);
             STV_WriteAtAddress(STVW_RF_PROTOCOL, 0xB5);
             GUI_ChangeProto(0);
         }
 
         if (*value == '1')
         {
+            Radio_SetCurrentProtocol(IEEE_802_15_4);
             STV_WriteAtAddress(STVW_RF_PROTOCOL, 0x15);
             GUI_ChangeProto(1);
         }
