@@ -63,18 +63,34 @@ void initCmdObjects(uint8_t channel)
 {
     nRxBufFull = 0;
 
-    //RFCMD_bleGenericRX.status                             = 0x0;
-    RFCMD_bleGenericRX.pParams->pRxQ                      = RadioQueue_getDQpointer(); //todo: rx queue
+    RFCMD_bleGenericRX.pParams->pRxQ                      = RadioQueue_getDQpointer();
     RFCMD_bleGenericRX.pParams->rxConfig.bAutoFlushCrcErr = 1;
     RFCMD_bleGenericRX.pParams->rxConfig.bIncludeLenByte  = 1;
     RFCMD_bleGenericRX.pParams->rxConfig.bIncludeCrc      = 1;
     RFCMD_bleGenericRX.pParams->rxConfig.bAppendRssi      = 0;
     RFCMD_bleGenericRX.pParams->rxConfig.bAppendStatus    = 0;
-    RFCMD_bleGenericRX.whitening.init                     = 0x65;
-    RFCMD_bleGenericRX.pOutput                            = &bleStats; //todo: stats
-    RFCMD_bleGenericRX.channel                            = channel;
+    //RFCMD_bleGenericRX.whitening.init                     = 0x65;
+    RFCMD_bleGenericRX.whitening.bOverride                = 0x0;
+    RFCMD_bleGenericRX.pOutput                            = &bleStats;
 
-    //RFCMD_bleFrequencySynthesizer.frequency
+    if (channel >= 37 && channel <= 39)
+    {
+        RFCMD_bleGenericRX.channel = channel;
+        switch (channel)
+        {
+        case 37:
+            RFCMD_bleFrequencySynthesizer.frequency = 2402;     // MHz
+            break;
+        case 38:
+            RFCMD_bleFrequencySynthesizer.frequency = 2426;     // MHz
+            break;
+        case 39:
+            RFCMD_bleFrequencySynthesizer.frequency = 2480;     // MHz
+            break;
+        }
+        RFCMD_bleFrequencySynthesizer.fractFreq = 0;
+    }
+
 
     //RFCMD_ieeeRX.status                                     = 0x0;
     RFCMD_ieeeRX.pRxQ                                     = RadioQueue_getDQpointer();

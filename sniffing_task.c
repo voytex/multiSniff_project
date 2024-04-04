@@ -94,7 +94,9 @@ void Sniffing_Main(UArg a0, UArg a1)
             EthernetUDP_endPacket(&ethernetUdp);
         }
 
-        Log_print("RX CMD", &RFCMD_bleGenericRX, CmdStatus);
+        Log_print("BLE RX CMD", &RFCMD_bleGenericRX, CmdStatus);
+
+        Log_print("IEEE RX CMD", &RFCMD_ieeeRX, CmdStatus);
 
         Task_sleep(10);
     }

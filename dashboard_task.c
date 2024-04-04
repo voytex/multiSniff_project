@@ -13,6 +13,8 @@
 
 #include <string.h>
 
+#include <stdlib.h>
+
 #include <ti/drivers/SPI.h>
 
 #include <ti/drivers/GPIO.h>
@@ -314,7 +316,9 @@ void UpdateDashboardInfo(void)
     ///////////////////////////
     // Update Current Protocol
     // TODO
-    Html_SetKeyValueInBuffer('p', "0");
+    tempBuf[0] = STV_ReadFromAddress(STVW_RF_PROTOCOL) == 0xB5 ? '0' : '1';
+    tempBuf[1] = '\0';
+    Html_SetKeyValueInBuffer('p', tempBuf);
 
     ///////////////////////////
     //  Update RXOK BLE Frames
@@ -396,6 +400,8 @@ void HandleRestApi(char* buf)
 
 void SetStatusProperty(const char key, const char* value)
 {
+    RF_Protocol_t tmpProto;
+    uint8_t tmpChn;
     IPAddress tmpIp;
     IPAddress_fromString(&tmpIp, value);
 
@@ -425,8 +431,6 @@ void SetStatusProperty(const char key, const char* value)
         break;
 
     case 'r':
-        STV_WriteAtAddress(STVW_RUNNING_STATUS, *value == '1' ? 0x52 : 0x00);
-        GUI_ChangeRx((bool)(*value - '0'));
         if ( *value == '0' )
         {
             Radio_StopRx();
@@ -434,23 +438,33 @@ void SetStatusProperty(const char key, const char* value)
 
         if ( *value == '1' )
         {
-            Radio_SetUpAndBeginRx(BluetoothLowEnergy, 0x66);
+            tmpProto = STV_ReadFromAddress(STVW_RF_PROTOCOL) == 0xB5 ? BluetoothLowEnergy : IEEE_802_15_4;
+            tmpChn   = STV_ReadFromAddress(STVW_RF_CHANNEL);
+            Radio_SetUpAndBeginRx(tmpProto, tmpChn);
         }
+
+        STV_WriteAtAddress(STVW_RUNNING_STATUS, *value == '1' ? 0x52 : 0x00);
+        GUI_ChangeRx((bool)(*value - '0'));
         break;
 
     case 'p':
-        // TODO Is this alright?
-        //STV_WriteAtAddress(STVW_RF_PROTOCOL, *value == '0' ? 0xB5 : *value == '1' ? 0x15 : 0x0);
-        //GUI_ChangeProto((uint8_t)(*value - '0'));
-        //STV_WriteAtAddress(STVW_SIGNAL_RF_CHANGE, 0xFF);
+        if (*value == '0')
+        {
+            STV_WriteAtAddress(STVW_RF_PROTOCOL, 0xB5);
+            GUI_ChangeProto(0);
+        }
+
+        if (*value == '1')
+        {
+            STV_WriteAtAddress(STVW_RF_PROTOCOL, 0x15);
+            GUI_ChangeProto(1);
+        }
         break;
 
     case 'k':
-        // TODO RX Channel!
-        // processing to address different channel frequencies
+        tmpChn = atoi(value);
+        STV_WriteAtAddress(STVW_RF_CHANNEL, tmpChn);
         break;
-
-
     }
 }
 
