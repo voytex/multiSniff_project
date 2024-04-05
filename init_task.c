@@ -173,6 +173,8 @@ void Init_Main(UArg a0, UArg a1)
 
     GUI_ChangeProto(STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? 0 : 1);
 
+    GUI_ChangeChannel(STV_ReadFromAddress(STVW_RF_CHANNEL));
+
     Semaphore_post(Init_SemaphoreHandle);
 
     Main_CreateDashboardTask();

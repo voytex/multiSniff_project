@@ -70,7 +70,10 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     EthernetUDP_begin(&ethernetUdp, 2014);
 
-    Radio_SetUpAndBeginRx(proto, rxChannel);
+    if (STV_ReadFromAddress(STVW_RUNNING_STATUS) == 0x52)
+    {
+        Radio_SetUpAndBeginRx(proto, rxChannel);
+    }
 
     for (;;)
     {

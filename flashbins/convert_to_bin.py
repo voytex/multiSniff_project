@@ -15,7 +15,7 @@ with open(result_file, "wb") as bin_file:
     for c in preamble:
         bin_file.write(bytes(c, 'utf-8'))
     for c in buffer:
-        if c not in ['\n', '\t', '\r']:
+        if c not in ['\r']:
             bin_file.write(bytes(c, 'utf-8'))
 
 print(f"> Binary file successfully created, size: {len(buffer)}")

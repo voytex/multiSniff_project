@@ -315,10 +315,14 @@ void UpdateDashboardInfo(void)
 
     ///////////////////////////
     // Update Current Protocol
-    // TODO
     tempBuf[0] = STV_ReadFromAddress(STVW_RF_PROTOCOL) == 0xB5 ? '0' : '1';
     tempBuf[1] = '\0';
     Html_SetKeyValueInBuffer('p', tempBuf);
+
+    ///////////////////////////
+    // Update RF Channel
+    sprintf(tempBuf, "%d", STV_ReadFromAddress(STVW_RF_CHANNEL));
+    Html_SetKeyValueInBuffer('k', tempBuf);
 
     ///////////////////////////
     //  Update RXOK BLE Frames
@@ -465,6 +469,7 @@ void SetStatusProperty(const char key, const char* value)
 
     case 'k':
         tmpChn = atoi(value);
+        GUI_ChangeChannel(tmpChn);
         STV_WriteAtAddress(STVW_RF_CHANNEL, tmpChn);
         break;
     }
