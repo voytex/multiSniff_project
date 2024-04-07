@@ -235,6 +235,7 @@ char* StrTok(char* string, const char token)
     }
 }
 
+
 /*
  * === SendHtmlToClient
  * Updates the key-value dictionary and copies the HTML code from FLASH memory
@@ -271,6 +272,17 @@ void SendHtmlToClient(EthernetClient *pClient)
 }
 
 
+/*
+ * === UpdateDashboardInfo
+ * Updates the key-value dictionary and copies the HTML code from FLASH memory
+ * to RAM ("MTU buffer"). While copying, It also substitutes key tokens with actual values,
+ * at this time up-to-date.
+ *
+ * Parameters:
+ *      N/A
+ * Returns:
+ *      N/A
+ */
 void UpdateDashboardInfo(void)
 {
     char        tempBuf[17] = {0};
@@ -384,6 +396,16 @@ void UpdateDashboardInfo(void)
 }
 
 
+/*
+ * === HandleRestApi
+ * Reads the incoming buffer containing HTTP GET request and handles
+ * all changes of status properties by calling 'SetStatusProperty' function.
+ *
+ * Parameters:
+ *      buf[in]                 - pointer to the incoming buffer
+ * Returns:
+ *      N/A
+ */
 void HandleRestApi(char* buf)
 {
     char* key;
@@ -421,6 +443,16 @@ void HandleRestApi(char* buf)
 }
 
 
+/*
+ * === HandleRestApi
+ * Sets single status property ('key') with its new value ('value').
+ *
+ * Parameters:
+ *      key[in]                 - key of the property to be set
+ *      value[in]               - new value of the property to be set
+ * Returns:
+ *      N/A
+ */
 void SetStatusProperty(const char key, const char* value)
 {
     RF_Protocol_t tmpProto;
