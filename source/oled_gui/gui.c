@@ -13,9 +13,15 @@
 
 #include <string.h>
 
+#include <stdlib.h>
+
+#include <stdio.h>
+
 #include <source/driverlib/ssd1306/ssd1306.h>
 
 #include <source/driverlib/ssd1306/font.h>
+
+#include <source/radio_proc/radio_proc.h>
 
 #include <source/oled_gui/gui.h>
 
@@ -57,7 +63,7 @@ static inline void ito2a(uint8_t i, char* ch)
  * Parameters:
  *      N/A
  * Returns:
- *      //TODO: return status?
+ *      N/A
  */
 void GUI_Init(void)
 {
@@ -81,15 +87,7 @@ void GUI_Init(void)
 
     SSD1306_SetPosition(0, 5);
 
-    SSD1306_DrawString("proto:", false);
-
-    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(9), 5);
-
-    SSD1306_DrawString("RX:", false);
-
-    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(9), 6);
-
-    SSD1306_DrawString("CH:", false);
+    SSD1306_DrawString("RXOK frames:", false);
 
     SSD1306_DrawLine(HORIZ_CHARS_TO_PIX(15), HORIZ_CHARS_TO_PIX(15), 0, 63);
 
@@ -163,20 +161,20 @@ void GUI_ChangeTargetIp(const char *targetIp)
  */
 void GUI_ChangeProto(uint8_t proto)
 {
-    SSD1306_SetPosition(0, 6);
+    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 1);
 
     SSD1306_DrawString("    ", false);
 
-    SSD1306_SetPosition(0, 6);
+    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 1);
 
     switch (proto)
     {
     case 0:
-        SSD1306_DrawString("BLE", false);
+        SSD1306_DrawString("BLE:", false);
         break;
 
     case 1:
-        SSD1306_DrawString("IEEE", false);
+        SSD1306_DrawString("IEE:", false);
         break;
 
     default:
@@ -195,22 +193,41 @@ void GUI_ChangeProto(uint8_t proto)
  *
  * Parameters:
  *      rx[in]  - bool value
- *                true   = `RX:ON`
- *                false  = `RX:OFF` (Note that when
- *                RXing is OFF, this text is set to inverted
- *                color so that it is more visible to user.)
+ *                true = RX on, RX notification is visible
+ *                false = no RX notification on the screen
  * Returns:
  *      N/A
  */
 void GUI_ChangeRx(bool rx)
 {
-    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 5);
+    if (rx)
+    {
+        SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 4);
 
-    SSD1306_DrawString("   ", false);
+        SSD1306_DrawString("    ", true);
 
-    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 5);
+        SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 5);
 
-    SSD1306_DrawString((rx ? "ON" : "OFF"), !rx);
+        SSD1306_DrawString(" RX ", true);
+
+        SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 6);
+
+        SSD1306_DrawString("    ", true);
+    }
+    else
+    {
+        SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 4);
+
+        SSD1306_DrawString("    ", false);
+
+        SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 5);
+
+        SSD1306_DrawString("    ", false);
+
+        SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(17), 6);
+
+        SSD1306_DrawString("    ", false);
+    }
 
     SSD1306_UpdateScreen();
 
@@ -228,7 +245,7 @@ void GUI_ChangeRx(bool rx)
  */
 void GUI_ChangeChannel(uint8_t ch)
 {
-    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 6);
+    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(18), 2);
 
     SSD1306_DrawString("  ", false);
 
@@ -238,9 +255,46 @@ void GUI_ChangeChannel(uint8_t ch)
 
     buf[2] = '\0';
 
-    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(12), 6);
+    SSD1306_SetPosition(HORIZ_CHARS_TO_PIX(18), 2);
 
     SSD1306_DrawString(buf, false);
+
+    SSD1306_UpdateScreen();
+
+    return;
+}
+
+
+/*
+ * === GUI_PeriodicUpdate
+ * Function to be invoked periodically. It checks number of RX OK
+ * frames (according to current RF Protocol being used) and refreshes
+ * the OLED screen.
+ *
+ * Parameters:
+ *      N/A
+ * Returns:
+ *      N/A
+ */
+void GUI_PeriodicUpdate()
+{
+    uint16_t nRxOk = Radio_GetRxOk();
+
+    //
+    // Since UINT16_MAX value is 65535, buffer of size 6
+    // should be sufficient to hold the number.
+    //
+    char numBuf[6] = {0};
+
+    ltoa(nRxOk, numBuf, 10);
+
+    SSD1306_SetPosition(0, 6);
+
+    SSD1306_DrawString("               ", false);
+
+    SSD1306_SetPosition(0, 6);
+
+    SSD1306_DrawString((const char*)numBuf, false);
 
     SSD1306_UpdateScreen();
 

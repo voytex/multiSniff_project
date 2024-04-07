@@ -31,6 +31,10 @@
 
 #include <source/utils/handler_funcs.h>
 
+#include "ti_drivers_config.h"
+
+#include <ti/drivers/Timer.h>
+
 // ===============================================================================================================
 
 
@@ -161,6 +165,34 @@ void Init_Main(UArg a0, UArg a1)
     IPAddress_toString(tgtIp, pTgtIpBuf);
 
     GUI_ChangeTargetIp(pTgtIpBuf);
+
+    ///////////////////////////
+    // Init and start Timer:
+    //
+    Timer_Handle oledTimerHandle;
+
+    Timer_Params oledTimerParams;
+
+    Timer_Params_init(&oledTimerParams);
+
+    oledTimerParams.periodUnits = Timer_PERIOD_HZ;
+
+    oledTimerParams.period = 5;
+
+    oledTimerParams.timerMode = Timer_CONTINUOUS_CALLBACK;
+
+    oledTimerParams.timerCallback = (Timer_CallBackFxn)GUI_PeriodicUpdate;
+
+    Timer_init();
+
+    oledTimerHandle = Timer_open(CONFIG_TIMER_0, &oledTimerParams);
+
+    if (oledTimerHandle == NULL)
+    {
+        while (1);
+    }
+
+    //Timer_start(oledTimerHandle);
 
     ///////////////////////////
     // Other settings:

@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+#include <source/oled_gui/gui.h>
+
 #include "ti_radio_config.h"
 
 #include "ti_drivers_config.h"
@@ -45,7 +47,7 @@ rfc_ieeeRxOutput_t       ieeeStats;
 
 const uint8_t accessAddress[] = {0xD6, 0xBE, 0x89, 0x8E};
 
-uint32_t nRxBufFull;
+static volatile uint16_t nRxBufFull;
 
 // ==============================================================================================================
 
@@ -123,6 +125,10 @@ void initCmdObjects(uint8_t channel)
 
 void Radio_SetUpAndBeginRx(RF_Protocol_t proto, uint8_t channel)
 {
+    nRxBufFull = 0;
+
+    CurrentRfProtocol = proto;
+
     RF_Params_init(&rfParams);
 
     initCmdObjects(channel);
@@ -133,7 +139,7 @@ void Radio_SetUpAndBeginRx(RF_Protocol_t proto, uint8_t channel)
 
         RF_postCmd(rfHandle, (RF_Op*)&RFCMD_bleFrequencySynthesizer, RF_PriorityNormal, NULL, 0);
 
-        rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_bleGenericRX, RF_PriorityNormal, (RF_Callback)Radio_HandlerFunc, RF_EventRxBufFull | RF_EventLastCmdDone);
+        rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_bleGenericRX, RF_PriorityNormal, (RF_Callback)Radio_CallbackFunction, RF_EventRxBufFull | RF_EventLastCmdDone);
     }
 
     if (proto == IEEE_802_15_4)
@@ -142,14 +148,14 @@ void Radio_SetUpAndBeginRx(RF_Protocol_t proto, uint8_t channel)
 
         RF_postCmd(rfHandle, (RF_Op*)&RFCMD_ieeeFrequencySynthesizer, RF_PriorityNormal, NULL, 0);
 
-        rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_ieeeRX, RF_PriorityNormal, (RF_Callback)Radio_HandlerFunc, RF_EventRxBufFull | RF_EventLastCmdDone);
+        rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_ieeeRX, RF_PriorityNormal, (RF_Callback)Radio_CallbackFunction, RF_EventRxBufFull | RF_EventLastCmdDone);
     }
 
     return;
 }
 
 
-void Radio_HandlerFunc(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask eventMsk)
+void Radio_CallbackFunction(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask eventMsk)
 {
 
     if (eventMsk & RF_EventRxBufFull)
@@ -160,12 +166,12 @@ void Radio_HandlerFunc(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask even
 
         if (CurrentRfProtocol == BluetoothLowEnergy)
         {
-            rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_bleGenericRX, RF_PriorityNormal, (RF_Callback)Radio_HandlerFunc, RF_EventRxEntryDone | RF_EventRxBufFull | RF_EventLastCmdDone);
+            rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_bleGenericRX, RF_PriorityNormal, (RF_Callback)Radio_CallbackFunction, RF_EventRxBufFull | RF_EventLastCmdDone);
         }
 
         if (CurrentRfProtocol == IEEE_802_15_4)
         {
-            rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_ieeeRX, RF_PriorityNormal, (RF_Callback)Radio_HandlerFunc, RF_EventRxEntryDone | RF_EventRxBufFull | RF_EventLastCmdDone);
+            rfCmdHandle = RF_postCmd(rfHandle, (RF_Op*)&RFCMD_ieeeRX, RF_PriorityNormal, (RF_Callback)Radio_CallbackFunction, RF_EventRxBufFull | RF_EventLastCmdDone);
         }
     }
 
@@ -193,5 +199,23 @@ void Radio_StopRx()
     RF_close(rfHandle);
 
     RadioQueue_reset();
+
+    return;
+}
+
+
+uint16_t Radio_GetRxOk(void)
+{
+    if (CurrentRfProtocol == BluetoothLowEnergy)
+    {
+        return bleStats.nRxOk;
+    }
+
+    if (CurrentRfProtocol == IEEE_802_15_4)
+    {
+        return ieeeStats.nRxData + ieeeStats.nRxBeacon + ieeeStats.nRxMacCmd;
+    }
+
+    return 0;
 }
 

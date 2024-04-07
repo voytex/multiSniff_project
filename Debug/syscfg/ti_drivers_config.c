@@ -313,6 +313,90 @@ const TemperatureCC26X2_Config TemperatureCC26X2_config = {
     .intPriority = (~0),
 };
 
+/*
+ *  =============================== Timer ===============================
+ */
+
+#include <ti/drivers/Timer.h>
+#include <ti/drivers/timer/TimerCC26XX.h>
+
+#define CONFIG_TIMER_COUNT 1
+
+/*
+ *  ======== timerCC26XXObjects ========
+ */
+TimerCC26XX_Object timerCC26XXObjects[CONFIG_TIMER_COUNT];
+
+/*
+ *  ======== timerCC26XXHWAttrs ========
+ */
+const TimerCC26XX_HWAttrs timerCC26XXHWAttrs[CONFIG_TIMER_COUNT] = {
+    {
+        .gpTimerUnit = CONFIG_GPTIMER_0,
+        .subTimer    = TimerCC26XX_timer16A
+
+    },
+};
+
+/*
+ *  ======== Timer_config ========
+ */
+const Timer_Config Timer_config[CONFIG_TIMER_COUNT] = {
+    /* CONFIG_TIMER_0 */
+    {
+        .object    = &timerCC26XXObjects[CONFIG_TIMER_0],
+        .hwAttrs   = &timerCC26XXHWAttrs[CONFIG_TIMER_0]
+    },
+};
+
+const uint_least8_t CONFIG_TIMER_0_CONST = CONFIG_TIMER_0;
+const uint_least8_t Timer_count = CONFIG_TIMER_COUNT;
+
+/*
+ *  =============================== GPTimer ===============================
+ */
+
+#include <ti/drivers/timer/GPTimerCC26XX.h>
+#include <ti/drivers/power/PowerCC26XX.h>
+#include <ti/devices/cc13x2_cc26x2/inc/hw_memmap.h>
+#include <ti/devices/cc13x2_cc26x2/inc/hw_ints.h>
+
+#define CONFIG_GPTIMER_COUNT 1
+
+/*
+ *  ======== gptimerCC26XXObjects ========
+ */
+GPTimerCC26XX_Object gptimerCC26XXObjects[CONFIG_GPTIMER_COUNT];
+
+/*
+ *  ======== gptimerCC26XXHWAttrs ========
+ */
+const GPTimerCC26XX_HWAttrs gptimerCC26XXHWAttrs[CONFIG_GPTIMER_COUNT] = {
+    /* CONFIG_GPTIMER_0, used by CONFIG_TIMER_0 */
+    {
+        .baseAddr = GPT0_BASE,
+        .intNum      = INT_GPT0A,
+        .intPriority = (~0),
+        .powerMngrId = PowerCC26XX_PERIPH_GPT0,
+        .pinMux      = GPT_PIN_0A
+    },
+};
+
+/*
+ *  ======== GPTimer_config ========
+ */
+const GPTimerCC26XX_Config GPTimerCC26XX_config[CONFIG_GPTIMER_COUNT] = {
+    /* CONFIG_GPTIMER_0 */
+    {
+        .object    = &gptimerCC26XXObjects[CONFIG_GPTIMER_0],
+        .hwAttrs   = &gptimerCC26XXHWAttrs[CONFIG_GPTIMER_0],
+        .timerPart = GPT_A
+    },
+};
+
+const uint_least8_t CONFIG_GPTIMER_0_CONST = CONFIG_GPTIMER_0;
+const uint_least8_t GPTimer_count = CONFIG_GPTIMER_COUNT;
+
 #include <stdbool.h>
 
 #include <ti/devices/cc13x2_cc26x2/driverlib/ioc.h>

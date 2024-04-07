@@ -350,7 +350,7 @@ uint8_t SSD1306_DrawChar(const char character, bool inverted)
 
     if (!inverted)
     {
-        _counter++;
+        SSD1306_Lcd[_counter++] = 0x00;
     }
     else
     {

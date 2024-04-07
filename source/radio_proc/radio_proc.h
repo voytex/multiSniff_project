@@ -26,11 +26,13 @@ typedef enum RF_Protocol {
 
 void Radio_SetUpAndBeginRx(RF_Protocol_t proto, uint8_t channel);
 
-void Radio_HandlerFunc(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask eventMsk);
+void Radio_CallbackFunction(RF_Handle rfHnd, RF_CmdHandle rfCmdHnd, RF_EventMask eventMsk);
 
 RF_Protocol_t Radio_GetCurrentProtocol();
 
 void Radio_SetCurrentProtocol(RF_Protocol_t proto);
+
+uint16_t Radio_GetRxOk(void);
 
 void Radio_StopRx(void);
 

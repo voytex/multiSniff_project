@@ -125,6 +125,24 @@ extern const uint_least8_t              CONFIG_SPI_0_CONST;
 
 
 /*
+ *  ======== Timer ========
+ */
+
+extern const uint_least8_t                  CONFIG_TIMER_0_CONST;
+#define CONFIG_TIMER_0                      0
+#define CONFIG_TI_DRIVERS_TIMER_COUNT       1
+
+
+/*
+ *  ======== GPTimer ========
+ */
+
+extern const uint_least8_t                  CONFIG_GPTIMER_0_CONST;
+#define CONFIG_GPTIMER_0                    0
+#define CONFIG_TI_DRIVERS_GPTIMER_COUNT     1
+
+
+/*
  *  ======== Board_init ========
  *  Perform all required TI-Drivers initialization
  *

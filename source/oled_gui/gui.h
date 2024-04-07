@@ -22,4 +22,6 @@ void GUI_ChangeRx(bool);
 
 void GUI_ChangeChannel(uint8_t);
 
+void GUI_PeriodicUpdate(void);
+
 #endif /* SOURCE_OLED_GUI_GUI_H_ */

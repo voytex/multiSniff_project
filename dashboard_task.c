@@ -97,6 +97,18 @@ char* StrTok(char*, const char);
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
+/*
+ * === Dashboard_Main
+ * Main loop of Dashboard task acting as HTTP server. Periodically checks if a HTTP
+ * client tries to connect and if so, it handles the communication. During the handling,
+ * it updates the state of the device (target IP address, protocol to sniff on, etc.) using REST API.
+ *
+ * Parameters:
+ *      a0                      - Not used
+ *      a1                      - Not used
+ * Returns:
+ *      N/A
+ */
 void Dashboard_Main(UArg a0, UArg a1)
 {
     static bool readDestination;
@@ -105,14 +117,8 @@ void Dashboard_Main(UArg a0, UArg a1)
 
     EthernetServer_begin(&ethernetServer, PORT);
 
-    //Ethernet_SetConnectInterruptForAllSockets();
-
-    //GPIO_enableInt(CONFIG_GPIO_W5500_INT_CONST);
-
     for (;;)
     {
-        //Semaphore_pend(Dashboard_SemaphoreHandle, BIOS_WAIT_FOREVER);
-
         EthernetClient ethernetClient = EthernetServer_available(&ethernetServer);
 
         readDestination = false;
@@ -156,6 +162,8 @@ void Dashboard_Main(UArg a0, UArg a1)
         Ethernet_maintain();
 
         Task_sleep(100);
+
+        GUI_PeriodicUpdate();
     }
 }
 
@@ -227,7 +235,18 @@ char* StrTok(char* string, const char token)
     }
 }
 
-
+/*
+ * === SendHtmlToClient
+ * Updates the key-value dictionary and copies the HTML code from FLASH memory
+ * to RAM ("MTU buffer"). While copying, It also substitutes key tokens with actual values,
+ * at this time up-to-date.
+ *
+ * Parameters:
+ *      pClient[in]             - pointer to EthernetClient object (resembling
+ *                                connected HTTP client)
+ * Returns:
+ *      N/A
+ */
 void SendHtmlToClient(EthernetClient *pClient)
 {
     int32_t offset = 0;
