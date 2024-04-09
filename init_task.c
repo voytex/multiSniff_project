@@ -87,6 +87,21 @@ extern void Main_CreateSniffingTask();
 
 // === MAIN TASK FUNCTION =======================================================================================
 
+
+/*
+ * === Init_Main
+ * Initialization task function. Its objectives are:
+ *  - Driver initializations: Ensure all peripherals are initialized.
+ *  - Status Vector Initialization: Ensure Status Vectors are copied from FLASH to RAM.
+ *  - Network Connection: Ensure that the device successfully connects to the network. If DHCP request of
+ *    IP address fails, the device restarts and assigns custom IP address to itself.
+ *  -
+ * Parameters:
+ *      a0                      - Not used
+ *      a1                      - Not used
+ * Returns:
+ *      N/A
+ */
 void Init_Main(UArg a0, UArg a1)
 {
     uint8_t     retVal = 0;
@@ -114,7 +129,6 @@ void Init_Main(UArg a0, UArg a1)
     // device is restarted with STV_DHCP flag set to STV_DHCP_FALSE.
     // Device then sets itself static IP address.
     //
-
     if ( STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE )
     {
         GUI_ChangeDeviceIp("DHCP pending...");
@@ -166,33 +180,6 @@ void Init_Main(UArg a0, UArg a1)
 
     GUI_ChangeTargetIp(pTgtIpBuf);
 
-    ///////////////////////////
-    // Init and start Timer:
-    //
-    Timer_Handle oledTimerHandle;
-
-    Timer_Params oledTimerParams;
-
-    Timer_Params_init(&oledTimerParams);
-
-    oledTimerParams.periodUnits = Timer_PERIOD_HZ;
-
-    oledTimerParams.period = 5;
-
-    oledTimerParams.timerMode = Timer_CONTINUOUS_CALLBACK;
-
-    oledTimerParams.timerCallback = (Timer_CallBackFxn)GUI_PeriodicUpdate;
-
-    Timer_init();
-
-    oledTimerHandle = Timer_open(CONFIG_TIMER_0, &oledTimerParams);
-
-    if (oledTimerHandle == NULL)
-    {
-        while (1);
-    }
-
-    //Timer_start(oledTimerHandle);
 
     ///////////////////////////
     // Other settings:
@@ -206,8 +193,6 @@ void Init_Main(UArg a0, UArg a1)
     GUI_ChangeProto(STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? 0 : 1);
 
     GUI_ChangeChannel(STV_ReadFromAddress(STVW_RF_CHANNEL));
-
-    Semaphore_post(Init_SemaphoreHandle);
 
     Main_CreateDashboardTask();
 

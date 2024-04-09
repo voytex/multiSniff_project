@@ -159,14 +159,9 @@ uint8_t SSD1306_Init()
     for (i = 0; i < sizeof(SSD1306_InitSequence); i++)
     {
         status = SSD1306_SendCommand(SSD1306_InitSequence[i]);
-
-        //        if ( status != SSD1306_SUCCESS )
-        //        {
-        //            return status;
-        //        }
     }
 
-    return SSD1306_SUCCESS;
+    return status;
 }
 
 /*
@@ -417,7 +412,7 @@ uint8_t SSD1306_DrawPixel(uint8_t x, uint8_t y)
 
 /*
  * === SSD1306_DrawLine
- * TODO: Draws line acording to Bechnitchew algorithm
+ * Draws line according to Bechnitchew algorithm
  *
  * Parameters:
  *      x1[in]       - start horizontal coordinate

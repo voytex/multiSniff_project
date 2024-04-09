@@ -49,6 +49,7 @@ static ValueBuffer_t valueBuffer[26];
 
 // === INTERNAL FUNCTIONS =======================================================================================
 
+
 uint8_t Html_strcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
 {
     uint8_t copied = 0;
@@ -65,6 +66,7 @@ uint8_t Html_strcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
 
     return copied;
 }
+
 
 void Html_strset(const char* pDst, char ch, uint16_t maxlen)
 {
@@ -115,9 +117,9 @@ void Html_SetKeyValueInBuffer(char key, char* value)
  *      offset[in]   - used to offset to start of HTML code. Usable
  *                     when splitting HTML code to more messages.
  * Returns:
- *      uint16_t     - number of copied characters (MTU_SIZE
- *                     when there are more data available; n < MTU_SIZE
- *                     when no additional data to be copied are available.)
+ *      int32_t      - number of copied characters (MTU_SIZE
+ *                     when there are more data available; -1 when
+ *                     no additional data to be copied are available.)
  *
  */
 int32_t Html_CopyHtmlToMtuBuffer(uint16_t offset)

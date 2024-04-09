@@ -8,10 +8,10 @@
 #ifndef DASHBOARD_TASK_H_
 #define DASHBOARD_TASK_H_
 
-#define NO_START    (0xFF)
+// === PUBLISHED FUNCTIONS ======================================================================================
 
 void Dashboard_Main(UArg, UArg);
 
-void HandleInterrupt();
+// ==============================================================================================================
 
 #endif /* DASHBOARD_TASK_H_ */

@@ -52,6 +52,21 @@ extern rfc_ieeeRxOutput_t ieeeStats;
 
 // === MAIN TASK FUNCTION =======================================================================================
 
+
+/*
+ * === Sniffing_Main
+ * This task ensures core functionality of the device. Firstly, it initializes
+ * the RF Core and if Startup Vectors are configured that way, it starts sniffing.
+ * Then it falls into infinite loop, where it periodically checks for new frames in
+ * RF queue. If it founds one, it creates a UDP packet and fills it with appropriate
+ * data.
+ *
+ * Parameters:
+ *      a0                      - Not used
+ *      a1                      - Not used
+ * Returns:
+ *      N/A
+ */
 void Sniffing_Main(UArg a0, UArg a1)
 {
     const uint8_t accessAddress[] = {0xD6, 0xBE, 0x89, 0x8E};

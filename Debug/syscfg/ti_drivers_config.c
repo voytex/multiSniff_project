@@ -52,14 +52,6 @@ const UDMACC26XX_Config UDMACC26XX_config[1] = {
 const uint_least8_t GPIO_pinLowerBound = 0;
 const uint_least8_t GPIO_pinUpperBound = 30;
 
-/* Extern definitions for user callback functions */
-extern void HandleInterrupt(uint_least8_t index);
-
-/* Called to configure any callbacks defined by sysconfig */
-static void configureCallbacks(void) {
-    GPIO_setCallback(CONFIG_GPIO_W5500_INT, HandleInterrupt);
-}
-
 /*
  *  ======== gpioPinConfigs ========
  *  Array of Pin configurations
@@ -525,7 +517,6 @@ void Board_init(void)
     /* ==== /ti/drivers/GPIO initialization ==== */
     /* Setup GPIO module and default-initialise pins */
     GPIO_init();
-    configureCallbacks();
 
     /* ==== /ti/drivers/RF initialization ==== */
     /* Enable compensation of HF clock source for RF due to CCFG setting. */

@@ -102,6 +102,7 @@ char* StrTok(char*, const char);
  * Main loop of Dashboard task acting as HTTP server. Periodically checks if a HTTP
  * client tries to connect and if so, it handles the communication. During the handling,
  * it updates the state of the device (target IP address, protocol to sniff on, etc.) using REST API.
+ * Every cycle it also updates information on OLED screen.
  *
  * Parameters:
  *      a0                      - Not used
@@ -444,7 +445,7 @@ void HandleRestApi(char* buf)
 
 
 /*
- * === HandleRestApi
+ * === SetStatusProperty
  * Sets single status property ('key') with its new value ('value').
  *
  * Parameters:
@@ -524,17 +525,7 @@ void SetStatusProperty(const char key, const char* value)
         STV_WriteAtAddress(STVW_RF_CHANNEL, tmpChn);
         break;
     }
-}
 
-
-void HandleInterrupt(void)
-{
-    uint16_t hwi = Hwi_disable();
-    uint16_t tsk = Task_disable();
-    Ethernet_ClearConnectInterruptForAllSockets();
-    Semaphore_post(Dashboard_SemaphoreHandle);
-    Task_restore(tsk);
-    Hwi_restore(hwi);
-    Hwi_enable();
     return;
 }
+

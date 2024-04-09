@@ -70,7 +70,6 @@ GPIO2.gpioPin.$assign = "boosterpack.24";
 
 GPIO3.$name            = "CONFIG_GPIO_W5500_INT";
 GPIO3.interruptTrigger = "Falling Edge";
-GPIO3.callbackFunction = "HandleInterrupt";
 GPIO3.gpioPin.$assign  = "boosterpack.10";
 
 I2C1.$name              = "CONFIG_I2C_0";
