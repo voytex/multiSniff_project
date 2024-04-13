@@ -25,6 +25,7 @@
  * === Log_print
  * Prints (using System_printf) log message formatted by
  * passed-in LogEntity_t type.
+ * Function is used mainly for debugging purposes.
  *
  * Parameters:
  *      msg[in]                 - message that gets printed before
@@ -43,7 +44,7 @@ void Log_print(const char pMsg[], void *pEntity, LogEntity_t entityType)
     uint16_t *status = (uint16_t *)pEntity + 1;
     uint64_t *events = (uint64_t *)pEntity;
     uint32_t *integer = (uint32_t *)pEntity;
-    IPAddress *pIp = (IPAddress*)pEntity;
+    IPAddress *pIp = (IPAddress *)pEntity;
 
     if (pMsg != NULL)
     {

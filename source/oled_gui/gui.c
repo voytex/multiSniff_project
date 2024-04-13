@@ -33,12 +33,12 @@
 
 #define VERTI_CHARS_TO_PIX(ch) ((ch * 8) - 1)
 
-static inline void ito2a(uint8_t i, char* ch)
+static inline void ito2a(uint8_t i, char *ch)
 {
-    if (( i >= 0 ) && ( i < 100 ))
+    if ((i >= 0) && (i < 100))
     {
-        ch[0] = ( i / 10 ) + 48;
-        ch[1] = ( i % 10 ) + 48;
+        ch[0] = (i / 10) + 48;
+        ch[1] = (i % 10) + 48;
     }
     else
     {
@@ -264,7 +264,6 @@ void GUI_ChangeChannel(uint8_t ch)
     return;
 }
 
-
 /*
  * === GUI_PeriodicUpdate
  * Function to be invoked periodically. It checks number of RX OK
@@ -294,7 +293,7 @@ void GUI_PeriodicUpdate()
 
     SSD1306_SetPosition(0, 6);
 
-    SSD1306_DrawString((const char*)numBuf, false);
+    SSD1306_DrawString((const char *)numBuf, false);
 
     SSD1306_UpdateScreen();
 

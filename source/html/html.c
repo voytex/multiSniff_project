@@ -5,7 +5,6 @@
  *      Author: vojtechlukas
  */
 
-
 // === INCLUDES =================================================================================================
 
 #include <stdint.h>
@@ -17,7 +16,6 @@
 #include <source/html/html.h>
 
 // ==============================================================================================================
-
 
 // === STATIC VARIABLES =========================================================================================
 
@@ -46,17 +44,15 @@ static ValueBuffer_t valueBuffer[26];
 
 // ==============================================================================================================
 
-
 // === INTERNAL FUNCTIONS =======================================================================================
 
-
-uint8_t Html_strcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
+uint8_t Html_strcpy(const char *pDst, const char *pSrc, uint8_t maxlen)
 {
     uint8_t copied = 0;
-    char* pD = (char*)pDst;
-    char* pS = (char*)pSrc;
+    char *pD = (char *)pDst;
+    char *pS = (char *)pSrc;
 
-    while (( *pS != '\0' ) && ( maxlen-- ))
+    while ((*pS != '\0') && (maxlen--))
     {
         *pD = *pS;
         pS++;
@@ -67,11 +63,10 @@ uint8_t Html_strcpy(const char* pDst, const char* pSrc, uint8_t maxlen)
     return copied;
 }
 
-
-void Html_strset(const char* pDst, char ch, uint16_t maxlen)
+void Html_strset(const char *pDst, char ch, uint16_t maxlen)
 {
-    char* pD = (char*)pDst;
-    while ( --maxlen )
+    char *pD = (char *)pDst;
+    while (--maxlen)
     {
         *pD++ = ch;
     }
@@ -81,9 +76,7 @@ void Html_strset(const char* pDst, char ch, uint16_t maxlen)
 
 // ==============================================================================================================
 
-
 // === PUBLISHED FUNCTIONS ======================================================================================
-
 
 /*
  * === Html_SetKeyValueInBuffer
@@ -97,7 +90,7 @@ void Html_strset(const char* pDst, char ch, uint16_t maxlen)
  * Returns:
  *      N/A
  */
-void Html_SetKeyValueInBuffer(char key, char* value)
+void Html_SetKeyValueInBuffer(char key, char *value)
 {
     Html_strset(valueBuffer[CHAR_KEY(key)].buf, 0, MAXLEN);
 
@@ -105,7 +98,6 @@ void Html_SetKeyValueInBuffer(char key, char* value)
 
     return;
 }
-
 
 /*
  * === Html_CopyHtmlToMtuBuffer
@@ -124,23 +116,23 @@ void Html_SetKeyValueInBuffer(char key, char* value)
  */
 int32_t Html_CopyHtmlToMtuBuffer(uint16_t offset)
 {
-    char *pHtml = (char*)(HTML_MEM_START + offset);
-    char *pMtu  = (char*)MTU_BUF_MEM_START;
+    char *pHtml = (char *)(HTML_MEM_START + offset);
+    char *pMtu = (char *)MTU_BUF_MEM_START;
     uint16_t i, tmp;
 
-    while ( (uint32_t)pMtu < (MTU_BUF_MEM_START + MTU_SIZE - 1) )
+    while ((uint32_t)pMtu < (MTU_BUF_MEM_START + MTU_SIZE - 1))
     {
         //
         // Source HTML ended, remove all remaining characters from MTU buffer
         // and cease copying.
         //
-        if ( *pHtml == 255 )
+        if (*pHtml == 255)
         {
             *pMtu = 0;
             return -1;
         }
 
-        if ( *pHtml == SUBSTITUTE_TOKEN )
+        if (*pHtml == SUBSTITUTE_TOKEN)
         {
             tmp = Html_strcpy(pMtu, valueBuffer[CHAR_KEY(*(pHtml + 1))].buf, MAXLEN);
             pHtml += 2;
@@ -162,10 +154,3 @@ int32_t Html_CopyHtmlToMtuBuffer(uint16_t offset)
 
     return ((uint32_t)pHtml - HTML_MEM_START);
 }
-
-
-
-
-
-
-

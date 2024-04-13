@@ -8,23 +8,23 @@
 #ifndef RADIO_QUEUE_H_
 #define RADIO_QUEUE_H_
 
-#include DeviceFamily_constructPath(driverlib/rf_mailbox.h)
+#include DeviceFamily_constructPath(driverlib / rf_mailbox.h)
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
-uint8_t         RadioQueue_create(dataQueue_t* dataQueue, uint8_t* buf, uint16_t bufLength, uint8_t numEntries, uint16_t length);
+uint8_t RadioQueue_create(dataQueue_t *dataQueue, uint8_t *buf, uint16_t bufLength, uint8_t numEntries, uint16_t length);
 
-void            RadioQueue_init(void);
+void RadioQueue_init(void);
 
-dataQueue_t*    RadioQueue_getDQpointer(void);
+dataQueue_t *RadioQueue_getDQpointer(void);
 
-bool            RadioQueue_hasPacket(void);
+bool RadioQueue_hasPacket(void);
 
-void            RadioQueue_reset(void);
+void RadioQueue_reset(void);
 
-uint16_t        RadioQueue_takePacket(uint8_t* buffer, uint16_t maxlen);
+uint16_t RadioQueue_takePacket(uint8_t *buffer, uint16_t maxlen);
 
-void            RadioQueue_nextEntry(void);
+void RadioQueue_nextEntry(void);
 
 // ==============================================================================================================
 

@@ -57,14 +57,13 @@
 
 // ==============================================================================================================
 
-
 // === DEFINES ==================================================================================================
 
-#define PORT                (80)
+#define PORT (80)
 
-#define INPUT_BUFFER_SIZE   (256)
+#define INPUT_BUFFER_SIZE (256)
 
-#define READ_BUFFER_SIZE    (32)
+#define READ_BUFFER_SIZE (32)
 
 extern Semaphore_Handle Init_SemaphoreHandle;
 
@@ -72,28 +71,25 @@ extern Semaphore_Handle Dashboard_SemaphoreHandle;
 
 // ==============================================================================================================
 
-
 // === GLOBAL VARIABLES =========================================================================================
 
 EthernetServer ethernetServer;
 
 // ==============================================================================================================
 
-
 // === INTERNAL FUNCTIONS =======================================================================================
 
-void SendHtmlToClient(EthernetClient*);
+void SendHtmlToClient(EthernetClient *);
 
 void UpdateDashboardInfo(void);
 
-void HandleRestApi(char*);
+void HandleRestApi(char *);
 
-void SetStatusProperty(const char, const char*);
+void SetStatusProperty(const char, const char *);
 
-char* StrTok(char*, const char);
+char *StrTok(char *, const char);
 
 // ==============================================================================================================
-
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 
@@ -126,11 +122,11 @@ void Dashboard_Main(UArg a0, UArg a1)
 
         bool currentLineIsBlank = true;
 
-        while ( EthernetClient_connected(&ethernetClient) )
+        while (EthernetClient_connected(&ethernetClient))
         {
-            if ( EthernetClient_available(&ethernetClient) )
+            if (EthernetClient_available(&ethernetClient))
             {
-                if ( !readDestination )
+                if (!readDestination)
                 {
                     EthernetClient_readBytesUntil(&ethernetClient, '\n', incomingBuffer, INPUT_BUFFER_SIZE);
 
@@ -139,7 +135,7 @@ void Dashboard_Main(UArg a0, UArg a1)
 
                 uint8_t c = EthernetClient_read(&ethernetClient);
 
-                if ( c == '\n' && currentLineIsBlank )
+                if (c == '\n' && currentLineIsBlank)
                 {
                     HandleRestApi(incomingBuffer);
 
@@ -148,11 +144,11 @@ void Dashboard_Main(UArg a0, UArg a1)
                     break;
                 }
 
-                if ( c == '\n' )
+                if (c == '\n')
                 {
                     currentLineIsBlank = true;
                 }
-                else if ( c != '\r' )
+                else if (c != '\r')
                 {
                     currentLineIsBlank = false;
                 }
@@ -168,7 +164,6 @@ void Dashboard_Main(UArg a0, UArg a1)
     }
 }
 
-
 /*
  * === StrTok
  *
@@ -182,18 +177,18 @@ void Dashboard_Main(UArg a0, UArg a1)
  * Returns:
  *      N/A
  */
-char* StrTok(char* string, const char token)
+char *StrTok(char *string, const char token)
 {
-    static char* p;
-    char* lastP = NULL;
+    static char *p;
+    char *lastP = NULL;
 
-    if ( string != NULL )
+    if (string != NULL)
     {
         p = string;
 
-        while ( *p != token )
+        while (*p != token)
         {
-            if ( *p != '\0' )
+            if (*p != '\0')
             {
                 p++;
             }
@@ -209,16 +204,16 @@ char* StrTok(char* string, const char token)
     }
     else
     {
-        if ( *p == '\0' )
+        if (*p == '\0')
         {
             return NULL;
         }
 
         lastP = p;
 
-        while ( *p != token )
+        while (*p != token)
         {
-            if ( *p != '\0' )
+            if (*p != '\0')
             {
                 p++;
             }
@@ -235,7 +230,6 @@ char* StrTok(char* string, const char token)
         return lastP;
     }
 }
-
 
 /*
  * === SendHtmlToClient
@@ -259,7 +253,7 @@ void SendHtmlToClient(EthernetClient *pClient)
     {
         offset = Html_CopyHtmlToMtuBuffer(offset);
 
-        EthernetClient_print(pClient, (const char*)MTU_BUF_MEM_START);
+        EthernetClient_print(pClient, (const char *)MTU_BUF_MEM_START);
 
         if (offset == -1)
         {
@@ -271,7 +265,6 @@ void SendHtmlToClient(EthernetClient *pClient)
 
     return;
 }
-
 
 /*
  * === UpdateDashboardInfo
@@ -286,15 +279,15 @@ void SendHtmlToClient(EthernetClient *pClient)
  */
 void UpdateDashboardInfo(void)
 {
-    char        tempBuf[17] = {0};
-    IPAddress   tmpIp;
+    char tempBuf[17] = {0};
+    IPAddress tmpIp;
     extern rfc_bleGenericRxOutput_t bleStats;
     extern rfc_ieeeRxOutput_t ieeeStats;
 
     ///////////////////////////
     // Update Target IP address
     //
-    IPAddress_Init_str(&tmpIp, (uint8_t*)STVW_TARGET_IP_ADDRESS);
+    IPAddress_Init_str(&tmpIp, (uint8_t *)STVW_TARGET_IP_ADDRESS);
 
     IPAddress_toString(tmpIp, tempBuf);
 
@@ -383,7 +376,7 @@ void UpdateDashboardInfo(void)
     ///////////////////////////
     // Update Last Frame's RSSI
     //
-    if ( Radio_GetCurrentProtocol() == BluetoothLowEnergy )
+    if (Radio_GetCurrentProtocol() == BluetoothLowEnergy)
     {
         sprintf(tempBuf, "%d", bleStats.lastRssi);
     }
@@ -396,7 +389,6 @@ void UpdateDashboardInfo(void)
     return;
 }
 
-
 /*
  * === HandleRestApi
  * Reads the incoming buffer containing HTTP GET request and handles
@@ -407,27 +399,31 @@ void UpdateDashboardInfo(void)
  * Returns:
  *      N/A
  */
-void HandleRestApi(char* buf)
+void HandleRestApi(char *buf)
 {
-    char* key;
-    char* value;
-    char* p;
+    char *key;
+    char *value;
+    char *p;
 
     //
     // Replace 2nd ' ' (space) from
     // buffer, thus cutting the URL
     //
     p = buf;
-    while ( *p != ' ') p++;
+    while (*p != ' ')
+        p++;
     p++;
-    while ( *p != ' ') p++;
+    while (*p != ' ')
+        p++;
     *p = '\0';
 
     StrTok(buf, '?');
+
     key = StrTok(NULL, '=');
+
     value = StrTok(NULL, '&');
 
-    while ( key != NULL )
+    while (key != NULL)
     {
         Log_print("Key: ", key, Buffer);
 
@@ -443,7 +439,6 @@ void HandleRestApi(char* buf)
     return;
 }
 
-
 /*
  * === SetStatusProperty
  * Sets single status property ('key') with its new value ('value').
@@ -454,7 +449,7 @@ void HandleRestApi(char* buf)
  * Returns:
  *      N/A
  */
-void SetStatusProperty(const char key, const char* value)
+void SetStatusProperty(const char key, const char *value)
 {
     RF_Protocol_t tmpProto;
     uint8_t tmpChn;
@@ -464,21 +459,21 @@ void SetStatusProperty(const char key, const char* value)
     switch (key)
     {
     case 't':
-        STV_WriteStringAtAddress(STVW_TARGET_IP_ADDRESS, (uint8_t*)&tmpIp, 4);
+        STV_WriteStringAtAddress(STVW_TARGET_IP_ADDRESS, (uint8_t *)&tmpIp, 4);
         GUI_ChangeTargetIp(value);
         break;
 
     case 'd':
-        STV_WriteStringAtAddress(STVW_DEVICE_IP_ADDRESS, (uint8_t*)&tmpIp, 4);
+        STV_WriteStringAtAddress(STVW_DEVICE_IP_ADDRESS, (uint8_t *)&tmpIp, 4);
         break;
 
     case 'g':
-        STV_WriteStringAtAddress(STVW_GATEWAY_IP_ADDRESS, (uint8_t*)&tmpIp, 4);
+        STV_WriteStringAtAddress(STVW_GATEWAY_IP_ADDRESS, (uint8_t *)&tmpIp, 4);
         break;
 
     case 's':
-        STV_WriteStringAtAddress(STVW_NETWORK_MASK, (uint8_t*)&tmpIp, 4);
-        //RestartMCU(); // <== not working
+        STV_WriteStringAtAddress(STVW_NETWORK_MASK, (uint8_t *)&tmpIp, 4);
+        // RestartMCU(); // <== not working
         break;
 
     case 'h':
@@ -487,15 +482,15 @@ void SetStatusProperty(const char key, const char* value)
         break;
 
     case 'r':
-        if ( *value == '0' )
+        if (*value == '0')
         {
             Radio_StopRx();
         }
 
-        if ( *value == '1' )
+        if (*value == '1')
         {
             tmpProto = STV_ReadFromAddress(STVW_RF_PROTOCOL) == 0xB5 ? BluetoothLowEnergy : IEEE_802_15_4;
-            tmpChn   = STV_ReadFromAddress(STVW_RF_CHANNEL);
+            tmpChn = STV_ReadFromAddress(STVW_RF_CHANNEL);
             Radio_SetUpAndBeginRx(tmpProto, tmpChn);
         }
 
@@ -528,4 +523,3 @@ void SetStatusProperty(const char key, const char* value)
 
     return;
 }
-
