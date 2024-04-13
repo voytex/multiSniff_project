@@ -37,10 +37,9 @@
 
 // ===============================================================================================================
 
-
 // === INTERNAL FUNCTIONS =======================================================================================
 
-static inline void byte2hex(uint8_t byte, char* pHex)
+static inline void byte2hex(uint8_t byte, char *pHex)
 {
     uint8_t nib = (byte & 0xF0) >> 4;
 
@@ -53,17 +52,17 @@ static inline void byte2hex(uint8_t byte, char* pHex)
     return;
 }
 
-static void mac2string(uint8_t* pSrc, char* pDst)
+static void mac2string(uint8_t *pSrc, char *pDst)
 {
     uint8_t i;
-    for ( i = 0; i < 6; i++)
+    for (i = 0; i < 6; i++)
     {
         byte2hex(*pSrc, pDst);
 
         pDst += 2;
         pSrc += 1;
 
-        if ( i <= 5 )
+        if (i <= 5)
         {
             *pDst = '-';
             pDst++;
@@ -72,7 +71,6 @@ static void mac2string(uint8_t* pSrc, char* pDst)
 }
 
 // ==============================================================================================================
-
 
 // === EXTERNAL SYMBOLS =========================================================================================
 
@@ -84,9 +82,7 @@ extern void Main_CreateSniffingTask();
 
 // ==============================================================================================================
 
-
 // === MAIN TASK FUNCTION =======================================================================================
-
 
 /*
  * === Init_Main
@@ -104,11 +100,11 @@ extern void Main_CreateSniffingTask();
  */
 void Init_Main(UArg a0, UArg a1)
 {
-    uint8_t     retVal = 0;
-    IPAddress   dvcIp, tgtIp, gtwIp, dnsIp, msk;
-    char        pDvcIpBuf[16] = {0};
-    char        pTgtIpBuf[16] = {0};
-    char        pMacStr[17] = {0};
+    uint8_t retVal = 0;
+    IPAddress dvcIp, tgtIp, gtwIp, dnsIp, msk;
+    char pDvcIpBuf[16] = {0};
+    char pTgtIpBuf[16] = {0};
+    char pMacStr[17] = {0};
 
     ///////////////////////////
     // Driver Initialization:
@@ -129,16 +125,15 @@ void Init_Main(UArg a0, UArg a1)
     // device is restarted with STV_DHCP flag set to STV_DHCP_FALSE.
     // Device then sets itself static IP address.
     //
-    if ( STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE )
+    if (STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_TRUE)
     {
         GUI_ChangeDeviceIp("DHCP pending...");
 
         Log_print("Waiting for DHCP...", NULL, None);
 
-        retVal = Ethernet_begin_mac((uint8_t*)STVR_MAC_ADDRESS);
+        retVal = Ethernet_begin_mac((uint8_t *)STVR_MAC_ADDRESS);
 
-
-        if ( retVal != 1 )
+        if (retVal != 1)
         {
             Log_print("DHCP failed, switching to static", NULL, None);
 
@@ -147,17 +142,17 @@ void Init_Main(UArg a0, UArg a1)
             RestartMCU();
         }
     }
-    else if ( STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_FALSE )
+    else if (STV_ReadFromAddress(STVW_USING_DHCP) == STV_DHCP_FALSE)
     {
-        IPAddress_Init_str(&dvcIp, (uint8_t*)STVW_DEVICE_IP_ADDRESS);
+        IPAddress_Init_str(&dvcIp, (uint8_t *)STVW_DEVICE_IP_ADDRESS);
 
-        IPAddress_Init_str(&gtwIp, (uint8_t*)STVW_GATEWAY_IP_ADDRESS);
+        IPAddress_Init_str(&gtwIp, (uint8_t *)STVW_GATEWAY_IP_ADDRESS);
 
-        IPAddress_Init_str(&msk, (uint8_t*)STVW_NETWORK_MASK);
+        IPAddress_Init_str(&msk, (uint8_t *)STVW_NETWORK_MASK);
 
         dnsIp.dword = 0x01010101;
 
-        Ethernet_begin_mac_ip_dns_gateway_subnet((uint8_t*)STVR_MAC_ADDRESS,
+        Ethernet_begin_mac_ip_dns_gateway_subnet((uint8_t *)STVR_MAC_ADDRESS,
                                                  dvcIp, dnsIp, gtwIp, msk);
     }
 
@@ -172,7 +167,7 @@ void Init_Main(UArg a0, UArg a1)
     ///////////////////////////
     // Target IP Setting:
     //
-    IPAddress_Init_str(&tgtIp, (uint8_t*)STVW_TARGET_IP_ADDRESS);
+    IPAddress_Init_str(&tgtIp, (uint8_t *)STVW_TARGET_IP_ADDRESS);
 
     Log_print("Target IP: ", &tgtIp, IpAddress);
 
@@ -180,11 +175,10 @@ void Init_Main(UArg a0, UArg a1)
 
     GUI_ChangeTargetIp(pTgtIpBuf);
 
-
     ///////////////////////////
     // Other settings:
     //
-    mac2string((uint8_t*)STVR_MAC_ADDRESS, pMacStr);
+    mac2string((uint8_t *)STVR_MAC_ADDRESS, pMacStr);
 
     Html_SetKeyValueInBuffer('m', pMacStr);
 

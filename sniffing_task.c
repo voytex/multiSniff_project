@@ -39,7 +39,6 @@
 
 //===============================================================================================================
 
-
 // === GLOBAL VARIABLES =========================================================================================
 
 extern uint32_t nRxBufFull;
@@ -51,7 +50,6 @@ extern rfc_bleGenericRxOutput_t bleStats;
 extern rfc_ieeeRxOutput_t ieeeStats;
 
 // === MAIN TASK FUNCTION =======================================================================================
-
 
 /*
  * === Sniffing_Main
@@ -75,7 +73,7 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     const RF_Protocol_t proto = STV_ReadFromAddress(STVW_RF_PROTOCOL) == STV_RF_PROTO_BLE ? BluetoothLowEnergy : IEEE_802_15_4;
 
-    IPAddress* targetIp = (IPAddress*)STVW_TARGET_IP_ADDRESS;
+    IPAddress *targetIp = (IPAddress *)STVW_TARGET_IP_ADDRESS;
 
     RadioQueue_init();
 
@@ -92,7 +90,7 @@ void Sniffing_Main(UArg a0, UArg a1)
 
     for (;;)
     {
-        if ( RadioQueue_hasPacket() )
+        if (RadioQueue_hasPacket())
         {
             uint8_t buffer[2047];
 
@@ -102,12 +100,12 @@ void Sniffing_Main(UArg a0, UArg a1)
 
             EthernetUDP_write_byte(&ethernetUdp, (uint8_t)Radio_GetCurrentProtocol());
 
-            if ( Radio_GetCurrentProtocol() == BluetoothLowEnergy )
+            if (Radio_GetCurrentProtocol() == BluetoothLowEnergy)
             {
-                EthernetUDP_write(&ethernetUdp, (uint8_t*)accessAddress, 4);
+                EthernetUDP_write(&ethernetUdp, (uint8_t *)accessAddress, 4);
             }
 
-            EthernetUDP_write(&ethernetUdp, (uint8_t*)buffer, packetLen);
+            EthernetUDP_write(&ethernetUdp, (uint8_t *)buffer, packetLen);
 
             EthernetUDP_endPacket(&ethernetUdp);
         }
@@ -118,6 +116,4 @@ void Sniffing_Main(UArg a0, UArg a1)
 
         Task_sleep(10);
     }
-
 }
-

@@ -50,12 +50,9 @@
 
 #include <source/utils/log.h>
 
-
 // ==============================================================================================================
 
-
 // === TASK CREATE FUNCTIONS ====================================================================================
-
 
 /*
  * === Initialization task
@@ -67,12 +64,11 @@ void Main_CreateInitTask()
 {
     Task_Params_init(&initTaskParams);
     initTaskParams.stackSize = 1024;
-    initTaskParams.priority  = 3;
+    initTaskParams.priority = 3;
     initTaskHandle = Task_create((Task_FuncPtr)Init_Main, &initTaskParams, Error_IGNORE);
 
     return;
 }
-
 
 /*
  * === Dashboard Task
@@ -84,12 +80,11 @@ void Main_CreateDashboardTask()
 {
     Task_Params_init(&dashboardTaskParams);
     dashboardTaskParams.stackSize = 4096;
-    dashboardTaskParams.priority  = 3;
+    dashboardTaskParams.priority = 3;
     dashboardTaskHandle = Task_create((Task_FuncPtr)Dashboard_Main, &dashboardTaskParams, Error_IGNORE);
 
     return;
 }
-
 
 /*
  * === Sniffing Task
@@ -101,14 +96,13 @@ void Main_CreateSniffingTask()
 {
     Task_Params_init(&sniffingTaskParams);
     sniffingTaskParams.stackSize = 4096;
-    sniffingTaskParams.priority  = 3;
+    sniffingTaskParams.priority = 3;
     sniffingTaskHandle = Task_create((Task_FuncPtr)Sniffing_Main, &sniffingTaskParams, Error_IGNORE);
 
     return;
 }
 
 // ==============================================================================================================
-
 
 // === SEMAPHORE STRUCTS ========================================================================================
 
@@ -118,7 +112,6 @@ Semaphore_Handle Dashboard_SemaphoreHandle; // <== TODO rename?
 Semaphore_Params Dashboard_SemaphoreParams;
 
 // ==============================================================================================================
-
 
 // === PROGRAM ENTRY POINT ======================================================================================
 
