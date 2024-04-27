@@ -102,7 +102,7 @@ void Html_SetKeyValueInBuffer(char key, char *value)
 /*
  * === Html_CopyHtmlToMtuBuffer
  * Copies HTML code from its source on the flash to the MTU
- * buffer. While copying, if it comes across SUBSTITUE_TOKEN,
+ * buffer. While copying, if it comes across SUBSTITUTE_TOKEN,
  * it injects the value from valueBuffer dictionary.
  *
  * Parameters:
