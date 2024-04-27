@@ -22,7 +22,7 @@
 /*
  * === valueBuffer
  * This struct is essentially a dictionary. Suppose that in HTML code of the dashboard, we want to 'inject'
- * IP address of the MCU device. Let's add a SUBSTITUE_TOKEN into the HTML followed by some key. Note that
+ * IP address of the MCU device. Let's add a SUBSTITUTE_TOKEN into the HTML followed by some key. Note that
  * the key could be any lower-case letter of the alphabet ('a'..'z'). Let's assign a key of 'd' to device IP
  * address. The HTML could then look like this: "...<label>$d</label>...". In the next step, add the value
  * to be 'injected' in HTML, into this valueBuffer by calling Html_SetKeyValueInBuffer().
