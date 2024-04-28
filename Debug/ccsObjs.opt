@@ -27,7 +27,6 @@
 "./source/oled_gui/gui.o"
 "./source/queue/radio_queue.o"
 "./source/radio_proc/radio_proc.o"
-"./source/utils/handler_funcs.o"
 "./source/utils/log.o"
 "./source/utils/restart.o"
 "./source/utils/stv.o"

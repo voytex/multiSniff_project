@@ -8,7 +8,7 @@
 #ifndef RADIO_QUEUE_H_
 #define RADIO_QUEUE_H_
 
-#include DeviceFamily_constructPath(driverlib / rf_mailbox.h)
+#include DeviceFamily_constructPath(driverlib/rf_mailbox.h)
 
 // === PUBLISHED FUNCTIONS ======================================================================================
 

@@ -55,7 +55,6 @@ dashboard_task.o: ../dashboard_task.c \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/restart.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/stv.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/html/html.h \
- C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/handler_funcs.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/oled_gui/gui.h \
  C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/radio_proc/radio_proc.h \
  syscfg/ti_radio_config.h \
@@ -192,8 +191,6 @@ C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/sou
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/stv.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/html/html.h:
-
-C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/utils/handler_funcs.h:
 
 C:/Users/Administrator/workspace_v12/multiSniff_LP_CC2652RB_tirtos7_ticlang2/source/oled_gui/gui.h:
 

@@ -107,6 +107,12 @@ void Init_Main(UArg a0, UArg a1)
     char pMacStr[17] = {0};
 
     ///////////////////////////
+    // Clear restart flag if
+    // present
+    //
+    STV_WriteAtAddress(STV_REQUEST_RESTART, 0x00);
+
+    ///////////////////////////
     // Driver Initialization:
     // Initialization functions are called
     // and startup vectors copied

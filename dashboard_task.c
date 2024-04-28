@@ -43,8 +43,6 @@
 
 #include <source/html/html.h>
 
-#include <source/utils/handler_funcs.h>
-
 #include <source/oled_gui/gui.h>
 
 #include <source/radio_proc/radio_proc.h>
@@ -140,6 +138,11 @@ void Dashboard_Main(UArg a0, UArg a1)
                     HandleRestApi(incomingBuffer);
 
                     SendHtmlToClient(&ethernetClient);
+
+                    if (STV_ReadFromAddress(STV_REQUEST_RESTART) == STV_RESTART_REQUIRED)
+                    {
+                        RestartMCU();
+                    }
 
                     break;
                 }
@@ -340,36 +343,38 @@ void UpdateDashboardInfo(void)
 
     ///////////////////////////
     // Update Current Protocol
+    //
     tempBuf[0] = STV_ReadFromAddress(STVW_RF_PROTOCOL) == 0xB5 ? '0' : '1';
     tempBuf[1] = '\0';
     Html_SetKeyValueInBuffer('p', tempBuf);
 
     ///////////////////////////
     // Update RF Channel
+    //
     sprintf(tempBuf, "%d", STV_ReadFromAddress(STVW_RF_CHANNEL));
     Html_SetKeyValueInBuffer('k', tempBuf);
 
     ///////////////////////////
     //  Update RXOK BLE Frames
-    // TODO
+    //
     sprintf(tempBuf, "%d", bleStats.nRxOk);
     Html_SetKeyValueInBuffer('v', tempBuf);
 
     ///////////////////////////
     // Update RXNOK BLE Frames
-    // TODO
+    //
     sprintf(tempBuf, "%d", bleStats.nRxNok);
     Html_SetKeyValueInBuffer('w', tempBuf);
 
     ///////////////////////////
     // Update RXOK 802_15_4 Frames
-    // TODO
+    //
     sprintf(tempBuf, "%d", ieeeStats.nRxData + ieeeStats.nRxBeacon + ieeeStats.nRxMacCmd);
     Html_SetKeyValueInBuffer('x', tempBuf);
 
     ///////////////////////////
     // Update RXNOK 802_15_4 Frames
-    // TODO
+    //
     sprintf(tempBuf, "%d", ieeeStats.nRxNok);
     Html_SetKeyValueInBuffer('y', tempBuf);
 
@@ -473,18 +478,23 @@ void SetStatusProperty(const char key, const char *value)
 
     case 's':
         STV_WriteStringAtAddress(STVW_NETWORK_MASK, (uint8_t *)&tmpIp, 4);
-        // RestartMCU(); // <== not working
+        STV_WriteAtAddress(STV_REQUEST_RESTART, STV_RESTART_REQUIRED);
         break;
 
     case 'h':
-        // TODO make sure, DHCP changing is working
-        STV_WriteAtAddress(STVW_USING_DHCP, *value == '1' ? 0x59 : 0x4E);
+        Radio_StopRx();
+        STV_WriteAtAddress(STVW_RUNNING_STATUS, 0x00);
+        STV_WriteAtAddress(STVW_USING_DHCP, *value == '1' ? STV_DHCP_TRUE : STV_DHCP_FALSE);
+        STV_WriteAtAddress(STV_REQUEST_RESTART, STV_RESTART_REQUIRED);
         break;
 
     case 'r':
+        STV_WriteAtAddress(STVW_RUNNING_STATUS, *value == '1' ? 0x52 : 0x00);
+        GUI_ChangeRx((bool)(*value - '0'));
         if (*value == '0')
         {
             Radio_StopRx();
+            STV_WriteAtAddress(STV_REQUEST_RESTART, STV_RESTART_REQUIRED);
         }
 
         if (*value == '1')
@@ -494,8 +504,6 @@ void SetStatusProperty(const char key, const char *value)
             Radio_SetUpAndBeginRx(tmpProto, tmpChn);
         }
 
-        STV_WriteAtAddress(STVW_RUNNING_STATUS, *value == '1' ? 0x52 : 0x00);
-        GUI_ChangeRx((bool)(*value - '0'));
         break;
 
     case 'p':

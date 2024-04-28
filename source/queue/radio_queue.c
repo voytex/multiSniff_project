@@ -38,9 +38,9 @@
 
 #include <ti/drivers/rf/RF.h>
 
-#include DeviceFamily_constructPath(driverlib / rf_data_entry.h)
+#include DeviceFamily_constructPath(driverlib/rf_data_entry.h)
 
-#include DeviceFamily_constructPath(driverlib / rf_mailbox.h)
+#include DeviceFamily_constructPath(driverlib/rf_mailbox.h)
 
 #include "radio_queue.h"
 
