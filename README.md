@@ -1,9 +1,13 @@
-# multiSniff software design
+# multiSniff Masters Project
 
 ## General
+Repository for my Master`s project called __[Multiprotocol Sniffer And Analyzer](https://www.vut.cz/studenti/zav-prace/detail/159103)__. 
 
-- _TBD_: TI: Packet queue source code from TI Packet Sniffer 2
-- _TBD_: _author_: Ported W5500 Arduino driver for TI-RTOS
+## Hardware Used
+* TI CC2652RB LaunchPad for prototyping and SW development
+* WIZnet W5500 with RJ-45 connector for Ethernet interface (SPI communication)
+* SSD1306 OLED display (I2C communication)
+
 
 ### Dashboard
 
