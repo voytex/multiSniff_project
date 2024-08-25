@@ -23,7 +23,7 @@ The subject of this work is design of a device that captures Bluetooth Low Energ
 <table>
   <tr>
     <td>
-      __black line__     
+      black line
     </td>
     <td>
       sum of all BLE traffic (advertising channel)  
@@ -31,7 +31,7 @@ The subject of this work is design of a device that captures Bluetooth Low Energ
   </tr>
   <tr>
     <td>
-      __blue line__
+      blue line
     </td>  
     <td>
       advertising of BLE enabled coffee machine      
@@ -39,7 +39,7 @@ The subject of this work is design of a device that captures Bluetooth Low Energ
   </tr>
   <tr>
     <td>
-      __red line__    
+      red line    
     </td>
     <td>
     advertising of ESP32 turned on and off during test capture    
